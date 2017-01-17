@@ -1,0 +1,57 @@
+\documentclass[upright, contnum]{umemoria}
+\depto{DEPARTAMENTO DE CIENCIAS DE LA COMPUTACIÓN}
+\author{CAMILO JOSÉ GÓMEZ NÚÑEZ}
+\title{DISEÑO E IMPLEMENTACIÓN DE UN SISTEMA DE MENSAJERÍA ANÓNIMA BASADO EN DC-NET}
+\auspicio{}
+\date{NOVIEMBRE 2016}
+\guia{ALEJANDRO HEVIA ANGULO}
+\carrera{MAGÍSTER EN CIENCIAS, MENCIÓN COMPUTACIÓN}
+\memoria{TESIS PARA OPTAR AL GRADO DE}
+\comision{\ }{\ }{\ }
+
+\usepackage{lipsum}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[nottoc,numbib]{tocbibind}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+
+\begin{abstract}
+{\lipsum[1-4]}
+\end{abstract}
+
+\begin{dedicatoria} % opcional
+Una dedicatoria corta. Por ejemplo, \emph{A los creadores de U-Campus}
+\end{dedicatoria}
+
+\begin{thanks} % opcional
+\lipsum[1-2]
+\end{thanks}
+\cleardoublepage
+
+\tableofcontents
+% \listoftables % opcional
+% \listoffigures % opcional
+
+\mainmatter
+
+\input{intro.tex}
+\input{antecedentes.tex}
+\input{dcnet-variant-design.tex}
+\input{implementation.tex}
+\input{experiments_results.tex}
+\input{future_work.tex}
+\input{conclu.tex}
+
+% \input{glosario.tex} % opcional
+
+\bibliographystyle{plain}
+\bibliography{bibliografia}
+
+% \input{anexo_apendices.tex} % opcionales
+
+\end{document}
