@@ -1,0 +1,38 @@
+\chapter{Introducción}
+\section{Anonimato en Internet}
+
+Desde las primeras revelaciones del grupo \emph{Wikileaks}\footnote{\url{https://wikileaks.org/}} en el año 2006, pasando por la información revelada por el ex agente de la \emph{CIA}, \emph{Edward Snowden}\footnote{\url{http://www.huffingtonpost.com/news/nsa/}}, en el año 2013, se ha generado un vuelco en la manera que los usuarios navegan por \emph{Internet}, por el hecho de tener la seguridad que todos sus movimientos están siendo registrados por organismos de Estado, a pesar de no ser amenaza a la seguridad de las naciones que suponen proteger.
+
+Usuarios de todo el mundo reclaman por su derecho a la privacidad\footnote{\url{http://www.livescience.com/37398-right-to-privacy.
+html}}, reflejándose en tomar acciones que oculten las páginas que visitan o cualquier movimiento que realicen navegando en Internet a los organismos de Estado (o cualquier tercero que ellos no autoricen) que monitorean y recopilan dichos movimientos. Existen numerosos grupos que abogan por que se haga valer el legítimo derecho a la privacidad de los usuarios de Internet, argumentando sobre la importancia del anonimato\footnote{\url{https://www.derechosdigitales.org/anonimato/}} \footnote{\url{http://www.ted.com/talks/glenn_greenwald_why_privacy_matters}}, haciendo de éste un tema altamente necesario de abordar desde una perspectiva científica, brindando herramientas y protocolos que puedan asegurar el anonimato en Internet de manera segura, eficaz y eficiente, características centrales en el desarrollo del presente trabajo.
+
+Hoy en dia, navegar de manera anónima en Internet está vinculado fuertemente al software \emph{TOR}\footnote{\url{https://www.torproject.org/}}, el cual en su versión más popular, se traduce en un explorador web (variante del explorador \emph{Firefox}\footnote{\url{https://www.mozilla.org/en-US/firefox}}) que ejecuta el protocolo \emph{onion-routing} (detallado en la siguiente sección), el cual permite dos objetivos: (1) ocultar la identidad del usuario tanto al proveedor del servicio que está consumiendo (página web que está visitando), como también (2) acceder a servicios ``ocultos'' que solo son accesibles con el uso de \emph{TOR}. En este trabajo nos concentraremos en (1) solamente, detallando la manera en que \emph{TOR} logra ocultar la identidad del usuario del servicio. Es importante nombrar que \emph{TOR} no es la única manera de navegar de manera anónima en Internet: \emph{I2P}\footnote{\url{https://geti2p.net/en/}} es otro servicio que provee anonimato, utilizar \emph{mix-networks} (explicadas a continuación) también logra ocultar la identidad del usuario, entre otros más no detallados en este trabajo.
+
+Anonimato, más allá del atractivo científico que tenga el tema, es una cuestión socialmente dificil de abordar, debido a que (además de los pros abordados anteriormente) posee contras que puestos en un contexto determinado, pueden llegar a generar muchas problemáticas: denuncias falsas, imposibilidad de rastrear a personas que cometen ilícitos (compra/venta de drogas, distribución de material pornográfico infantil, fraude, entre otros que el lector se pueda imaginar), realizar \emph{bullying} sin consecuencias para el agresor, etc. ¿Deberían los científicos crear y promover herramientas que permitan esas acciones? ¿Son los pros del anonimato ``tan buenos'' que justifican la creación de protocolos más seguros que proveen aun más protección a gente que pueda cometer las acciones anteriormente nombradas de manera más impoluta? Estas son preguntas que todo científico debería realizarse antes de generar un trabajo que afecta directamente la sociedad en que está envuelto. Desde el punto de vista del autor, la labor del científico es siempre generar el ``mejor conocimiento'' posible, expandir la barrera del conocimiento humano, y al mismo tiempo, alertar sobre lo que ello implica en otras esferas de la sociedad, como por ejemplo en este caso, facilitar acciones ilícitas a través de Internet. 
+
+\section{Protocolos de Anonimato}
+\subsection{\emph{mix-networks}}
+\subsection{\emph{onion-routing}}
+\section{La Cena de Criptógrafos}
+
+David Chaum en el año 1985 propuso un protocolo que permitía el envío de mensajes de manera anónima entre un grupo de participantes \cite{Chaum:1985:SWI:4372.4373, chaum1988dining}. Dicho protocolo lo ejemplificó utilizando un problema llamado ``La Cena de Criptógrafos'' (\emph{Dining Cryptographers Problem}), razón del porque el protocolo subsecuente sea llamado \emph{DC-Net}.
+
+El problema es el siguiente: están 3 criptógrafos cenando tranquilamente en una fría noche de Abril. Al terminar la cena, el mozo se acerca a su mesa y les comunica que su cena ya está pagada y que pueden irse a sus casas. Los criptógrafos, altamente consternados, se miran mutuamente y llegan a la conclusión de que pueden haber sucedido una de dos cosas: (1) uno de ellos pagó la cuenta de manera secreta (haciéndose el amable e invitando al resto sin que ellos sepan), o (2) la cuenta fue pagada por alguien distinto a ellos 3 (como la \emph{NSA} por ejemplo), revelando la intromisión del organismo de Estado en la vida de los criptógrafos. Es necesario poder dilucidar este problema, pero sin comprometer (si es que fue el caso) al criptógrafo que pagó la cuenta de manera secreta. Por lo tanto los criptógrafos necesitan saber si uno de ellos pagó la cuenta (sin saber quién) o fue alguien distinto.
+
+David Chaum generaliza el problema de la siguiente manera: se tienen 3 participantes (los criptógrafos) donde cada uno de ellos quiere comunicar un mensaje (pagó o no pagó la cena). El resultado del protocolo debe entregar, o bien el mensaje de alguno de ellos (que pagó la cena),  sin conocer el emisor de dicho mensaje, o todos los mensajes iguales (revelando que nadie pagó la cena. concluyendo que fue un agente externo). El protocolo debe mantener el anonimato del participante que envió el mensaje tanto para el resto de los participantes como para cualquier observador externo que esté monitoreando las conversaciones.
+
+La primera solución propuesta supone el envío de solo 1 bit de información (en el caso del problema, pagó o no pagó la cena). La solución consiste en los siguientes pasos:
+\begin{enumerate}
+    \item Cada par de participantes $p_i, p_j$ escogen un bit al azar compartido $b_{ij}$.
+    \item Cada participante $p_i$ calcula $b_i$ como la operación $\oplus$ entre todos los $b_{ij}$ que posea compartidos. Por ejemplo, en el caso de la cena: $b_1 = b_{12} \oplus b_{13}$, $b_2 = b_{12} \oplus b_{23}$, $b_3 = b_{13} \oplus b_{23}$.
+    \item Cada participante $p_i$ define su propio $m_i$, el cual corresponderá al bit que quiere comunicar ($m_i = 1$ si pagó la cena).
+    \item Cada $p_i$ revelará el valor $o_i = m_i \oplus b_i$.
+    \item Cualquier $p_i$ u observador externo puede calcular el valor $D = \displaystyle\bigoplus_i o_i$.
+    \item Si $D = 1$, entonces uno de los participantes envió el mensaje 1 (alguien pagó la cena), si $D = 0$, todos los participantes enviaron el mensaje 0 (la cena la pagó un agente externo a los participantes).
+\end{enumerate}
+
+
+\section{DC-Net como protocolo de anonimato}
+\section{Problemas a resolver con DC-Nets}
+\section{Objetivos del Trabajo}
+\section{Organización del Documento}
