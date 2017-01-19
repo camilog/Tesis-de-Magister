@@ -23,16 +23,28 @@ David Chaum generaliza el problema de la siguiente manera: se tienen 3 participa
 
 La primera solución propuesta supone el envío de solo 1 bit de información (en el caso del problema, pagó o no pagó la cena). La solución consiste en los siguientes pasos:
 \begin{enumerate}
-    \item Cada par de participantes $p_i, p_j$ escogen un bit al azar compartido $b_{ij}$.
-    \item Cada participante $p_i$ calcula $b_i$ como la operación $\oplus$ entre todos los $b_{ij}$ que posea compartidos. Por ejemplo, en el caso de la cena: $b_1 = b_{12} \oplus b_{13}$, $b_2 = b_{12} \oplus b_{23}$, $b_3 = b_{13} \oplus b_{23}$.
+    \item Cada par de participantes $(p_i, p_j)$ escogen un bit al azar compartido $b_{ij}$.
+    \item Cada participante $p_i$ calcula $b_i$ como la operación $\oplus$\footnote{La operación $\oplus$ (\texttt{XOR}) entre dos bits, entrega 1 como resultado si y solo si ambos bits son distintos, 0 si son iguales.} entre todos los $b_{ij}$ que posea compartidos. Por ejemplo, en el caso de la cena: $b_1 = b_{12} \oplus b_{13}$, $b_2 = b_{12} \oplus b_{23}$, $b_3 = b_{13} \oplus b_{23}$.
     \item Cada participante $p_i$ define su propio $m_i$, el cual corresponderá al bit que quiere comunicar ($m_i = 1$ si pagó la cena).
     \item Cada $p_i$ revelará el valor $o_i = m_i \oplus b_i$.
     \item Cualquier $p_i$ u observador externo puede calcular el valor $D = \displaystyle\bigoplus_i o_i$.
     \item Si $D = 1$, entonces uno de los participantes envió el mensaje 1 (alguien pagó la cena), si $D = 0$, todos los participantes enviaron el mensaje 0 (la cena la pagó un agente externo a los participantes).
 \end{enumerate}
 
+\todo{Agregar diagrama con ejemplo numérico}
 
-\section{DC-Net como protocolo de anonimato}
-\section{Problemas a resolver con DC-Nets}
+Luego de proponer esta solución, David Chaum realiza el análisis de seguridad del protocolo (para más detalles consultar el paper original \cite{chaum1988dining}), del cual concluye que el protocolo sugerido entrega anonimato de manera \emph{incondicional}, es decir, que incluso un adversario que posea todo el poder de cómputo posible, no puede dar con una estrategia que le permita encontrar al emisor del mensaje con mejor probabilidad que $1/n$ (donde $n$ es la cantidad total de participantes).
+
+Finalmente Chaum propone una manera de generalizar el protocolo para utilizarlo con mensajes más largos (de más de 1 bit), lo cual será visto en la siguiente sección.
+
+\section{\emph{DC-Net} como protocolo de anonimato}
+
+
+
+\section{Problemas a resolver con \emph{DC-Nets}}
+
+\subsection{Participantes Maliciosos}
+\subsection{Colisión de Mensajes}
+
 \section{Objetivos del Trabajo}
 \section{Organización del Documento}

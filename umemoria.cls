@@ -21,10 +21,10 @@
 \DeclareOption{rightnum}{\@swapnumfalse}
 \DeclareOption{contnum}{\@contnumtrue}
 \DeclareOption{nocontnum}{\@contnumfalse}
-\DeclareOption{uprightd}{\AtEndOfPackage{\DeclareMathSymbol{d}{\mathalpha}{operators}{`d}}}
-\DeclareOption{uprighte}{\AtEndOfPackage{\DeclareMathSymbol{e}{\mathalpha}{operators}{`e}}}
-\DeclareOption{uprighti}{\AtEndOfPackage{\DeclareMathSymbol{i}{\mathalpha}{operators}{`i}}}
-\DeclareOption{upright}{\ExecuteOptions{uprightd,uprighte,uprighti}}
+%\DeclareOption{uprightd}{\AtEndOfPackage{\DeclareMathSymbol{d}{\mathalpha}{operators}{`d}}}
+%\DeclareOption{uprighte}{\AtEndOfPackage{\DeclareMathSymbol{e}{\mathalpha}{operators}{`e}}}
+%\DeclareOption{uprighti}{\AtEndOfPackage{\DeclareMathSymbol{i}{\mathalpha}{operators}{`i}}}
+%\DeclareOption{upright}{\ExecuteOptions{uprightd,uprighte,uprighti}}
 
 %% Pasar Opciones a clase Book
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}

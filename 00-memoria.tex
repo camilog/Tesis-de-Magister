@@ -14,6 +14,14 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[nottoc,numbib]{tocbibind}
+\usepackage{pstricks}
+
+\newcommand{\nb}[3]{
+		{\colorbox{#2}{\bfseries\sffamily\scriptsize\textcolor{white}{#1}}}
+		{\textcolor{#2}{\sf\small$\blacktriangleright$\textit{#3}$\blacktriangleleft$}}}
+		
+\newcommand{\todo}[1]{\begin{center}\nb{ToDo}{red}{#1}\end{center}}
+\newcommand{\todoline}[1]{\nb{ToDo}{red}{#1}}
 
 \begin{document}
 
