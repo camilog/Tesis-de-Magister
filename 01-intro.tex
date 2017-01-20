@@ -39,12 +39,39 @@ Finalmente Chaum propone una manera de generalizar el protocolo para utilizarlo 
 
 \section{\emph{DC-Net} como protocolo de anonimato}
 
+\emph{DC-Net} (\emph{Dining Cryptographers Network}) es un protocolo que permite enviar un mensaje de manera anónima a un grupo de participantes (llamado \emph{anonimity-set}), el cual protege la identidad del emisor (que debe ser parte del \emph{anonimity-set}) del mensaje de manera \emph{incondicional}, es decir, que cualquier adversario (independiente del poder de cómputo que posea) no puede encontrar a dicho emisor con una probabilidad mayor a $1/n$ (donde $n$ es el tamaño del \emph{anonimity-set} o la cantidad total de participantes). Dicho adversario puede ser interno (ser uno de los participantes) o externo (que puede estar potencialmente monitoreando todas las comunicaciones entre los distintos participantes).
 
+A continuación se detallará la generalización del protocolo propuesto por Chaum para permitir el envío de mensajes de largo arbitrario. Supongamos un \emph{anonimity-set} de $n$ participantes $\{p_1, p_2, \ldots, p_n\}$. Sin perdida de generalidad, supondremos que $p_1$ es el único participante que quiere enviar un mensaje, en este caso $M_1 = m \in \mathbb{Z}_q$\footnote{$\mathbb{Z}_q = \{1, 2, \ldots, q - 1\}$} (más adelante se hablará cuando dos o más participantes quieren enviar un mensaje), para todo el resto $M_i = 0$ $(\forall i \in \{2, \ldots, n\})$.
 
-\section{Problemas a resolver con \emph{DC-Nets}}
+El primer paso, al igual que en el protocolo original, es generar valores (llaves) compartidas entre cada par de participantes. Con esto tendremos que cada par $\{p_i, p_j\}$ compartirá un valor único $k_{ij}$ (además se definirá que $k_{ij} = -k_{ji}$ y $k_{ii} = 0$).
 
-\subsection{Participantes Maliciosos}
-\subsection{Colisión de Mensajes}
+Con esto, cada participante $p_i$ generará un valor igual a la suma de todas las llaves compartidas que posee, esto es $K_i = \sum_{j=1}^n k_{ij}$. Luego, deberá generar el valor que comunicará al resto de los participantes, que consistirá en la suma del valor $K_i$ con el mensaje $M_i$, generando $O_i = K_i + M_i$ (recordemos que solo $p_1$ posee su mensaje distinto a 0, por lo que para el todo el resto de los participantes $O_i = K_i$). Finalmente, cada participará revelará enviando el valor $O_i$ al resto de los participantes (mensaje vía \emph{broadcast}, por ejemplo). Con esto, los valores $O_i$ quedan disponibles tanto para el resto de los participantes, como para cualquier observador externo.
+
+Ahora solo queda encontrar el mensaje enviado por $p_1$. Para ello, se calcula el valor $D$ como la suma de todos los $O_i$ enviados por los participantes: $$D = \sum_{i=1}^n O_i \overset{(1)}{=} \sum_{i=1}^n K_i + \sum_{i=1}^n M_i \overset{(2)}{=} \sum_{i=1}^n K_i + m \overset{(3)}{=} m$$.
+
+La primera (1) simplificación se debe a la definición de $O_i$ y la separación de la suma en las dos componentes $K_i$ y $M_i$. La segunda (2) hace referencia al hecho que $M_i = 0$ $\forall i \geq 2$, por lo que solo ``sobrevive'' $M_1 = m$. Finalmente la tercera (3) simplificación se debe al hecho que las llaves compartidas se cancelan mutuamente, debido al hecho que se explicitó que $k_{ij} = -k_{ji}$. Por lo tanto, el valor $D$ corresponde al único mensaje enviado $m$, revelando su valor al resto de los participantes, y manteniendo en el anonimato a su emisor (en este caso, $p_1$).
+
+\todo{Agregar diagrama con ejemplo típico de DC-Net generalizada}
+
+Informalmente, se puede decir que el mensaje $m$ se oculta entre la suma de las llaves compartidas, que junto con la imposibilidad de conocer el valor de todas las llaves compartidas (a menos que se coludan $n-1$ participantes), es imposible poder dilucidar si un mensaje $m$ vino de un cierto $O_i$ revelado por algún participante.
+
+Ahora bien, el protocolo anteriormente descrito sufre de dos problemas: (1) como fue dicho anteriormente, este protocolo funciona solo cuando un único participante envía un mensaje, de haber dos o más participantes con $M_i \neq 0$, se tendría que $D = \sum M_i$, por lo que sería imposible rescatar los mensajes individuales. Por otro lado, (2) no evita que participantes maliciosos envíen mensajes erróneos, por ejemplo, que envíen valores de llaves compartidas distintos, haciendo que estos no se cancelen, imposibilitando la revelación del mensaje $m$ final. Es por ello que las distintas variantes del protocolo que se propongan, deben tener como prioridad soslayar estos dos problemas inherentes al protocolo. En este trabajo se detallará una variante que soluciona estos problema utilizando herramientas criptográficas que serán presentadas en el próximo capítulo.
 
 \section{Objetivos del Trabajo}
+
+\subsection{Objetivo General}
+
+Diseñar e implementar una variante del protocolo \emph{DC-Net} que alcance niveles de seguridad tales que mejoren los ofrecidos por otros protocolos actualmente utilizados para mantener anonimato. Además de encontrar escenarios donde la implementación presente mejores resultados que las alternativas existentes, tomando en cuenta distintos factores como lo son la seguridad alcanzada y el tiempo de ejecución necesario para el envío de los mensajes.
+
+\subsection{Objetivos Específicos}
+
+\begin{itemize}
+    \item Analizar las actuales soluciones (protocolos) que brindan anonimato con el fin de encontrar aspectos que puedan ser mejorados en la propuesta final del presente trabajo.
+    \item Encontrar otras implementaciones de variantes de \emph{DC-Net}, identificando aspectos a mejorar, además de poder disminuir los supuestos de seguridad en que se basan dichas soluciones.
+    \item Poner a prueba la implementación realizada en distintos escenarios, analizando el tiempo de ejecución en cada uno de ellos, con el objetivo de encontrar el mejor contexto en que se desempeñaría la solución final.
+    \item Crear un caso de prueba del sistema implementado, que sirva como motivación a distintos posibles usos que se le pueda dar al código realizado.
+\end{itemize}
+
 \section{Organización del Documento}
+
+En el presente documento se describe los pasos que se siguieron para la propuesta de un diseño y una implementación de un sistema de mensajería que provee anonimato a los emisores, todo ello basado en el protocolo \emph{DC-Net}. En el Capítulo 2 se describen los antecedentes criptográficos necesarios para comprender la solución propesta, además de un análisis de soluciones similares propuestas en otros trabajos. Luego en el Capítulo 3 se describe de manera detallada el diseño de la variante propuesta, especificando paso a paso lo que cada uno de los participantes debe realizar para poder ontar con el sistema que se propuso como objetivo. Posteriormente en el Capítulo 4 se presentan detalles de la implementación del diseño descrito anteriormente, exponiendo decisiones que se fueron tomando para la conformación del sistema finalmente implementado (además de una breve descripción de un caso de uso, en este caso, una aplicación móvil). En el Capítulo 5 se detallan los experimentos que se llevaron a cabo para probar, sobre todo, el tiempo de ejecución del sistema, exponiéndolo a distintos escenarios y obteniendo distintos resultados. Luego en el Capítulo 6 se brindan posibles mejoras que se le puedan hacer tanto al protocolo diseñado como a la implementación realizada. Finalmente en el Capítulo 7 se presentan las conclusiones del presente trabajo, como las experiencias que dejó tanto su diseño como su implementación.
