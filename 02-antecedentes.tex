@@ -37,3 +37,14 @@ Existe una estrecha relación entre \emph{commitment} y \emph{zero-knowledge pro
 
 \section{Implementaciones de \emph{DC-Nets} relacionadas}
 
+El estudio de las DC-Nets como herramienta para brindar anonimato se ha incrementado en los últimos años, debido a los ataques encontrador a protocolos que ofrecían más rapidez a la hora de entregar mensajes, como lo es \emph{onion-routing}. En \cite{wright2002analysis} queda claro que el protocolo DC-Net es el que posee mayor seguridad a la hora de asegurar anonimato, pero sufre problemas de escalabilidad. Es por ello que los esfuerzos de muchas investigaciones ha sido como mantener la seguridad que ofrece el protocolo original, pero apuntando a arreglar los problemas de escabalidad que posee, y así construir una alternativa viable y eficiente a \emph{TOR} a la hora de mantenerse anónimo mientras se navega por Internet.
+
+La primera implementación de una variante del protocolo DC-Net se encuentra en \cite{goel2003herbivore}, quienes presentan el sistema \emph{Herbivore}, el cual logra soslayar el problema de escalabilidad creando pequeños \emph{cluster} de participantes, reduciendo la cantidad de conexiones necesarias para enviar los mensajes anónimos. \todoline{encontrarle algo malo a herbivore y hablar sobre los tiempos y ancho de banda que alcanza}.
+
+Luego de \emph{Herbivore} se deben mencionar los trabajos realizados por el grupo \emph{dedis (Decentralized and Distributed Systems Research)}\footnote{\url{http://dedis.cs.yale.edu/}} de \emph{Yale University}, quienes presentan tres sistemas: \emph{Dissent}, \emph{D3} y \emph{Verdict} \cite{corrigan2010dissent, wolinsky2012dissent, wolinsky2012scalable, corrigan2012proactively}. Estos sistemas tienen como principal objetivo atacar el problema de escalabilidad presente en las DC-Net. Esto lo logran utilizando servidores adicionales que participan en la comunicación entre los participantes, de esta manera los participantes no se deben conectar entre ellos (como una DC-Net tradicional), sino que se conectan a servidores intermediarios quienes funcionan como \emph{brokers} y entregan los mensajes a todos los participantes presentes. Los sistemas propuestos fueron evolucionando, llegando a realizarse pruebas con hasta 1000 participantes enviando mensajes. \todoline{encontrarle algo malo a dissent y amigos y hablar sobre los tiempos y ancho de banda que alcanza}.
+
+\todo{Vuvuzela}
+
+\todo{Riposte}
+
+\todo{Riffle}
