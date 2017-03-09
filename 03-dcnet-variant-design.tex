@@ -26,7 +26,39 @@ Posteriormente cada participante $P_i$ debe realizar un \emph{commitment} a cada
 
 Luego de esto, cada participante $P_i$ generará dos valores, el primero será la suma de todas las llaves compartidas que posee $K_i = \sum k_{ij}$. El segundo valor será un \emph{commitment} sobre dicho valor, esto es, $c_{K_i} = \prod c_{k_{ij}}$.
 
+Finalmente cada participante $P_i$ enviará al resto de la sala vía \emph{broadcast} su \emph{commitment} $c_{K_i}$ junto con una \emph{zero-knowledge proof} demostrando que conoce los valores ``escondidos'' dentro del \emph{commitment}.
+
+\subsection{Verificación de los valores enviados}
+
+\todoline{Verificar zkp, multiplicacion de commitments de llaves y como encontrar al culpable}
+
+\section{Formato del Mensaje}
+
+Al principio de una sesión, cada participante $P_i$ debe decidir si desea comunicar un mensaje $msg$ al resto de la sala o no. De querer enviar un mensaje, habrán rondas que deberá enviar $m_i = msg$, y otras que enviará $m_i = 0$. De no querer transmitir un mensaje, en todas las rondas enviará $m_i = 0$. 
+
+Para que el protocolo funcione correctamente, es necesario que dicho mensaje $m_i$ se concatene con otros valores, permitiendo el correcto manejo de colisiones de mensajes (es explicado más adelante en el documento). Estos valores auxiliares son los siguientes:
+\begin{itemize}
+    \item $b_i$: bit que indica si el participante esta, en la presente ronda, enviando un mensaje distinto a cero o no ($b_i = 1 \iff m_i \neq 0$).
+    \item $pad_i$: cadena de bits aleatoria que se añade para prevenir colisión de mensajes iguales, que podría desembocar en que la sesión nunca finalice.
+\end{itemize}
+
+Con estos valores establecidos, en cada ronda cada participante $P_i$ debe formar el siguiente valor $M_i$:
+
+\todoline{agregar diagrama de $M_i$}
+
 \section{Correctitud del Formato del Mensaje}
+
+Para que el protocolo tenga un correcto funcionamiento en el manejo de colisiones, es imperioso que el formato del mensaje $M_i$ se respete por todos los participantes. Para ello se debe satisfacer una de las siguientes restricciones:
+\begin{itemize}
+    \item Si $b_i = 0$, entonces $m_i = 0$
+    \item $b_i = 1$
+\end{itemize}
+En la primera alternativa, se le fuerza al participante a que si esta diciendo que no envía un mensaje ($b_i = 0$), no lo envíe ($m_i = 0$). En la segunda opción, se le permite cualquier valor de $m_i$ siempre y cuando se cumpla que $b_i = 1$.
+
+\subsection{\emph{Commitments} sobre los valores individuales}
+
+
+
 \section{Demostración de conocimiento del mensaje}
 \section{Envío del mensaje de salida}
 \subsection{Ronda 1}
