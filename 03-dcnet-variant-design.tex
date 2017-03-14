@@ -57,7 +57,9 @@ En la primera alternativa, se le fuerza al participante a que si esta diciendo q
 
 \subsection{\emph{Commitments} sobre los valores individuales}
 
+Para poder demostrar que su mensaje $M_i$ posee un correcto formato, es necesario primero realizar \emph{commitments} a cada uno de los valores $\{m_i, pad_i, b_i\}$. Para ello, se escogen valores aleatorios $\{r_i^m, r_i^{pad}, r_i^b\}$ y se calculan los valores $c_{m_i} = g^{m_i} h^{r_i^m}; c_{pad_i} = g^{pad_i} h^{r_i^{pad}}; c_{b_i} = g^{b_i} h^{r_i^b}$ (\emph{commitments} a los valores individuales anteriormente descritos).
 
+\subsection{\emph{Zero-knowledge Proof} sobre formato del mensaje}
 
 \section{Demostración de conocimiento del mensaje}
 \section{Envío del mensaje de salida}
