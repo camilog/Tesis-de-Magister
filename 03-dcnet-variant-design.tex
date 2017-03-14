@@ -61,9 +61,57 @@ Para poder demostrar que su mensaje $M_i$ posee un correcto formato, es necesari
 
 \subsection{\emph{Zero-knowledge Proof} sobre formato del mensaje}
 
+Ahora es momento que cada participante genere una \emph{zero-knowledge proof} que demuestre que el mensaje $M_i$ esta bien formado. Para ello es necesario establecer primero si en la presente ronda el participante enviará un mensaje ($m_i \neq 0$) o no ($m_i = 0$).
+
+\begin{enumerate}
+    \item No envío de mensaje ($m_i = 0$): para demostrar que el formato es correcto cuando no necesito enviar un mensaje, cada participante debe demostrar la primera restricción que se mostró anteriormente, esto es, que $b_i = 0 \land m_i = 0$.
+    
+    Es importante notar que cuando sucede lo anterior, los valores de los \emph{commitments} anteriormente descritos quedan de la siguiente manera: $c_{m_i} = h^{r_i^m}; c_{b_i} = h^{r_i^b}$.
+    
+    Finalmente lo que el participante debe demostrar es que conoce los valores $\{r_i^m, r_i^b\}$ contenidos en dichos \emph{commitments}.
+    \item Envío de mensaje ($m_i \neq 0$): para demostrar que el formato es correcto cuando necesito enviar un mensaje, debo demostrar la segunda restricción, esto es solamente que $b_i = 1$.
+    
+    Al igual que en el caso anterior el \emph{commitment} relacionado queda con un formato particular $c_{b_i} = g h^{r_i^b}$.
+    
+    En este caso se le va a pedir al participante demostrar que conoce $r_i^b$ en $g^{-1} c_{b_i} = h^{r_i^b}$.
+\end{enumerate}
+
+Como no se puede saber si el participante enviará o no un mensaje (comprometería su anonimato) se va a solicitar que demuestre cualquiera de las dos condiciones anteriores. La \emph{zero-knowledge proof} que necesita demostrar cada participante es la siguiente: $$\mathtt{PoK_i^{format}} = PoK\{(r_i^m, r_i^b) : (c_{m_i} = h^{r_i^m} \land c_{b_i} = h^{r_i^b}) \lor (g^{-1} c_{b_i} = h^{r_i^b})\}$$
+
+\subsection{Envío de valores a la sala}
+
+Después de todos los cálculos anteriores, cada participante $P_i$ debe enviar al resto de la sala vía \emph{broadcast} los siguientes valores: $\{c_{m_i}, c_{pad_i}, c_{b_i}, \mathtt{PoK_i^{format}}\}$ (los tres \emph{commitments} calculados y la demostración correspondiente).
+
+\subsection{Verificación de la demostración}
+
+Después de que toda la sala haya recibido todos los conjuntos de valores enviados por cada uno de los participantes, es necesario verificar que la demostración sea correcta, y para ello solamente es necesario los valores de los \emph{commitments} acompañando la \emph{zero-knowledge proof}.
+
 \section{Demostración de conocimiento del mensaje}
+
+Cada particiante $P_i$ debe enviar un \emph{commitment} sobre el mensaje $M_i$ construido anteriormente, con el objetivo que más adelante envíe el mensaje que ha estado construyendo durante la presente ronda. Para construir dicho \emph{commitment} utilizará los \emph{commitments} de los valores individuales enviados anteriormente. Para ello calculará $c_{M_i} = f(c_{m_i}, c_{pad_i}, c_{b_i})\footnote{\todoline{Agregar alguna descripción de la funcion f}} = g^{M_i} h^{r_i^{M}}$ (donde $r_i^{M}$ es un valor aleatorio definido por los valores $r_i^m, r_i^{pad}, r_i^b$). 
+
+Luego de esto se necesitará que cada participante envíe una \emph{zero-knowledge proof} demostrando que conoce los valores $M_i, r_i^M$ dentro de $c_{M_i}$: $\mathtt{PoK_i^M} = PoK\{(M_i, r_i^M) : c_{M_i} = g^{M_i} h^{r_i^M}\}$.
+
+\subsection{Verificación de la demostración}
+
+Por cada participante $P_j$ que envía la demostración anterior, es necesario primero formar el valor $c_{M_j}$ utilizando los valores de los \emph{commitments} recibidos anteriormente de la siguiente manera: $c_{M_j} = f(c_{m_j}, c_{pad_j}, c_{b_j})$.
+
+Luego de esto, es posible verificar la demostración $\mathtt{PoK_j^M}$ utilizando el valor $c_{M_j}$ construido anteriormente.
+
 \section{Envío del mensaje de salida}
+
+En este punto, cada participante $P_i$ ha demostrado la correctitud de los valores con que se ha comprometido a enviar (hasta ahora, solo ha enviado \emph{commitments} y demostraciones, ningún valor ``útil'' para la ejecución del protocolo).
+
+Cada participante $P_i$ genererá el valor $O_i = K_i + M_i$ (denominado mensaje de salida). Este valor tiene como objetivo ``ocultar'' al mensaje $M_i$ sumándole el valor secreto $K_i$. Informalmente, cuando un participante reciba un mensaje $O_i$, no podrá discernir si este mensaje de salida contiene o no un valor $M_i \neq 0$.
+
+Ahora bien, es necesario realizar una distinción con respecto a lo que cada participante necesita demostrar con respecto a su mensaje de salida $O_i$. Cuando se desarrolla la ronda 1, solo es necesario demostrar que dicho mensaje $O_i$ se forma a través de los valores ``ocultos'' en los \emph{commitments} $\{c_{K_i}, c_{M_i}\}$ enviados anteriormente ($c_{M_i}$ no se envió explícitamente, pero se construyó a partir de los \emph{commitments} individuales que sí se enviaron).
+
+En las rondas posteriores, la demostración se vuelve más compleja, ya que se necesita demostrar que el valor $M_i$ que forma parte del mensaje de salida $O_i$ es, ya sea, igual a 0 (no le corresponde enviar un mensaje en dicha ronda), o bien, es el mismo mensaje que el involucrado en la colisión más próxima (más detalles serán analizados más adelante).
+
 \subsection{Ronda 1}
+
+
+
 \subsection{Rondas posteriores}
 \section{Ronda Virtual}
 \section{Resolución de la ronda}
