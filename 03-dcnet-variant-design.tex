@@ -102,7 +102,7 @@ Luego de esto, es posible verificar la demostración $\mathtt{PoK_j^M}$ utilizan
 
 En este punto, cada participante $P_i$ ha demostrado la correctitud de los valores con que se ha comprometido a enviar (hasta ahora, solo ha enviado \emph{commitments} y demostraciones, ningún valor ``útil'' para la ejecución del protocolo).
 
-Cada participante $P_i$ genererá el valor $O_i = K_i + M_i$ (denominado mensaje de salida). Este valor tiene como objetivo ``ocultar'' al mensaje $M_i$ sumándole el valor secreto $K_i$. Informalmente, cuando un participante reciba un mensaje $O_i$, no podrá discernir si este mensaje de salida contiene o no un valor $M_i \neq 0$.
+Cada participante $P_i$ generará el valor $O_i = K_i + M_i$ (denominado mensaje de salida). Este valor tiene como objetivo ``ocultar'' al mensaje $M_i$ sumándole el valor secreto $K_i$. Informalmente, cuando un participante reciba un mensaje $O_i$, no podrá discernir si este mensaje de salida contiene o no un valor $M_i \neq 0$.
 
 Ahora bien, es necesario realizar una distinción con respecto a lo que cada participante necesita demostrar con respecto a su mensaje de salida $O_i$. Cuando se desarrolla la ronda 1, solo es necesario demostrar que dicho mensaje $O_i$ se forma a través de los valores ``ocultos'' en los \emph{commitments} $\{c_{K_i}, c_{M_i}\}$ enviados anteriormente ($c_{M_i}$ no se envió explícitamente, pero se construyó a partir de los \emph{commitments} individuales que sí se enviaron).
 
@@ -110,9 +110,49 @@ En las rondas posteriores, la demostración se vuelve más compleja, ya que se n
 
 \subsection{Ronda 1}
 
+Cada participante $P_i$ necesita generar el siguiente \emph{commitment} para $O_i$, $c_{O_i} = g^{o_i} h^{r_i^O}$. Para formar este valor se utilizan los \emph{commitments} enviados anteriormente de la siguiente manera: $$c_{O_i} = g^{o_i} h^{r_i^O} = g^{K_i + M_i} h^{r_i^K + r_i^M} = g^{K_i} h^{r_i^K} g^{M_i} h^{r_i^M} = c_{K_i} c_{M_i}$$
 
+Con lo anterior, se le solicita a cada participante que demuestre en una \emph{zero-knowledge proof} que conoce el valor $r_i^O$ (suma de las aleatoriedades utilizadas en los \emph{commitments} para la llave $K_i$ y el mensaje $M_i$) dentro de un \emph{commitment} especial $c_{r_i^O} = h^{r_i^O}$. La \emph{zero-knowledge proof} resulta en $\mathtt{PoK_i^O} = PoK\{r_i^O : c_{r_i^O} = h^{r_i^O}\}$.
+
+Finalmente cada participante enviará el par $\{O_i, \mathtt{PoK_i^O}\}$ al resto de la sala vía \emph{broadcast}.
+
+\subsubsection{Verificación de la demostración}
+
+Cada participante $P_i$ debe verificar la demostración recibida de cada otro participante $P_j$. Para ello, primero deberá calcular el valor $c_j^O$ como la multiplicación de los \emph{commitments} recibidos en pasos anteriores de la siguiente manera: $c_j^O = c_j^K \cdot c_j^M$.
+
+Luego de esto, deberá calcular, utilizando el valor $O_j$ recibido recién, el valor $\beta_j = c_j^O \cdot (g^{O_j})^{-1} = g^{O_j} h^{r_j^O} (g^{O_j})^{-1} = h^{r_j^O}$.
+
+Finalmente se debe verificar la demostración $\mathtt{PoK_j^O}$ utilizando el valor $\beta_j$ calculado anteriormente.
 
 \subsection{Rondas posteriores}
+
+En rondas posteriores a la primera, se debe asegurar que los participantes estén enviando un mensaje válido, el cual solo puede tener dos alternativas: o bien no envía ningún mensaje (ya sea porque su mensaje ya fue recibido por todos los participantes en una ronda sin colisión, o no está habilitado para enviar mensaje en esta ronda), o envía exactamente el mismo mensaje que se envió al principio (no ha cambiado el mensaje que quiere comunicar en rondas posteriores).
+
+Para lograr esto, es necesario hacer una distinción con respecto a la ronda exactamente anterior a la ronda actual. Si la ronda anterior fue una ronda real, se verifica que el mensaje enviado en la ronda actual sea el mismo que el enviado en dicha ronda anterior; pero si la ronda anterior es virtual, no hay ningún mensaje con el que comparar (no se envía ningún mensaje en rondas virtuales). A esta ronda anterior se le denominará \emph{ronda padre}.
+
+\subsubsection{Ronda padre real}
+
+Si actualmente se está desarrollando la ronda $k$, entonces la ronda padre es la ronda $k/2$. Se va a denotar con un superíndice entre paréntesis la ronda en que se envía cada mensaje.
+
+Primero, cada participante $P_i$ necesita calcular el siguiente valor $\alpha_i = {(c_i^m)^{-1}}^\mathtt{[k]} \cdot {(c_i^m)}^\mathtt{[k/2]}$. El valor $\alpha_i$ representa la multiplicación del inverso del \emph{commitment} sobre el mensajes $m_i$ enviado en la ronda actual con el mismo \emph{commitment}, pero enviado en la ronda padre.
+
+Notar que el valor $\alpha_i$ se utilizará exclusivamente cuando el participante deba demostrar que envía un mensaje. La otra situación (no enviar un mensaje) se demostrará, igual que en un paso anterior, mostrando que $b_i= 0 \land m_i = 0$. Cuando sucede la primera alternativa (enviar un mensaje, y que éste sea igual que al enviado en la ronda padre), $\alpha$ toma el siguiente valor:
+
+\begin{flalign*}
+    \quad \alpha_i &= {{(g^{m_i} h^{r_i^m})}^{-1}}^{\mathtt{[k]}} \cdot {(g^{m_i} h^{r_i^m})}^{\mathtt{[k/2]}} &\\
+        &= \frac{1}{{{(\cancel{g^{m_i}} h^{r_i^m})}^{\mathtt{[k]}}}} \cdot {(\cancel{g^{m_i}} h^{r_i^m})}^{\mathtt{[k/2]}} &\\
+        &= {h^{r_i^m}}^{\mathtt{[k/2]}} \cdot \frac{1}{{h^{r_i^m}}^{\mathtt{[k]}}} &\\
+        &= {h^{r_i^m}}^{\mathtt{[k/2]}} - {h^{r_i^m}}^{\mathtt{[k]}} &\\
+        &= h^{({r_i^m}^{\mathtt{[k/2]}} - {r_i^m}^{\mathtt{[k]}})} &\\
+        &= h^{r_i^{m*}}
+\end{flalign*}
+
+Con lo anterior, lo que debe demostrar cada participante $P_i$ en este punto es que su mensaje $O_i$ (enviado en la ronda $k$ actual) cumple una de las siguientes alternativas: (1) codifica un mensaje $m_i$ igual al mensaje $m_i$ enviado en la ronda padre (ronda $k/2$), o (2) codifica un mensaje $m_i = 0$, lo cual se traduce en demostrar que $b_i = 0 \land m_i = 0$. Con esto, la \emph{zero-knowledge proof} necesaria es la siguiente: $$\mathtt{PoK_i^{O, real}} = PoK\{(r_i^b, r_i^m, r_i^{m*}) : (c_i^b = h^{r_i^b} \land c_i^m = h^{r_i^m}) \lor (\alpha_i = h^{r_i^{m*}}) \}$$
+
+
+
+\subsubsection{Ronda padre virtual}
+
 \section{Ronda Virtual}
 \section{Resolución de la ronda}
 \subsection{Primera colisión}
