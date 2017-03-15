@@ -149,11 +149,30 @@ Notar que el valor $\alpha_i$ se utilizará exclusivamente cuando el participant
 
 Con lo anterior, lo que debe demostrar cada participante $P_i$ en este punto es que su mensaje $O_i$ (enviado en la ronda $k$ actual) cumple una de las siguientes alternativas: (1) codifica un mensaje $m_i$ igual al mensaje $m_i$ enviado en la ronda padre (ronda $k/2$), o (2) codifica un mensaje $m_i = 0$, lo cual se traduce en demostrar que $b_i = 0 \land m_i = 0$. Con esto, la \emph{zero-knowledge proof} necesaria es la siguiente: $$\mathtt{PoK_i^{O, real}} = PoK\{(r_i^b, r_i^m, r_i^{m*}) : (c_i^b = h^{r_i^b} \land c_i^m = h^{r_i^m}) \lor (\alpha_i = h^{r_i^{m*}}) \}$$
 
+Luego de calcular la \emph{zero-knowledge proof} anterior, cada participante $P_i$ va a enviar al resto de la sala vía \emph{broadcast} el par $\{O_i, \mathtt{PoK_i^{O, real}}\}$.
 
+Para verificar la demostración enviada por cada participante $P_j$, primero se deben rescatar los \emph{commitments} sobre el mensaje $m_j$ enviados tanto en la ronda $k$ actual como la ronda padre $k/2$. Esto se utiliza para formar el valor $\alpha_j = {(c_j^m)^{-1}}^\mathtt{[k]} \cdot {(c_j^m)}^\mathtt{[k/2]}$. Finalmente se verifica $\mathtt{PoK_j^{O, real}}$ utilizando $\alpha_j$ y los \emph{commitments} $c_j^b$ y $c_j^m$ enviados en la ronda actual.
 
 \subsubsection{Ronda padre virtual}
 
+Cuando la ronda padre $k/2$ es virtual, no es posible ir a rescatar los valores necesarios, ya que en esa ronda $k/2$ no se envió ningún mensaje. Por lo tanto, en vez de comparar los mensajes enviados en la ronda $k$ actual con los de la ronda padre, se comparan con la ronda real más cercana que exista en la línea directa entre la ronda $k$ y la ronda 1. 
+
+\todo{Agregar diagrama mostrando ejemplo de que significa la línea directa}
+
+Las demostraciones necesarias son exactamente iguales que en el caso anterior, pero en vez de utilizar la ronda $k/2$ se utilizará la ronda $\mathtt{nrst\_real}$ (ronda real más cercana). Tanto el envío como la verificación de las demostraciones son análogas al escenario anterior (ronda padre real).
+
+\subsection{Suma de mensajes de salida}
+
+Independiente de las demostraciones que se necesitaban, en cada uno de los casos cada participante $P_i$ envió su mensaje de salida $O_i$. Al juntar todos los mensajes $O_i$ recibidos en la ronda actual $k$, se produce el valor $R^{(k)}$, denominado mensaje de la ronda $k$: $$R^{(k)} = \sum O_i = \cancelto{0}{\sum K_i} + \sum M_i = \sum M_i$$
+
+Dicha cancelación se produce debido a que las llaves compartidas $K_i$ están construidas de manera que al sumarse todas juntas se cancelen.
+
 \section{Ronda Virtual}
+
+Cuando la ronda actual es de la forma $k = 2j + 1$, quiere decir que es una ronda virtual. Se denomina de esta manera debido a que no es necesario que se envíen mensajes por parte de los participantes, sino que el mensaje de la ronda se puede deducir utilizando los mensajes de las rondas $2j$ y $j$ de la siguiente manera: $$R^{(2j + 1)} = R^{(j)} - R^{(2j)}$$
+
+\todoline{Agregar o referenciar a algún árbol de resolución de colisiones que ejemplifique de mejor manera la ronda virtual}
+
 \section{Resolución de la ronda}
 \subsection{Primera colisión}
 \subsection{Ronda sin colisión}
