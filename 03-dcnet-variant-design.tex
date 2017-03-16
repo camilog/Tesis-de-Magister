@@ -174,7 +174,45 @@ Cuando la ronda actual es de la forma $k = 2j + 1$, quiere decir que es una rond
 \todoline{Agregar o referenciar a algún árbol de resolución de colisiones que ejemplifique de mejor manera la ronda virtual}
 
 \section{Resolución de la ronda}
-\subsection{Primera colisión}
+
+Independiente si la ronda $k$ actual fue desarrollada como una ronda real o como ronda virtual, en este punto del protocolo se posee un mensaje de ronda $R^{(k)}$. Este mensaje $R^{(k)}$ significa la suma de los mensajes individuales $M_i$ enviados por cada uno de los participantes $P_i$ en la actual ronda. Pueden darse dos situaciones con respecto a $R^{(k)}$: (1) solamente un participante $P_i$ envió un mensaje en la actual ronda, ó (2) varios participantes enviaron su mensaje, resultando en una colisión de mensajes que es necesario resolver. Ambos escenarios son explorados a continuación.
+
+Recordemos, que por el formato que posee cada mensaje $M_i$, es posible saber con precisión cuántos mensajes colisionaron en cada ronda.
+
+\todo{agregar diagrama sumando varios mensajes $M_i$ y mostrando suma de mensajes individuales}
+
+Para explicitar el número de mensajes recibidos en la ronda, se denotará $R^{(k)} = (\hat{m}^{(k)}, t^{(k)})$, donde $\hat{m}^{(k)}$ corresponde a la suma de los mensajes $m_i$ enviados por cada participante $P_i$, mientras que $t^{(k)}$ representa cuantos mensajes pertenecen a dicha suma.
+
+\subsubsection{Primera colisión}
+
+Es importante hablar de lo que sucede en la primera ronda, debido a que establecerá lo que sucederá a futuro con el protocolo.
+
+Recordemos que $R^{(1)} = (\hat{m}^{(1)}, t^{(1)})$, lo que importa en este momento es el valor $t^{(1)}$. Este valor referencia el número de mensajes individuales que colisionaron en la primera ronda, es decir, el número de participantes $P_i$ que desearon comunicar un mensaje de manera anónima, pero que no pudieron transmitir dicho mensaje debido a que colisionó con mensajes de otros participantes.
+
+Por lo tanto existen $t^{(1)}$ mensajes que deben ser revelados al resto de los participantes, es decir, ser enviados sin colisionar con otros mensajes. Es por ello que el protocolo seguirá su ejecución hasta que se hayan jugado $t^{(1)}$ rondas sin colisión (explicadas a continuación). Además el protocolo es eficiente con respecto a las rondas reales, debido a que si $t^{(1)}$ mensajes colisionaron en la primera ronda, entonces el protocolo tendrá exactamente $t^{(1)}$ rondas reales para revelar los $t^{(1)}$ mensajes involucrados. Se define $\mathtt{session\_msgs} = 0$. Cuando este valor llegue a $t^{(1)}$, el protocolo finaliza.
+
 \subsection{Ronda sin colisión}
+
+Una ronda sin colisión sucede cuando $t^{(k)} = 1$, es decir, solamente un participante envió su mensaje en la actual ronda, por lo que $\hat{m}^{(k)} = m_i$, para algún participante $P_i$.
+
+Con esto suceden varias cosas interesantes: (1) el mensaje $m_i$ es entregado en forma transparente, es decir, tanto todos los participantes de la sala como cualquier observador externo reciben el mensaje $m_i$, tal como quiso ser transmitido; (2) el participante $P_i$ queda satisfecho con el protocolo, debido a que pudo transmitir su mensaje $m_i$ de manera anónima, por lo que de aquí en adelante contribuirá con el anonimato enviando $m_i = 0$, finalmente (3) el número de mensajes enviados de manera satisfactoria $\mathtt{session\_msgs}$ aumenta en uno, acercándose a que todos los mensajes sean enviados sin colisiones.
+
+Cabe destacar que si $\mathtt{session\_msgs}$ llega a ser $t^{(1)}$ después de ejecutarse la ronda, el protocolo finaliza de manera inmediata.
+
 \subsection{Resolución de colisiones}
-\section{Observación sobre tamaño de mensajes}
+
+Una colisión se produce cuando $t^{(k)} > 1$, lo que quiere decir que más de un participante $P_i$ envió su mensaje en la ronda $k$, por lo que el valor $\hat{m}^{(k)}$ es ininteligible (corresponde a la suma de varios mensajes individuales $m_i$). Para resolver esto es necesario correr un protocolo de resolución de colisiones, que tiene como objetivo resolver la colisión (que en próximas rondas cada uno de los mensajes individuales $m_i$ involucrados en la colisión se envíen de manera solitaria). Informalmente, lo que se realiza es forzar a los participantes involucrados a enviar los mismos mensajes $m_i$ en rondas distintas, haciendo que en rondas subsecuentes la cantidad de mensajes que se envíen sea cada vez menor, resultando \emph{a posteriori} en rondas donde solamente un mensaje es enviado.
+
+El criterio para ``dividir'' los mensajes $m_i$ será decidir si el mensaje es menor o mayor que el mensaje promedio $\overline{m}^{(k)} = \hat{m}^{(k)} / t^{(k)}$.
+
+Cada participante $P_i$ deberá calcular cuando (en que ronda) se le permite reenviar su mensaje $m_i$:
+\begin{itemize}
+    \item Si $m_i \leq \overline{m}^{(k)}$, el participante reenviará su mensaje en la ronda $2k$.
+    \item Si $m_i > \overline{m}^{(k)}$, el participante reenviará su mensaje en la ronda $2k + 1$ (esta ronda será virtual).
+\end{itemize}
+
+Con este criterio el protocolo asegura que las rondas $2k$ y $2k + 1$ tendrán valores $t^{(2k)}, t^{(2k + 1)}$ menores a $t^{(k)}$  \todoline{revisar que si para que suceda esto es necesario hablar de $M_i$ en vez de $m_i$}, resultando en que recursivamente en rondas subsecuentes se envíen los mensajes de manera solitaria.
+
+Finalmente, luego de establecer cuando los participantes involucrados en la colisión enviarán sus mensajes, la ronda actual $k$ finaliza, dando paso a la ronda $k+1$, que solamente se desarrolla si al menos algún participante está habilitado para enviar un mensaje (se puede saber de manera pública), de no haber participantes habilitados para enviar mensajes en dicha ronda, se salta a la ronda $k+2$ y así sucesivamente. La próxima ronda se desarrolla de manera recursiva tal como fue explicado anteriormente, primero viendo si corresponde a una ronda real o virtual, y luego llevando a cabo los pasos necesarios por todos los participantes en la sala.
+
+\todo{decir que los canales de comunicación deben estar autenticados, no encriptados}

@@ -21,7 +21,34 @@ Actualmente el nodo Directorio inicializa estableciendo los parámetros público
 
 \section{Primitivas Criptográficas}
 
-En la implementación actual, la gran mayoría de las primitivas criptográficas han sido implementadas desde cero, valiéndose principalmente de la biblioteca para manejar números grandes de \emph{Java}, \emph{BigInteger}\footnote{\url{https://docs.oracle.com/javase/7/docs/api/java/math/BigInteger.html}}. Si bien esto no es una práctica recomendada (lo ideal es utilizar bibliotecas criptográficas ya probadas por la comunidad), no se ha descubierto ninguna que se adecúe a las necesidades requeridas por el protocolo (\emph{Pedersen Commitments} y \emph{ZKP} asociadas). Este punto es algo importante a resolver ya que, como fue dicho, la implementación de primitivas criptográficas no es recomendado y es imperante utilizar implementaciones ya probadas y verificadas por la comunidad, como lo podría ser Charm-Crypto\footnote{\url{http://charm-crypto.com/index.html}} o Scapi\footnote{https://scapi.readthedocs.io/en/latest/}. De todas maneras, la criptografía implementada se desarrolló utilizando interfaces, por lo que cuando se descubra una librería que cumpla los requerimientos criptográficos que se buscan, su implantación sea realizada de manera fácil.
+En la implementación actual, la gran mayoría de las primitivas criptográficas han sido implementadas desde cero, valiéndose principalmente de la biblioteca para manejar números grandes de \emph{Java}, \emph{BigInteger}\footnote{\url{https://docs.oracle.com/javase/7/docs/api/java/math/BigInteger.html}}. Si bien esto no es una práctica recomendada (lo ideal es utilizar bibliotecas criptográficas ya probadas por la comunidad), no se ha descubierto ninguna que se adecúe a las necesidades requeridas por el protocolo (\emph{Pedersen Commitments} y \emph{ZKP} asociadas). Este punto es algo importante a resolver ya que, como fue dicho, la implementación de primitivas criptográficas no es recomendado y es imperante utilizar implementaciones ya probadas y verificadas por la comunidad, como lo podría ser Charm-Crypto\footnote{\url{http://charm-crypto.com/index.html}} o Scapi\footnote{\url{https://scapi.readthedocs.io/en/latest/}}. De todas maneras, la criptografía implementada se desarrolló utilizando interfaces, por lo que cuando se descubra una librería que cumpla los requerimientos criptográficos que se buscan, su implantación sea realizada de manera fácil.
 
 \section{\emph{API} implementada}
 \section{Aplicación Móvil}
+\section{Observación sobre tamaños de los mensajes}
+
+Una observación importante a realizar de la implementación realizada, es la cantidad de información (medida simplemente como el largo de los mensajes) que se envía en el protocolo. Se debe tomar como base el largo del mensaje original $m_i$ que cada participante debe comunicar. A esto se le debe agregar todas las \emph{zero-knowledge proofs} que necesita enviar, además de los \emph{commitments}, los valores necesarios que debe comunicar para establecer llaves compartidas con todo el resto de la sala y considerar que en realidad lo que se envía en el protocolo es el mensaje $M_i$ (a la suma de todos esos valores enviados le denotaremos $S_i$). Por último hay que considerar también que entre más participantes colisionen sus mensajes, más veces será necesario reenviar esta cantidad de información, debido a que se debe desarrollar un mayor número de rondas reales.
+
+Para medir este sobrecosto que agrega el protocolo, se realizaron varios experimentos, donde se varió el tamaño del mensaje original que desea comunicar cada participante y se observó cuanta información se enviaba finalmente (por ronda) al resto de la sala. Importante notar que, si bien el tamaño de la sala también hace variar la cantidad de información enviada, lo hace en un factor muy menor (con 256 participantes, se agrega 1 byte), por lo que esa variable se dejó de lado.
+
+\begin{table}[h]
+\centering
+\label{my-label}
+\begin{tabular}{|c|c|c|}
+\hline
+$m_i$ (bytes) & $S_i$ (bytes) & $S_i / m_i$ \\ \hline
+5                                   & 1633                               & 326.6       \\ \hline
+10                                  & 1933                               & 193.3       \\ \hline
+20                                  & 2624                               & 131.2       \\ \hline
+40                                  & 3987                               & 99.7        \\ \hline
+60                                  & 5288                               & 88.1        \\ \hline
+80                                  & 6276                               & 78.5        \\ \hline
+100                                 & 7459                               & 74.6        \\ \hline
+120                                 & 8848                               & 73.7        \\ \hline
+140                                 & 10281                              & 73.4        \\ \hline
+200                                 & 14008                              & 70.1        \\ \hline
+300                                 & 20200                              & 67.3        \\ \hline
+\end{tabular}
+\caption{Tamaño de mensajes enviados (por ronda)}
+\end{table}
+
