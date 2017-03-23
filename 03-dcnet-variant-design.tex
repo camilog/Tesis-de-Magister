@@ -2,31 +2,74 @@
 \section{Glosario de Términos}
 
 \begin{itemize}
-    \item Participante: agente que participa activamente del protocolo, ya sea enviando un mensaje o contribuyendo para aumentar el tamaño del \emph{anonimity-set} y así ocultar ``de mejor manera'' a los emisores de mensajes. 
-    \item Ronda: serie de pasos (descritos a partir de la próxima sección) que se llevan a cabo (principalmente intercambiando mensajes entre los participantes) con el objetivo de ir reduciendo ronda a ronda los mensajes enviados por cada participante.  
-    \item Mensaje: información que cada participante desea transmitir de manera anónima. Generalmente se relacionará a un conjunto de caracteres (representados como \emph{String}), en un cierto idioma, que se desea enviar.
-    \item Sesión: conjunto de rondas que se necesitan realizar para que pueda ser transmitido, a lo más, un mensaje por participante. Al principio de cada sesión, se le da la oportunidad a cada participante de decidir si enviará o no un mensaje. Luego que cada participante realizó su decisión, se inicia el protocolo descrito a continuación, que tiene como objetivo que cada uno de los mensajes que se decidieron enviar, se envíen de manera anónima al resto de los participantes.
+    \item Participante: agente que participa activamente del protocolo, ya sea 
+    enviando un mensaje o contribuyendo para aumentar el tamaño del 
+    \emph{anonimity-set} y así ocultar ``de mejor manera'' a los emisores de 
+    mensajes. 
+    \item Ronda: serie de pasos (descritos a partir de la próxima sección) que 
+    se llevan a cabo (principalmente intercambiando mensajes entre los 
+    participantes) con el objetivo de ir reduciendo ronda a ronda los mensajes 
+    enviados por cada participante.  
+    \item Mensaje: información que cada participante desea transmitir de 
+    manera anónima. Generalmente se relacionará a un conjunto de caracteres 
+    (representados como \emph{String}), en un cierto idioma, que se desea 
+    enviar.
+    \item Sesión: conjunto de rondas que se necesitan realizar para que pueda 
+    ser transmitido, a lo más, un mensaje por participante. Al principio de 
+    cada sesión, se le da la oportunidad a cada participante de decidir si 
+    enviará o no un mensaje. Luego que cada participante realizó su decisión, 
+    se inicia el protocolo descrito a continuación, que tiene como objetivo 
+    que cada uno de los mensajes que se decidieron enviar, se envíen de manera 
+    anónima al resto de los participantes.
     \item Sala: conjunto de participantes corriendo una sesión del protocolo.
-    \item Observador Externo: cualquier agente (a excepción de los propios participantes) que pueda estar monitoreando, tanto los mensajes resultantes del protocolo, como mensajes intermedios intercambiados entre los distintos participantes durante la realización del protocolo. A no ser que se explicite, todos los mensajes del protocolo pueden ser monitoreados por un observador externo.
-    \item Adversario: agente que tiene como finalidad, ya sea encontrar al emisor de un cierto mensaje, o bien, alterar el comportamiento ``normal'' del protocolo (retrasándolo o impidiendo su total realización). Este adversario puede ser un mismo participante del protocolo (al cual llamaremos participante malicioso) o un observador externo.
+    \item Observador Externo: cualquier agente (a excepción de los propios 
+    participantes) que pueda estar monitoreando, tanto los mensajes 
+    resultantes del protocolo, como mensajes intermedios intercambiados entre 
+    los distintos participantes durante la realización del protocolo. A no ser 
+    que se explicite, todos los mensajes del protocolo pueden ser monitoreados 
+    por un observador externo.
+    \item Adversario: agente que tiene como finalidad, ya sea encontrar al 
+    emisor de un cierto mensaje, o bien, alterar el comportamiento ``normal'' 
+    del protocolo (retrasándolo o impidiendo su total realización). Este 
+    adversario puede ser un mismo participante del protocolo (al cual 
+    llamaremos participante malicioso) o un observador externo.
 \end{itemize}
 
 \section{Diseño a primera vista}
 \section{Compartición de Llaves}
 
-Una ronda real comienza con el proceso de compartición de llaves entre cada par de participantes presentes en la sala. Este proceso debe realizarse, tomando un cuenta un posible adversario que esté monitoreando el canal de comunicación existente entre dos participantes cualquiera.
+Una ronda real comienza con el proceso de compartición de llaves entre cada 
+par de participantes presentes en la sala. Este proceso debe realizarse, 
+tomando un cuenta un posible adversario que esté monitoreando el canal de 
+comunicación existente entre dos participantes cualquiera.
 
-Para solucionar este problema se propone el uso del algoritmo \emph{Diffie-Hellman} \cite{diffie1976new} que permite generar un valor secreto compartido entre dos agentes, cuyo canal de comunicación es monitoreado por un adversario.
+Para solucionar este problema se propone el uso del algoritmo 
+\emph{Diffie-Hellman} \cite{diffie1976new} que permite generar un valor 
+secreto compartido entre dos agentes, cuyo canal de comunicación es 
+monitoreado por un adversario.
 
-Luego que cada par de participantes $\{P_i, P_j\}$ ejecuten el algoritmo \emph{Diffie-Hellman}, obtendrán un valor secreto $k_{ij}$. Para futuros pasos del protocolo, es necesario que ejecuten este proceso dos veces, ya que es necesario que cuenten con un segundo valor compartido $r^k_{ij}$.
+Luego que cada par de participantes $\{P_i, P_j\}$ ejecuten el algoritmo 
+\emph{Diffie-Hellman}, obtendrán un valor secreto $k_{ij}$. Para futuros pasos 
+del protocolo, es necesario que ejecuten este proceso dos veces, ya que es 
+necesario que cuenten con un segundo valor compartido $r^k_{ij}$.
 
 \subsection{\emph{Commitments} sobre las llaves}
 
-Posteriormente cada participante $P_i$ debe realizar un \emph{commitment} a cada valor $k_{ij}$ que posee compartido con cada otro participante $P_j$, utilizando como aleatoriedad el segundo valor compartido, $r^k_{ij}$. Esto resulta en que cada participante posee $n - 1$ de los siguientes valores $c_{k_{ij}} = g^{k_{ij}} h^{r^k_{ij}}$.
+Posteriormente cada participante $P_i$ debe realizar un \emph{commitment} a 
+cada valor $k_{ij}$ que posee compartido con cada otro participante $P_j$, 
+utilizando como aleatoriedad el segundo valor compartido, $r^k_{ij}$. Esto 
+resulta en que cada participante posee $n - 1$ de los siguientes valores 
+$c_{k_{ij}} = g^{k_{ij}} h^{r^k_{ij}}$.
 
-Luego de esto, cada participante $P_i$ generará dos valores, el primero será la suma de todas las llaves compartidas que posee $K_i = \sum k_{ij}$. El segundo valor será un \emph{commitment} sobre dicho valor, esto es, $c_{K_i} = \prod c_{k_{ij}}$.
+Luego de esto, cada participante $P_i$ generará dos valores, el primero será 
+la suma de todas las llaves compartidas que posee $K_i = \sum k_{ij}$. El 
+segundo valor será un \emph{commitment} sobre dicho valor, esto es, 
+$c_{K_i} = \prod c_{k_{ij}}$.
 
-Finalmente cada participante $P_i$ enviará al resto de la sala vía \emph{broadcast} su \emph{commitment} $c_{K_i}$ junto con una \emph{zero-knowledge proof} demostrando que conoce los valores ``escondidos'' dentro del \emph{commitment}.
+Finalmente cada participante $P_i$ enviará al resto de la sala vía 
+\emph{broadcast} su \emph{commitment} $c_{K_i}$ junto con una 
+\emph{zero-knowledge proof} demostrando que conoce los valores ``escondidos'' 
+dentro del \emph{commitment}.
 
 \subsection{Verificación de los valores enviados}
 
