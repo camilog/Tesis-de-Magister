@@ -44,14 +44,39 @@ realizarán a futuro son las siguientes:
     mensajes por parte de los participantes. Actualmente se delegó toda responsabilidad 
     a \emph{ZeroMQ}, el cual emplea una cola para no perder los mensajes entrantes 
     y la implementación actual se queda esperando entre mensajes, sin realizar 
-    ninguna operación. Tal vez sea necesario revisar ese protocolo y optimizar la recepción de mensajes, abriendo múltiples \emph{sockets}, o utilizando el tiempo de espera entre mensajes para poder realizar alguna operación criptográfica pendiente, 
-    y así no tener tiempo ocioso.
+    ninguna operación. Tal vez sea necesario revisar ese protocolo y optimizar la 
+    recepción de mensajes, abriendo múltiples \emph{sockets}, o utilizando el tiempo 
+    de espera entre mensajes para poder realizar alguna operación criptográfica 
+    pendiente, y así no tener tiempo ocioso.
     
-    \item Refinar protocolo criptográfico: 
+    \item Refinar protocolo criptográfico: a medida que se avanzaba en el diseño del 
+    protocolo, se iban encontrando más detalles criptográficos necesarios de añadir 
+    para asegurar la seguridad e integridad del sistema. Algunos de estas necesarias 
+    mejoras alcanzaron a ser implementadas, pero otras aun no (por ejemplo, demostrar 
+    que el mensaje enviado en un ronda para resolver colisiones es menor al mensaje 
+    promedio de la ronda padre).
     
-    \item Mejorar diseño de aplicación móvil:
+    \item Mejorar diseño de aplicación móvil: la aplicación móvil implementada fue 
+    creada solo como prototipo, para pensar en dejar un producto disponible para la 
+    comunidad es muy importante considerar la usabilidad que posea dicha aplicación, 
+    requisito que se logra proponiendo un diseño moderno que se ponga a prueba 
+    realizando pruebas estándar de usabilidad de aplicaciones (seguir líneas de diseño 
+    modernas, pruebas con usuarios reales, etc.).
     
-    \item Utilizar aplicación a través de Internet:
+    \item Utilizar aplicación a través de Internet: la implementación actual solo 
+    permite establecer comunicación entre nodos conectados en una misma red local. Para 
+    masificar su uso es necesario que pueda soportar comunicación nodo-a-nodo a través 
+    de Internet. Una posible solución a esto sería replicar el modelo utilizado por el 
+    protocolo \emph{Bit Torrent}\footnote{\url{http://www.bittorrent.org/beps/bep_0003.html}}, el cual 
+    posee una parte esencial que es la conexión punto-a-punto entre sus nodos (llamados 
+    \emph{peers}) para realizar la descarga de algun archivo en particular.
     
-    \item Pruebas de seguridad:
+    \item Pruebas de seguridad: cualquier aplicación que tenga como objetivo ser 
+    utilizada por múltiples usuarios alrededor del mundo, y que además maneje 
+    información sensible, es necesario que pase una serie de pruebas de seguridad 
+    realizadas por terceras personas a los diseñadores y creadores de la aplicación 
+    misma. Con esto se puede tener la certeza que la aplicación ha sido revisada en 
+    contra de posibles \emph{leaks} de seguridad, que puedan comprometer la seguridad 
+    de sus usuarios, producto de errores en la implementación (y no necesariamente 
+    errores en el protocolo criptográfico).
 \end{enumerate}
