@@ -7,7 +7,7 @@ Existe una variante de la descripción anterior, que se presenta cuando la clave
 
 \todo{Agregar descripción matemática de un protocolo de \emph{commitment}}
 
-Existen varias herramientas matemáticas que nos permiten instanciar un protocolo de \emph{commitment}. En particular en este trabajo se utilizó el protocolo \emph{Pedersen Commitment}\cite{pedersen1991non}, el cual se basa en la dificultad de resolver el problema del logaritmo discreto \todoline{referencia para logaritmo discreto}.
+Existen varias herramientas matemáticas que nos permiten instanciar un protocolo de \emph{commitment}. En particular en este trabajo se utilizó el protocolo \emph{Pedersen Commitment}\cite{pedersen1991non}, el cual se basa en la dificultad de resolver el problema del logaritmo discreto\footnote{\url{http://www.doc.ic.ac.uk/~mrh/330tutor/ch06s02.html}}.
 
 \emph{Pedersen Commitment Scheme:} Sea $G_q$ un grupo de orden $q$, en donde el problema del logaritmo discreto se crea dificil de resolver. Sean $g,h$ generadores de $G_q$ elegidos de manera aleatoria. Sea $s \in \mathbb{Z}_q$ un secreto al cual el participante se comprometerá. Además sea $r \in \mathbb{Z}_q$ elegido aleatoriamente. Se le llama un \emph{Pedersen commitment} sobre $s$ al valor: $$c := g^s h^r$$
 
@@ -32,8 +32,9 @@ Además existen maneras para poder demostrar propiedades genéricas sobre
   logaritmos discretos 
   \cite{camenisch1997proof}.
   
-  
 Existe una estrecha relación entre \emph{commitment} y \emph{zero-knowledge proofs}, ya que estás últimas generalmente demuestran propiedades que poseen valores ``escondidos'' dentro de un \emph{commitment}, por lo que se puede convencer a un tercero que un cierto valor que no deseo revelar, sigue una cierta propiedad esperada.
+
+\todo{dar los ejemplos de zero knowledge que se ocupan en el trabajo}
 
 \section{Implementaciones de \emph{DC-Nets} relacionadas}
 
@@ -43,8 +44,6 @@ La primera implementación de una variante del protocolo DC-Net se encuentra en 
 
 Luego de \emph{Herbivore} se deben mencionar los trabajos realizados por el grupo \emph{dedis (Decentralized and Distributed Systems Research)}\footnote{\url{http://dedis.cs.yale.edu/}} de \emph{Yale University}, quienes presentan tres sistemas: \emph{Dissent}, \emph{D3} y \emph{Verdict} \cite{corrigan2010dissent, wolinsky2012dissent, wolinsky2012scalable, corrigan2012proactively}. Estos sistemas tienen como principal objetivo atacar el problema de escalabilidad presente en las DC-Net. Esto lo logran utilizando servidores adicionales que participan en la comunicación entre los participantes, de esta manera los participantes no se deben conectar entre ellos (como una DC-Net tradicional), sino que se conectan a servidores intermediarios quienes funcionan como \emph{brokers} y entregan los mensajes a todos los participantes presentes. Los sistemas propuestos fueron evolucionando, llegando a realizarse pruebas con hasta 1000 participantes enviando mensajes. \todoline{encontrarle algo malo a dissent y amigos y hablar sobre los tiempos y ancho de banda que alcanza}.
 
-\todo{Vuvuzela}
-
-\todo{Riposte}
+\todo{Vuvuzela/Riposte como mejoras utilizando PIR}
 
 \todo{Riffle}

@@ -109,17 +109,39 @@ la \emph{API} disponible:
     que es necesario instanciar para utilizar los métodos descritos a 
     continuación. 
     \item \texttt{boolean connectToDirectory():} luego de setear la dirección 
-    IP del nodo directorio, este método
-    \item \texttt{void setMessageToSend(String s, boolean b):}
-    \item \texttt{void runProtocol(PrintStream p):}
-    \item \texttt{ObservableParticipantsLeft:}
-    \item \texttt{ObservableMessagesArrived:}
+    IP del nodo directorio, este método realiza la conexión desde el nodo partcipante
+    hacia el directorio, utilizando las funciones provistas por la librería 
+    \emph{ZeroMQ}.
+    \item \texttt{void setMessageToSend(String s, boolean b):} este método tiene 
+    como finalidad permitir al nodo participante establecer el mensaje que desea 
+    comunicar al resto de la sala utilizando el protocolo. 
+    \item \texttt{void runProtocol(PrintStream p):} corre el protocolo anteriormente 
+    descrito de manera automática, calculando los diferentes \emph{commitments} y 
+    \emph{zero-knowledge proofs} necesarios, repitiendo las rondas necesarios 
+    y finalizando cuando todos los mensajes han sido recibidos por la totalidad 
+    de los participantes en cuestión.
+    \item \texttt{ObservableParticipantsLeft:} objeto que emplea el patrón de diseño 
+    \emph{Observer} para ir informando cuáles participantes se van conectando a la sala 
+    a medida que va ocurriendo, y así tener una noción de cuantos participantes faltan 
+    para completar la cuota puesta en un principio por el nodo directorio.
+    \item \texttt{ObservableMessagesArrived:} también emplea el patrón de diseño 
+    \emph{Observer} para informar al participante de los mensajes que van resultando 
+    de correr el protocolo, a medida que éste avanza. Despliega los mensajes en tiempo 
+    real.
 \end{itemize}
 
 \section{Aplicación Móvil}
 
 Para poder probar el uso de la \emph{API} implementada, se desarrolló una 
-aplicación móvil prototipo, que tiene como objetivo simplificar 
+aplicación móvil prototipo, que tiene como objetivo permitir un uso simplificado 
+del protocolo implementado, que permita a los usuarios montar una conversación 
+que asegure el anonimato de sus participantes.
+
+La aplicación está compuesta de 3 módulos: (1) conexión al nodo directorio, (2) envío 
+del mensaje por parte del participante, y (3) recepción de los mensajes 
+del resto de los participantes de la sala.
+
+\todo{completar esto}
 
 \section{Observación sobre tamaños de los mensajes}
 
