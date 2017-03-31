@@ -38,7 +38,17 @@
 
 \section{Diseño a primera vista}
 
-\todo{completar esto}
+El protocolo propuesto tiene como principal característica el no evitar las 
+posibles colisiones que puedan producirse (idea que se distancia de otros protocolos 
+que se enfocan en evitar la colisión de mensajes). De producirse la colisión, se 
+debe resolver corriendo nuevas rondas del protocolo, pero solamente permitiendo 
+que un subconjunto de los mensajes colisionados puedan re-enviarse en cada una 
+de las rondas subsecuentes, produciendo así que en cada ronda nueva que se 
+desarrolle, exista un menor número de mensajes colisionando, resultando así 
+en rondas que se desarrollen sin colisión, enviándose los mensajes de manera 
+solitaria, lo que les permite ser legibles por el resto de los participantes.
+
+\todo{agregar diagrama de resolución de colisiones}
 
 \section{Compartición de Llaves}
 
@@ -91,7 +101,17 @@ Para que el protocolo funcione correctamente, es necesario que dicho mensaje $m_
 
 Con estos valores establecidos, en cada ronda cada participante $P_i$ debe formar el siguiente valor $M_i$:
 
-\todoline{agregar diagrama de $M_i$}
+\begin{figure}
+  \centering
+    \includegraphics[width=1\textwidth]{imagenes/message-format(1).pdf}
+  \caption{$M_i$ cuando se envía un mensaje}
+\end{figure}
+
+\begin{figure}
+  \centering
+    \includegraphics[width=1\textwidth]{imagenes/message-format-nomessage.pdf}
+  \caption{$M_i$ cuando no se envía un mensaje}
+\end{figure}
 
 \section{Correctitud del Formato del Mensaje}
 
@@ -135,7 +155,7 @@ Después de que toda la sala haya recibido todos los conjuntos de valores enviad
 
 \section{Demostración de conocimiento del mensaje}
 
-Cada particiante $P_i$ debe enviar un \emph{commitment} sobre el mensaje $M_i$ construido anteriormente, con el objetivo que más adelante envíe el mensaje que ha estado construyendo durante la presente ronda. Para construir dicho \emph{commitment} utilizará los \emph{commitments} de los valores individuales enviados anteriormente. Para ello calculará $c_{M_i} = f(c_{m_i}, c_{pad_i}, c_{b_i})\footnote{\todoline{Agregar alguna descripción de la funcion f}} = g^{M_i} h^{r_i^{M}}$ (donde $r_i^{M}$ es un valor aleatorio definido por los valores $r_i^m, r_i^{pad}, r_i^b$). 
+Cada particiante $P_i$ debe enviar un \emph{commitment} sobre el mensaje $M_i$ construido anteriormente, con el objetivo que más adelante envíe el mensaje que ha estado construyendo durante la presente ronda. Para construir dicho \emph{commitment} utilizará los \emph{commitments} de los valores individuales enviados anteriormente. Para ello calculará $c_{M_i} = f(c_{m_i}, c_{pad_i}, c_{b_i})$\footnote{$f(x, y, z) = x^{2^{|pad|}(n+1)} y^{(n+1)} z$} $= g^{M_i} h^{r_i^{M}}$ (donde $r_i^{M}$ es un valor aleatorio definido por los valores $r_i^m, r_i^{pad}, r_i^b$). 
 
 Luego de esto se necesitará que cada participante envíe una \emph{zero-knowledge proof} demostrando que conoce los valores $M_i, r_i^M$ dentro de $c_{M_i}$: $\mathtt{PoK_i^M} = PoK\{(M_i, r_i^M) : c_{M_i} = g^{M_i} h^{r_i^M}\}$.
 

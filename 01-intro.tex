@@ -58,7 +58,11 @@ Ahora solo queda encontrar el mensaje enviado por $p_1$. Para ello, se calcula e
 
 La primera (1) simplificación se debe a la definición de $O_i$ y la separación de la suma en las dos componentes $K_i$ y $M_i$. La segunda (2) hace referencia al hecho que $M_i = 0$ $\forall i \geq 2$, por lo que solo ``sobrevive'' $M_1 = m$. Finalmente la tercera (3) simplificación se debe al hecho que las llaves compartidas se cancelan mutuamente, debido al hecho que se explicitó que $k_{ij} = -k_{ji}$. Por lo tanto, el valor $D$ corresponde al único mensaje enviado $m$, revelando su valor al resto de los participantes, y manteniendo en el anonimato a su emisor (en este caso, $p_1$).
 
-\todo{Agregar diagrama con ejemplo típico de DC-Net generalizada}
+\begin{figure}
+  \centering
+    \includegraphics[width=0.5\textwidth]{imagenes/dcnet-general-03.png}
+  \caption{Valores compartidos y enviados en DC-Net}
+\end{figure}
 
 Informalmente, se puede decir que el mensaje $m$ se oculta entre la suma de las llaves compartidas, que junto con la imposibilidad de conocer el valor de todas las llaves compartidas (a menos que se coludan $n-1$ participantes), es imposible poder dilucidar si un mensaje $m$ vino de un cierto $O_i$ revelado por algún participante.
 
