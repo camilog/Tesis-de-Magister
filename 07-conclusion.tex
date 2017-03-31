@@ -1,3 +1,39 @@
-\chapter{Conclusión}
+\chapter{Conclusiones}
 
-\todo{completar esto}
+Las actuales alternativas que existen para proveer anonimato en comunicación 
+entre personas o mientras se navega en Internet están altamente cuestionadas 
+debido a nuevos ataques que vulneran la seguridad de sus usuarios. Es por ello 
+que es necesario explorar nuevas alternativas y proponer nuevos protocolos 
+que no posean las vulnerabilidades de las actuales soluciones y puedan ser usadas 
+por distintas personas, cualesquiera sea su necesidad de anonimato.
+
+Es en esa dirección que el presente trabajo realiza un aporte importante, avanzando 
+en la investigación de crear protocolos basados en \emph{DC-Net}, protocolo que no 
+posee las vulnerabilidades antes mencionadas, que sean eficientes y prácticos para uso masivo. 
+La manera más específica para asegurar la eficiencia del protocolo es probar su 
+desempeño mediante una implementación que se ajuste a todos los detalles criptográficos 
+que el protocolo implica.
+
+Finalmente la implementación realizada muestra varias conclusiones que eran difícil 
+de visualizar solamente con la descripción criptográfica del protocolo:
+
+\begin{enumerate}
+    \item Escenarios ideales: las pruebas realizadas muestran que el protocolo posee una 
+    alta dependencia (en términos de tiempo total del protocolo) a dos factores: 
+    (1) tamaño de los mensajes, y (2) número de participantes. Por lo anterior, el escenario 
+    ideal de uso del protocolo son grupos no muy grandes de participantes, enviando mensajes 
+    no muy largos tampoco. Dicho escenario se ajusta muy bien a un protocolo de 
+    \emph{microblogging} anónimo (un símil a \emph{Twitter} anónimo). \todoline{Agregar referencia a las prubeas, sobre tiempos alcanzados en el escenario de 30 personas enviando mensajes de 140 caracteres}.
+    \item Usabilidad del protocolo: el protocolo propuesto implica muy poca participación 
+    del usuario que desea enviar un mensaje anónimo, o que simplemente desea ayudar en proveer 
+    mayor anonimato para el resto de los participantes. Esto resulta en que el protocolo 
+    puede volverse transparente para el usuario, y simplemente enviar mensajes tal como lo hace 
+    con otras aplicaciones más populares como \emph{WhatsApp}\footnote{\url{https://www.whatsapp.com/}} o \emph{Telegram}\footnote{\url{https://telegram.org/}}. Además de esto, el protocolo 
+    no necesita mayor infraestructura adicional (servidores externos o nodos intermedios), sino 
+    simplemente un nodo Directorio (que puede ser iniciado por uno de los mismos participantes), 
+    que igualmente posee una aplicación móvil fácil de utilizar.
+    \item Requisitos de confianza: 
+    \item Importancia de capa de comunicación:
+    \item Construcción de aplicación final:
+\end{enumerate}
+
