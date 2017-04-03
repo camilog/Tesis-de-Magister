@@ -23,17 +23,36 @@ de visualizar solamente con la descripción criptográfica del protocolo:
     (1) tamaño de los mensajes, y (2) número de participantes. Por lo anterior, el escenario 
     ideal de uso del protocolo son grupos no muy grandes de participantes, enviando mensajes 
     no muy largos tampoco. Dicho escenario se ajusta muy bien a un protocolo de 
-    \emph{microblogging} anónimo (un símil a \emph{Twitter} anónimo). \todoline{Agregar referencia a las prubeas, sobre tiempos alcanzados en el escenario de 30 personas enviando mensajes de 140 caracteres}.
+    \emph{microblogging} anónimo (un símil a \emph{Twitter} anónimo). \todoline{Agregar referencia 
+    a las prubeas, sobre tiempos alcanzados en el escenario de 30 personas enviando mensajes de 140 caracteres}.
     \item Usabilidad del protocolo: el protocolo propuesto implica muy poca participación 
     del usuario que desea enviar un mensaje anónimo, o que simplemente desea ayudar en proveer 
     mayor anonimato para el resto de los participantes. Esto resulta en que el protocolo 
     puede volverse transparente para el usuario, y simplemente enviar mensajes tal como lo hace 
-    con otras aplicaciones más populares como \emph{WhatsApp}\footnote{\url{https://www.whatsapp.com/}} o \emph{Telegram}\footnote{\url{https://telegram.org/}}. Además de esto, el protocolo 
-    no necesita mayor infraestructura adicional (servidores externos o nodos intermedios), sino 
+    con otras aplicaciones más populares como \emph{WhatsApp}\footnote{\url{https://www.whatsapp.com/}} o 
+    \emph{Telegram}\footnote{\url{https://telegram.org/}}. 
+    Además de esto, el protocolo no necesita mayor infraestructura adicional (servidores externos o nodos intermedios), sino 
     simplemente un nodo Directorio (que puede ser iniciado por uno de los mismos participantes), 
     que igualmente posee una aplicación móvil fácil de utilizar.
-    \item Requisitos de confianza: 
-    \item Importancia de capa de comunicación:
-    \item Construcción de aplicación final:
+    \item Requisitos de confianza: la gran diferencia del protocolo propuesto con 
+    otras propuestas realizadas en el último tiempo, es la falta del requerimiento de 
+    confianza en un servidor externo al protocolo. Para poder escalar de manera importante 
+    con el número de participantes, la gran mayoría de las nuevas propuestas han necesitado 
+    que los participantes depositen confianza en un servidor externo ajeno a los propios 
+    participantes. \todoline{Agregar punch en este tema}
+    \item Importancia de capa de comunicación: la implementación de un protocolo criptográfico 
+    implica un conocimiento, no solo de la matemática y de los conceptos criptográficos del 
+    protocolo en sí, sino también de la capa de comunicación entre los distintos participantes, 
+    combinando conceptos e implementación de sistemas distribuidos, junto con intercambio de 
+    mensajes en redes de manera general. Muchas de las mejoras a la eficiencia de protocolos 
+    criptográficos viene de la mano de las mejoras en la capa de comunicación (manejo de colas 
+    de mensajes, manejo de desconexiones de usuarios, sincronización entre los distintos participantes, 
+    etc).
+    \item Construcción de aplicación final: un paso muy importante en el estudio de protocolos criptográficos 
+    es poder crear aplicaciones finales, permitiendo a los usuarios aprovechar los últimos avances 
+    en el estudio de la criptografía. De nada sirven los avances en la teoría, sino se transforman 
+    en aplicaciones finales para los usuarios, los cuales pueden mejorar su seguridad y privacidad 
+    valiéndose de esos últimos avances.
 \end{enumerate}
+
 
