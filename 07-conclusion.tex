@@ -9,7 +9,8 @@ por distintas personas, cualesquiera sea su necesidad de anonimato.
 
 Es en esa dirección que el presente trabajo realiza un aporte importante, avanzando 
 en la investigación de crear protocolos basados en \emph{DC-Net}, protocolo que no 
-posee las vulnerabilidades antes mencionadas, que sean eficientes y prácticos para uso masivo. 
+posee las vulnerabilidades antes mencionadas, que sean eficientes y prácticos para 
+uso masivo. 
 La manera más específica para asegurar la eficiencia del protocolo es probar su 
 desempeño mediante una implementación que se ajuste a todos los detalles criptográficos 
 que el protocolo implica.
@@ -24,14 +25,17 @@ de visualizar solamente con la descripción criptográfica del protocolo:
     ideal de uso del protocolo son grupos no muy grandes de participantes, enviando mensajes 
     no muy largos tampoco. Dicho escenario se ajusta muy bien a un protocolo de 
     \emph{microblogging} anónimo (un símil a \emph{Twitter} anónimo). \todoline{Agregar referencia 
-    a las prubeas, sobre tiempos alcanzados en el escenario de 30 personas enviando mensajes de 140 caracteres}.
+    a las prubeas, sobre tiempos alcanzados en el escenario de 30 personas enviando mensajes de 140 
+    caracteres}.
     \item Usabilidad del protocolo: el protocolo propuesto implica muy poca participación 
     del usuario que desea enviar un mensaje anónimo, o que simplemente desea ayudar en proveer 
     mayor anonimato para el resto de los participantes. Esto resulta en que el protocolo 
     puede volverse transparente para el usuario, y simplemente enviar mensajes tal como lo hace 
-    con otras aplicaciones más populares como \emph{WhatsApp}\footnote{\url{https://www.whatsapp.com/}} o 
+    con otras aplicaciones más populares como 
+    \emph{WhatsApp}\footnote{\url{https://www.whatsapp.com/}} o 
     \emph{Telegram}\footnote{\url{https://telegram.org/}}. 
-    Además de esto, el protocolo no necesita mayor infraestructura adicional (servidores externos o nodos intermedios), sino 
+    Además de esto, el protocolo no necesita mayor infraestructura adicional (servidores externos o 
+    nodos intermedios), sino 
     simplemente un nodo Directorio (que puede ser iniciado por uno de los mismos participantes), 
     que igualmente posee una aplicación móvil fácil de utilizar.
     \item Requisitos de confianza: la gran diferencia del protocolo propuesto con 
@@ -46,9 +50,11 @@ de visualizar solamente con la descripción criptográfica del protocolo:
     combinando conceptos e implementación de sistemas distribuidos, junto con intercambio de 
     mensajes en redes de manera general. Muchas de las mejoras a la eficiencia de protocolos 
     criptográficos viene de la mano de las mejoras en la capa de comunicación (manejo de colas 
-    de mensajes, manejo de desconexiones de usuarios, sincronización entre los distintos participantes, 
+    de mensajes, manejo de desconexiones de usuarios, sincronización entre los distintos
+     participantes, 
     etc).
-    \item Construcción de aplicación final: un paso muy importante en el estudio de protocolos criptográficos 
+    \item Construcción de aplicación final: un paso muy importante en el estudio de protocolos 
+    criptográficos 
     es poder crear aplicaciones finales, permitiendo a los usuarios aprovechar los últimos avances 
     en el estudio de la criptografía. De nada sirven los avances en la teoría, sino se transforman 
     en aplicaciones finales para los usuarios, los cuales pueden mejorar su seguridad y privacidad 
