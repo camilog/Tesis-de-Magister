@@ -3,7 +3,24 @@
 
 \subsection{Simulación de Red}
 
+En un principio se hicieron experimentos utilizando software 
+de simulación de redes para poder lograr tamaños de 
+\emph{anonymity-set} aceptables. Este software utilizado fue 
+\emph{CORE}\footnote{\url{https://www.nrl.navy.mil/itd/ncs/products/core}} 
+el cual permite emular distintos nodos en una red simulada 
+con los parámetros que el usuario estime convenientes. Utilizando 
+este software se simularon nodos conectados a través de una red local, 
+donde cada uno de los nodos se comporta como un participante dentro 
+del protocolo anteriormente descrito.
 
+Además de dicho software, se levantaron instancias de 
+\emph{Docker}\footnote{\url{https://www.docker.com/}}, pudiendo así 
+formar una red local entre los distintos contenedores corriendo 
+en una misma máquina.
+
+Ambas simulaciones mostraron un pobre rendimiento a la hora de 
+correr el protocolo, mostrando tiempos de un orden de magnitud 
+mayores que los tiempos reales que se lograron \emph{a posteriori}.
 
 \subsection{Uso de red real}
 
