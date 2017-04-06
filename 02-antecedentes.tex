@@ -85,8 +85,17 @@ sino que se conectan a servidores intermediarios quienes funcionan como \emph{br
 presentes. Los sistemas propuestos fueron evolucionando, llegando a realizarse pruebas con hasta 1000 participantes enviando mensajes. 
 Si bien en \emph{Verdict} logran incluir criptografía para evitar que participantes maliciosos 
 ataquen el sistema, el sistema se basa en que cada participante debe depositar una cuota de 
-confianza en uno de estos servidores intermediarios que utiliza. 
+confianza en uno de estos servidores intermediarios que utiliza. Si bien esto puede parecer poco 
+(depositar confianza en un servidor externo), en la práctica lleva a muchas dudas y dificultad 
+para llevar a cabo, e incorpora un elemento que no está presente en el protocolo original. 
+En la época actual, la confianza es un elemento que debe ser manejado con cuidado, procurando, 
+desde el punto de vista científico, disminuir y en mejor medida evitar, que los participantes 
+deban confiar en terceros para poder asegurar su privacidad. 
 
+Luego de \emph{Verdict}, las implementaciones que siguieron tenían como objetivo 
+aumentar aun más la escalabilidad del sistema, llegando a un orden de magnitud más 
+con la adición de técnicas derivadas de \emph{Private Information Retrieval (PIR)}
+\todoline{agregar referencia a PIR}. 
 
 \todo{Vuvuzela/Riposte como mejoras utilizando PIR}
 
