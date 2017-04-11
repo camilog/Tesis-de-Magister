@@ -91,7 +91,21 @@ dentro del \emph{commitment}.
 
 \subsection{Verificación de los valores enviados}
 
-\todoline{Verificar zkp, multiplicacion de commitments de llaves y como encontrar al culpable}
+Cada participante, al recibir los \emph{commitments} enviados por el resto de la 
+sala, debe verificar que se cumple la siguiente propiedad: $\prod c_{K_i} = 1$ 
+(esto se debe a la cancelación que se debe producir al sumar las llaves). Si es que 
+lo anterior no se produce, es resultado de que uno (o varios) de los participantes envió un 
+valor incorrecto dentro de su \emph{commitment} respectivo, lo que implicaría una 
+no cancelación de las llaves en etapas subsecuentes del protocolo, alterando la entrega 
+de los mensajes.
+
+Es posible encontrar al(a los) participante(s) culpable(s) de enviar información errónea. 
+Para ello cada participante $P_j$ revelará cada valor $c_{k_{ji}}$ calculado anteriormente. 
+Luego de esto, el resto de la sala puede verificar que se deben cumplir dos propiedades: 
+(1) $c_{K_j} = \prod c_{k_{ji}}$ que se debe tener por definición, y 
+(2) $c_{k_{ij}} c_{k_{ji}} = 1$ lo cual se debe a la cancelación de las llaves. Si alguna 
+de las dos propiedades anteriores no se cumplen, el participane $P_j$ es malicioso y deben 
+tomarse las medidas pertinentes que considere la sala.
 
 \section{Formato del Mensaje}
 
@@ -114,13 +128,13 @@ los siguientes:
 Con estos valores establecidos, en cada ronda cada participante $P_i$ debe formar 
 el siguiente valor $M_i$:
 
-\begin{figure}
+\begin{figure}[H]
   \centering
     \includegraphics[width=1\textwidth]{imagenes/message-format(1).pdf}
   \caption{$M_i$ cuando se envía un mensaje}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
   \centering
     \includegraphics[width=1\textwidth]{imagenes/message-format-nomessage.pdf}
   \caption{$M_i$ cuando no se envía un mensaje}
@@ -441,7 +455,7 @@ es forzar a los participantes involucrados a enviar los mismos mensajes $m_i$ en
 distintas, haciendo que en rondas subsecuentes la cantidad de mensajes que se envíen sea 
 cada vez menor, resultando \emph{a posteriori} en rondas donde solamente un mensaje es enviado.
 
-El criterio para ``dividir'' los mensajes $m_i$ será decidir si el mensaje es menor o mayor que 
+El criterio para ``dividir'' los mensajes $M_i$ será decidir si el mensaje es menor o mayor que 
 el mensaje promedio $\overline{m}^{(k)} = \hat{m}^{(k)} / t^{(k)}$.
 
 Cada participante $P_i$ deberá calcular cuando (en que ronda) se le permite reenviar su mensaje $m_i$:
@@ -452,8 +466,7 @@ Cada participante $P_i$ deberá calcular cuando (en que ronda) se le permite ree
 \end{itemize}
 
 Con este criterio el protocolo asegura que las rondas $2k$ y $2k + 1$ tendrán valores 
-$t^{(2k)}, t^{(2k + 1)}$ menores a $t^{(k)}$  \todoline{revisar que si para que suceda esto 
-es necesario hablar de $M_i$ en vez de $m_i$}, resultando en que recursivamente en rondas 
+$t^{(2k)}, t^{(2k + 1)}$ menores a $t^{(k)}$, resultando en que recursivamente en rondas 
 subsecuentes se envíen los mensajes de manera solitaria.
 
 Finalmente, luego de establecer cuando los participantes involucrados en la colisión enviarán 
@@ -463,5 +476,3 @@ saber de manera pública), de no haber participantes habilitados para enviar men
 ronda, se salta a la ronda $k+2$ y así sucesivamente. La próxima ronda se desarrolla de manera 
 recursiva tal como fue explicado anteriormente, primero viendo si corresponde a una ronda real 
 o virtual, y luego llevando a cabo los pasos necesarios por todos los participantes en la sala.
-
-\todo{decir que los canales de comunicación deben estar autenticados, no encriptados}

@@ -24,9 +24,7 @@ de visualizar solamente con la descripción criptográfica del protocolo:
     (1) tamaño de los mensajes, y (2) número de participantes. Por lo anterior, el escenario 
     ideal de uso del protocolo son grupos no muy grandes de participantes, enviando mensajes 
     no muy largos tampoco. Dicho escenario se ajusta muy bien a un protocolo de 
-    \emph{microblogging} anónimo (un símil a \emph{Twitter} anónimo). \todoline{Agregar referencia 
-    a las prubeas, sobre tiempos alcanzados en el escenario de 30 personas enviando mensajes de 140 
-    caracteres}.
+    \emph{microblogging} anónimo (un símil a \emph{Twitter} anónimo).
     \item Usabilidad del protocolo: el protocolo propuesto implica muy poca participación 
     del usuario que desea enviar un mensaje anónimo, o que simplemente desea ayudar en proveer 
     mayor anonimato para el resto de los participantes. Esto resulta en que el protocolo 
@@ -43,7 +41,11 @@ de visualizar solamente con la descripción criptográfica del protocolo:
     confianza en un servidor externo al protocolo. Para poder escalar de manera importante 
     con el número de participantes, la gran mayoría de las nuevas propuestas han necesitado 
     que los participantes depositen confianza en un servidor externo ajeno a los propios 
-    participantes. \todoline{Agregar punch en este tema}
+    participantes. Si bien el protocolo descrito en este trabajo no posee la escalabilidad 
+    de otras propuestas, el hecho de no obligar a los participantes a confiar en un servidor 
+    externo, eleva su estándar de seguridad y privacidad, volviendo a la idea original del 
+    protocolo \emph{DC-Net}, de compartir un mensaje anónimo, incluso en un contexto de 
+    desconfianza hacia el resto de los participantes. 
     \item Importancia de capa de comunicación: la implementación de un protocolo criptográfico 
     implica un conocimiento, no solo de la matemática y de los conceptos criptográficos del 
     protocolo en sí, sino también de la capa de comunicación entre los distintos participantes, 

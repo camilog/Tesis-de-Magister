@@ -135,7 +135,7 @@ Finalmente, cada participará revelará enviando el valor $O_i$ al resto de los 
 valores $O_i$ quedan disponibles tanto para el resto de los participantes, como para cualquier observador externo.
 
 Ahora solo queda encontrar el mensaje enviado por $p_1$. Para ello, se calcula el valor $D$ como la suma de todos los $O_i$ enviados por los 
-participantes: $$D = \sum_{i=1}^n O_i \overset{(1)}{=} \sum_{i=1}^n K_i + \sum_{i=1}^n M_i \overset{(2)}{=} \sum_{i=1}^n K_i + m \overset{(3)}{=} m$$.
+participantes: $$D = \sum_{i=1}^n O_i \overset{(1)}{=} \sum_{i=1}^n K_i + \sum_{i=1}^n M_i \overset{(2)}{=} \sum_{i=1}^n K_i + m \overset{(3)}{=} m$$
 
 La primera (1) simplificación se debe a la definición de $O_i$ y la separación de la suma en las dos componentes $K_i$ y $M_i$. La segunda 
 (2) hace referencia al hecho que $M_i = 0$ $\forall i \geq 2$, por lo que solo ``sobrevive'' $M_1 = m$. Finalmente la tercera (3) simplificación 
@@ -143,7 +143,7 @@ se debe al hecho que las llaves compartidas se cancelan mutuamente, debido al he
 valor $D$ corresponde al único mensaje enviado $m$, revelando su valor al resto de los participantes, y manteniendo en el anonimato a su emisor 
 (en este caso, $p_1$).
 
-\begin{figure}
+\begin{figure}[H]
   \centering
     \includegraphics[width=0.5\textwidth]{imagenes/dcnet-general-03.png}
   \caption{Valores compartidos y enviados en DC-Net}
