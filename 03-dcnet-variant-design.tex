@@ -1,4 +1,4 @@
-\chapter{Diseño de la variante \emph{DC-Net}}
+\chapter{Diseño de la variante \emph{DC-Net}}\label{cap3}
 
 \section{Glosario de Términos}
 
@@ -9,15 +9,15 @@
     mensajes. 
     \item Ronda: serie de pasos (descritos a partir de la próxima sección) que 
     se llevan a cabo (principalmente intercambiando mensajes entre los 
-    participantes) con el objetivo de ir reduciendo ronda a ronda los mensajes 
+    participantes) con el objetivo de ir reduciendo, ronda a ronda, los mensajes 
     enviados por cada participante.  
     \item Mensaje: información que cada participante desea transmitir de 
     manera anónima. Generalmente se relacionará a un conjunto de caracteres 
     (representados como \emph{String}), en un cierto idioma, que se desea 
-    enviar.
+    comunicar.
     \item Sesión: conjunto de rondas que se necesitan realizar para que pueda 
     ser transmitido, a lo más, un mensaje por participante. Al principio de 
-    cada sesión, se le da la oportunidad a cada participante de decidir si 
+    cada sesión se le brinda la oportunidad a cada participante de decidir si 
     enviará o no un mensaje. Luego que cada participante realizó su decisión, 
     se inicia el protocolo descrito a continuación, que tiene como objetivo 
     que cada uno de los mensajes que se decidieron enviar, se envíen de manera 
@@ -28,7 +28,7 @@
     resultantes del protocolo, como mensajes intermedios intercambiados entre 
     los distintos participantes durante la realización del protocolo. A no ser 
     que se explicite, todos los mensajes del protocolo pueden ser monitoreados 
-    por un observador externo.
+    por un observador externo y se consideran públicos.
     \item Adversario: agente que tiene como finalidad, ya sea encontrar al 
     emisor de un cierto mensaje, o bien, alterar el comportamiento ``normal'' 
     del protocolo (retrasándolo o impidiendo su total realización). Este 
@@ -37,7 +37,10 @@
     \item Canal de comunicación: enlace existente entre dos nodos del 
     sistema. Estos canales deben ser autenticados y no encriptados, es decir, todos los mensajes 
     enviados en el protocolos deben ir firmados utilizando un protocolo 
-    de clave pública y éstos pueden enviarse ``en plano''.
+    de clave pública y éstos pueden enviarse ``en plano'', de manera que cualquier 
+    monitoreo tiene la capacidad de observar los mensajes enviados, pero no 
+    incorporar mensajes al sistema por parte de emisores no participantes del 
+    protocolo.
 \end{itemize}
 
 \section{Diseño a primera vista}
@@ -47,10 +50,21 @@ posibles colisiones que puedan producirse (idea que se distancia de otros protoc
 que se enfocan en evitar la colisión de mensajes). De producirse la colisión, se 
 debe resolver corriendo nuevas rondas del protocolo, pero solamente permitiendo 
 que un subconjunto de los mensajes colisionados puedan re-enviarse en cada una 
-de las rondas subsecuentes, produciendo así que en cada ronda nueva que se 
+de las rondas subsecuentes, produciendo así que en cada nueva ronda que se 
 desarrolle, exista un menor número de mensajes colisionando, resultando así 
 en rondas que se desarrollen sin colisión, enviándose los mensajes de manera 
 solitaria, lo que les permite ser legibles por el resto de los participantes.
+
+Las rondas que se desarrollan durante el protocolo son de dos tipos: reales y virtuales. 
+En las rondas reales es necesario el envío de múltiples mensajes por parte de los participantes, 
+involucrando el uso de varias herramientas criptográficas con el objetivo 
+de evitar que participantes maliciosos alteren el normal desarrollo del protocolo. En cambio 
+las rondas virtuales son tales que su resultado puede inferirse por rondas 
+reales ejecutadas anteriormente, por lo que no es necesario el envío de 
+ningún mensaje por parte de los participantes (las rondas reales cuestan trabajo por 
+parte de los participantes, y las rondas virtuales no). Si la primera colisión 
+de mensajes es de $n$ mensajes, eso implica que es necesario ejecutar $n$ rondas 
+reales para poder resolver dicha colisión. 
 
 \todo{agregar diagrama de resolución de colisiones}
 
@@ -62,26 +76,29 @@ tomando un cuenta un posible adversario que esté monitoreando el canal de
 comunicación existente entre dos participantes cualquiera.
 
 Para solucionar este problema se propone el uso del algoritmo 
-\emph{Diffie-Hellman} \cite{diffie1976new} que permite generar un valor 
+\emph{Diffie-Hellman} \cite{diffie1976new}, el cual permite generar un valor 
 secreto compartido entre dos agentes, cuyo canal de comunicación es 
 monitoreado por un adversario.
 
 Luego que cada par de participantes $\{P_i, P_j\}$ ejecuten el algoritmo 
-\emph{Diffie-Hellman}, obtendrán un valor secreto $k_{ij}$. Para futuros pasos 
+\emph{Diffie-Hellman}, obtendrán un valor secreto $k_{ij}$ (se define que $k_{ij} = -k_{ji}$). 
+Para futuros pasos 
 del protocolo, es necesario que ejecuten este proceso dos veces, ya que es 
-necesario que cuenten con un segundo valor compartido $r^k_{ij}$.
+necesario que cuenten con un segundo valor compartido $r^k_{ij}$ (también se define 
+que $r^k_{ij} = -r^k_{ji}$).
 
 \subsection{\emph{Commitments} sobre las llaves}
 
 Posteriormente cada participante $P_i$ debe realizar un \emph{commitment} a 
 cada valor $k_{ij}$ que posee compartido con cada otro participante $P_j$, 
-utilizando como aleatoriedad el segundo valor compartido, $r^k_{ij}$. Esto 
-resulta en que cada participante posee $n - 1$ de los siguientes valores 
+utilizando como aleatoriedad el segundo valor compartido $r^k_{ij}$. Esto 
+resulta en que cada participante $P_i$ posee $n - 1$ de los siguientes valores 
 $c_{k_{ij}} = g^{k_{ij}} h^{r^k_{ij}}$.
 
 Luego de esto, cada participante $P_i$ generará dos valores, el primero será 
 la suma de todas las llaves compartidas que posee $K_i = \sum k_{ij}$. El 
-segundo valor será un \emph{commitment} sobre dicho valor, esto es, 
+segundo valor será un \emph{commitment} sobre dicho valor, calculado utilizando 
+los valores $c_{k_{ij}}$, esto es, 
 $c_{K_i} = \prod c_{k_{ij}}$.
 
 Finalmente cada participante $P_i$ enviará al resto de la sala vía 
@@ -102,9 +119,9 @@ de los mensajes.
 Es posible encontrar al(a los) participante(s) culpable(s) de enviar información errónea. 
 Para ello cada participante $P_j$ revelará cada valor $c_{k_{ji}}$ calculado anteriormente. 
 Luego de esto, el resto de la sala puede verificar que se deben cumplir dos propiedades: 
-(1) $c_{K_j} = \prod c_{k_{ji}}$ que se debe tener por definición, y 
-(2) $c_{k_{ij}} c_{k_{ji}} = 1$ lo cual se debe a la cancelación de las llaves. Si alguna 
-de las dos propiedades anteriores no se cumplen, el participane $P_j$ es malicioso y deben 
+(1) $c_{K_j} = \prod c_{k_{ji}}$, que se debe tener por definición, y 
+(2) $c_{k_{ij}} c_{k_{ji}} = 1$, lo cual se debe a la cancelación de las llaves. Si alguna 
+de las dos propiedades anteriores no se cumplen, el participante $P_j$ es malicioso y deben 
 tomarse las medidas pertinentes que considere la sala.
 
 \section{Formato del Mensaje}

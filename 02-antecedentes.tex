@@ -1,13 +1,13 @@
-\chapter{Antecedentes}
+\chapter{Antecedentes}\label{cap2}
 \section{\emph{Pedersen Commitments}}
 
 Muchas primitivas criptográficas tienen como propósito ``ocultar'' información, es decir, transformar un cierto mensaje en una 
-secuencia que, a primera vista, parecer ser totalmente aleatoria, y que solo puede ser ``comprendida'' (o transformada en el 
+secuencia que, a primera vista, parece ser totalmente aleatoria, y que solo puede ser ``comprendida'' (o transformada en el 
 mensaje original) con el uso de una cierta clave secreta.
 
 Existe una variante de la descripción anterior, que se presenta cuando la clave para descifrar un cierto texto secreto, es el 
 mismo mensaje original. A un protocolo así se le llama \emph{protocolo de commitment} (compromiso), ya que no posee como finalidad 
-comunicar un mensaje a otra persona de manera secreta, sino que más bien comprometer a un cierto participante a un cierto mensaje, 
+comunicar un mensaje a otra persona de manera secreta, sino que más bien comprometer a un cierto participante a un mensaje en particular, 
 dándole la oportunidad que este mensaje pueda permanecer en secreto, pero que \emph{a posteriori} la única manera de aceptar su 
 mensaje es que revele el valor con el cual se comprometió en un principio.
 
@@ -15,9 +15,9 @@ Existen varias herramientas matemáticas que nos permiten instanciar un protocol
 trabajo se utilizó el protocolo \emph{Pedersen Commitment}\cite{pedersen1991non}, el cual se basa en la dificultad de resolver el 
 problema del logaritmo discreto\footnote{\url{http://www.doc.ic.ac.uk/~mrh/330tutor/ch06s02.html}}.
 
-\emph{Pedersen Commitment Scheme \cite{pedersen1991non}:} Sea $G_q$ un grupo de orden $q$, en donde el problema del logaritmo discreto se crea dificil 
+\emph{Pedersen Commitment Scheme} \cite{pedersen1991non}: Sea $G_q$ un grupo de orden $q$, en donde el problema del logaritmo discreto se crea difícil 
 de resolver. Sean $g,h$ generadores de $G_q$ elegidos de manera aleatoria. Sea $s \in \mathbb{Z}_q$ un secreto al cual el 
-participante se comprometerá. Además sea $r \in \mathbb{Z}_q$ elegido aleatoriamente. Se le llama un \emph{Pedersen commitment} 
+participante se comprometerá. Además sea $r \in \mathbb{Z}_q$ elegido también de manera aleatoria. Se le llama un \emph{Pedersen commitment} 
 sobre $s$ al valor: $$c := g^s h^r$$
 
 Los \emph{Pedersen commitments} brindan dos propiedades importantes: 
@@ -32,7 +32,7 @@ Esto quiere decir que, si un participante calcula un \emph{commitment} sobre un
 \section{\emph{Zero-Knowledge Proofs}}
 
 Una \emph{zero-knowledge proof} permite a una persona poder demostrar el conocimiento de cierto valor $\alpha$ que cumple una propiedad 
-  (en Inglés, \emph{statement}), sin revelar el valor de $\alpha$ (el testigo) en esa demostración.
+  (\emph{statement}), sin revelar el valor de $\alpha$ (el testigo) en esa demostración.
 Se pueden construir demostraciones para diferentes tipos de propiedades (\emph{statements}), como por ejemplo: el conocimiento de 
 un logaritmo discreto; la igualdad de diferentes logaritmos con distintas bases, además de combinaciones con operadores 
 lógicos, entre otros. Además existen maneras para poder demostrar propiedades genéricas sobre logaritmos discretos \cite{camenisch1997proof}.
@@ -63,7 +63,7 @@ encontrador a protocolos que ofrecían más rapidez a la hora de entregar mensaj
 (frente a otras alternativas como \emph{mixnets} y \emph{onion-routing})
 pero sufre problemas de escalabilidad. Es por ello que los esfuerzos de muchas investigaciones ha sido como mantener la 
 seguridad que ofrece el protocolo original, pero apuntando a arreglar los problemas de escabalidad que posee, y así construir 
-una alternativa viable y eficiente a \emph{TOR} a la hora de mantenerse anónimo mientras se navega por Internet.
+una alternativa viable y eficiente a \emph{TOR}, a la hora de mantenerse anónimo mientras se navega por Internet.
 
 La primera implementación de una variante del protocolo \emph{DC-Net} se encuentra en \cite{goel2003herbivore}, donde se presenta el 
 sistema \emph{Herbivore}, el cual logra soslayar el problema de escalabilidad creando pequeños \emph{cluster} de participantes, 
@@ -71,7 +71,7 @@ reduciendo la cantidad de conexiones necesarias para enviar los mensajes anónim
 de participantes. Sin embargo, no posee ninguna manera de asegurar la integridad del sistema, por lo que es vulnerable a 
 ataques realizados por participantes maliciosos, con el objetivo de estropear el desarrollo del protocolo.
 
-Luego de \emph{Herbivore} las implementaciones que siguieron fueron realizadas por el grupo 
+Luego de \emph{Herbivore}, las implementaciones que siguieron fueron realizadas por el grupo 
 \emph{dedis (Decentralized and Distributed Systems Research)}\footnote{\url{http://dedis.cs.yale.edu/}} de \emph{Yale University}, 
 quienes presentan tres sistemas: \emph{Dissent}, \emph{D3} y \emph{Verdict} 
 \cite{corrigan2010dissent, wolinsky2012dissent, wolinsky2012scalable, corrigan2012proactively}. Estos sistemas tienen como principal 
@@ -87,11 +87,11 @@ confianza en uno de estos servidores intermediarios que utiliza. Si bien esto pu
 (depositar confianza en un servidor externo), en la práctica lleva a muchas dudas y dificultad 
 para llevar a cabo, e incorpora un elemento que no está presente en el protocolo original. 
 En la época actual, la confianza es un elemento que debe ser manejado con cuidado, procurando, 
-desde el punto de vista científico, disminuir y en mejor medida evitar, que los participantes 
+desde el punto de vista científico, disminuir, y en mejor medida evitar, que los participantes 
 deban confiar en terceros para poder asegurar su privacidad. 
 
 Luego de \emph{Verdict}, las implementaciones que siguieron tenían como objetivo 
-aumentar aun más la escalabilidad del sistema, llegando a un orden de magnitud más 
+aumentar aun más la escalabilidad del sistema, llegando a aumentar en varios ordenes de magnitud 
 con la adición de técnicas derivadas de \emph{Private Information Retrieval (PIR)} 
 \cite{chor1995private}. Estos sistemas son \emph{Riffle} \cite{kwon2016riffle} y 
 \emph{Riposte} \cite{corrigan2015riposte}. Estos sistemas logran escalar hasta 
@@ -107,14 +107,14 @@ emisores (ocultando metadata), pudiendo convertirse en una alternativa viable
 para la comunicación de mensajes anónimos.
 
 El sistema propuesto en este trabajo se destaca por los siguientes puntos: (1) no necesita 
-servidores externos, ni que los participantes depositen confianza en otras partes del sistema, 
+ni servidores externos ni que los participantes depositen confianza en otras partes del sistema, 
 rescatando así el espíritu original del protocolo \emph{DC-Net}, permitiendo la comunicación 
 entre distintos participantes, desconocidos entre sí, pero manteniendo la seguridad y privacidad 
 de cada uno de ellos; (2) no necesita fase de asignación de \emph{slots} para cada uno 
 de los participantes como lo hace \emph{Dissent}, ya que el objetivo no es evitar la 
 colisión de mensajes, sino más bien aceptar la posibilidad de colisión, y resolverla 
 cuando se presenten, con lo que no se pierde tiempo potencialmente innecesario asignando 
-\emph{slots} de envío, cuando puede que no se presente colisión, o esta sea más rápida 
+\emph{slots} de envío, cuando puede que no se presente colisión, o ésta sea más rápida 
 resolverla que evitarla; (3) utiliza técnicas criptográficas que aseguran, tanto su seguridad 
 incondicional, como la prevención de ataques por parte de participantes maliciosos 
 que pretendan perturbar su correcto desarrollo; por último (4) se ofrece una aplicación 
