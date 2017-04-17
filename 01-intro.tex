@@ -110,12 +110,20 @@ La solución generalizada consiste en los siguientes pasos:
 
 \begin{figure}[H]
 \centering
-\subfigure[Compartición de bit al azar $b_{ij}$ entre cada par de participantes.] { \input{KEYGRAPH_A.tex}\label{2a} } \  
-\subfigure[Cálculo de $o_i$ por cada participante, dependiendo si pagó o no la cena.] { \input{KEYGRAPH_B.tex}\label{2b} }
+\begin{subfigure}[b]{0.4\textwidth}
+    \input{KEYGRAPH_A.tex}
+    \caption{Compartición de bit al azar $b_{ij}$ entre cada par de participantes.}
+    \label{2a}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.4\textwidth}
+    \input{KEYGRAPH_B.tex}
+    \caption{Cálculo de $o_i$ por cada participante, dependiendo si pagó o no la cena.}
+    \label{2b}
+\end{subfigure}
 
 \protect\caption{Ejemplo de Cena de Criptógrafos donde uno de los participantes pagó la cena. En este caso $D = 0 \oplus 0 \oplus 1 = 1$. 
 No es difícil observar que si ningún participante pagó la cena, $D = 0$. }
-
 \label{fig:example_dcnet_chaum}
 \end{figure}
 
