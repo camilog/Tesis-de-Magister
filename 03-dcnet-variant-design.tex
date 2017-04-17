@@ -66,71 +66,71 @@ parte de los participantes, y las rondas virtuales no). Si la primera colisión
 de mensajes es de $n$ mensajes, eso implica que es necesario ejecutar $n$ rondas 
 reales para poder resolver dicha colisión. 
 
-% \begin{figure}
-% \begin{centering}
-% \footnotesize
-% \pgfdeclarelayer{background layer}
-% \pgfdeclarelayer{foreground layer}
-% \pgfsetlayers{background layer,main,foreground layer}
-% \begin{tikzpicture}[yscale=0.8]
-% \begin{scope}[level distance=2.0cm,
-% sibling distance=4cm,level/.style={sibling distance=3.8cm/#1},
-% edge from parent/.style={draw,very thick},
-% block/.style ={rectangle, draw=black, thick, text centered,  inner sep=0.12cm,font=\footnotesize},
-% blockx/.style ={rectangle, dashed, draw=black, very thick, text centered,  inner sep=0.12cm,font=\footnotesize}]
-% \begin{pgfonlayer}{foreground layer}
-% \node[block] (n1){$\underbrace{M_1+M_2+M_3+M_4+M_5}_{\displaystyle (5,130)}$}
-% %[edge from parent fork down]
-% child {node (n21)[block] {$\underbrace{M_2+M_4}_{\displaystyle (2,28)}$} 
-% child {node (n2x)[block,yshift=-1.6cm] {$\underbrace{M_2}_{\displaystyle (1,11)}$} edge from parent node[fill=white,anchor=east,xshift=-0.05cm] {$<14 $}}
-% child {node (n2a)[blockx,yshift=-3.2cm] {$\underbrace{M_4}_{\displaystyle (1,17)}$}}
-% edge from parent node[fill=white,anchor=east,xshift=-0.25cm] {$<26$}}
-% child {node (n22)[blockx,yshift=-1.6cm] {$\underbrace{M_1+M_3+M_5}_{\displaystyle (3,102)}$}
-% child {node (n31)[block,yshift=-3.2cm] {$\underbrace{M_3}_{\displaystyle (1,28)}$}edge from parent node[fill=white,anchor=east,xshift=-0.05cm] {$<34 $~}}
-% child {node (n32)[blockx,yshift=-4.8cm] {$\underbrace{M_1+M_5}_{\displaystyle (2,74)}$}
-% child {node (n3f)[block] {$\underbrace{M_1}_{\displaystyle (1,36)}$}edge from parent node[fill=white,anchor=east,xshift=-0.1cm] {$<37 $~}}
-% child {node (n3g)[blockx,yshift=-1.6cm] {$\underbrace{M_5}_{\displaystyle (1,38)}$}}}
-% };
-% \end{pgfonlayer}
+ \begin{figure}
+ \begin{centering}
+ \footnotesize
+ \pgfdeclarelayer{background layer}
+ \pgfdeclarelayer{foreground layer}
+ \pgfsetlayers{background layer,main,foreground layer}
+ \begin{tikzpicture}[yscale=0.8]
+ \begin{scope}[level distance=2.0cm,
+ sibling distance=4cm,level/.style={sibling distance=3.8cm/#1},
+ edge from parent/.style={draw,very thick},
+ block/.style ={rectangle, draw=black, thick, text centered,  inner sep=0.12cm,font=\footnotesize},
+ blockx/.style ={rectangle, dashed, draw=black, very thick, text centered,  inner sep=0.12cm,font=\footnotesize}]
+ \begin{pgfonlayer}{foreground layer}
+ \node[block] (n1){$\underbrace{M_1+M_2+M_3+M_4+M_5}_{\displaystyle (5,130)}$}
+ %[edge from parent fork down]
+ child {node (n21)[block] {$\underbrace{M_2+M_4}_{\displaystyle (2,28)}$} 
+ child {node (n2x)[block,yshift=-1.6cm] {$\underbrace{M_2}_{\displaystyle (1,11)}$} edge from parent node[fill=white,anchor=east,xshift=-0.05cm] {$<14 $}}
+ child {node (n2a)[blockx,yshift=-3.2cm] {$\underbrace{M_4}_{\displaystyle (1,17)}$}}
+ edge from parent node[fill=white,anchor=east,xshift=-0.25cm] {$<26$}}
+ child {node (n22)[blockx,yshift=-1.6cm] {$\underbrace{M_1+M_3+M_5}_{\displaystyle (3,102)}$}
+ child {node (n31)[block,yshift=-3.2cm] {$\underbrace{M_3}_{\displaystyle (1,28)}$}edge from parent node[fill=white,anchor=east,xshift=-0.05cm] {$<34 $~}}
+ child {node (n32)[blockx,yshift=-4.8cm] {$\underbrace{M_1+M_5}_{\displaystyle (2,74)}$}
+ child {node (n3f)[block] {$\underbrace{M_1}_{\displaystyle (1,36)}$}edge from parent node[fill=white,anchor=east,xshift=-0.1cm] {$<37 $~}}
+ child {node (n3g)[blockx,yshift=-1.6cm] {$\underbrace{M_5}_{\displaystyle (1,38)}$}}}
+ };
+ \end{pgfonlayer}
 
-% %\node[anchor=east] at (n1.west){400 $\sim$};
-% %\node[anchor=east] at (n21.west){410 $\sim$};
-% %\node[anchor=west] at (n22.east){$\sim$ 420};
+ %\node[anchor=east] at (n1.west){400 $\sim$};
+ %\node[anchor=east] at (n21.west){410 $\sim$};
+ %\node[anchor=west] at (n22.east){$\sim$ 420};
 
-% %\draw (n1.north) node [anchor=south] {1};
-% %\draw (n21.north) node [anchor=south] {2};
-% %\draw (n2x.north) node [anchor=south] {3};
+ %\draw (n1.north) node [anchor=south] {1};
+ %\draw (n21.north) node [anchor=south] {2};
+ %\draw (n2x.north) node [anchor=south] {3};
 
-% \path []($(n1)+ (-5.0cm,1.0cm)$) -- node[above]{$C^{(k)}$} +(10cm,0);
+ \path []($(n1)+ (-5.0cm,1.0cm)$) -- node[above]{$C^{(k)}$} +(10cm,0);
 
-% \begin{pgfonlayer}{background layer}
-% \draw [densely dotted]($(n1)+ (-5.0cm,1cm)$) node [above,xshift=0.8cm]{round id $k$}-- +(12.1cm,0);
-% \draw [densely dotted]($(n1)+ (-5.0cm,-1cm)$) node [above,xshift=0.8cm]{$1$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(1)}=\sum^n_{i=1}O^{(k)}_1$};
-% \draw [densely dotted]($(n1)+ (-5.0cm,-3cm)$) node [above,xshift=0.8cm]{$2$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(2)}=\sum^n_{i=1}O^{(k)}_2$};
-% \draw [densely dotted]($(n1)+ (-5.0cm,-5cm)$) node [above,xshift=0.8cm]{$3$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(3)}=C^{(1)}-C^{(2)}$};
-% \draw [densely dotted]($(n1)+ (-5.0cm,-7cm)$) node [above,xshift=0.8cm]{$4$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(4)}=\sum^n_{i=1}O^{(k)}_4$};
-% \draw [densely dotted]($(n1)+ (-5.0cm,-9cm)$) node [above,xshift=0.8cm]{$5$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(5)}=C^{(2)}-C^{(4)}$};
-% \draw [densely dotted]($(n1)+ (-5.0cm,-11cm)$) node [above,xshift=0.8cm]{$6$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(6)}=\sum^n_{i=1}O^{(k)}_6$};
-% \draw [densely dotted]($(n1)+ (-5.0cm,-13cm)$) node [above,xshift=0.8cm]{$7$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(7)}=C^{(3)}-C^{(6)}$};
-% \draw [densely dotted]($(n1)+ (-5.0cm,-15cm)$) node [above,xshift=0.8cm]{$14$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(14)}=\sum^n_{i=1}O^{(k)}_{14}$};
-% \draw [densely dotted]($(n1)+ (-5.0cm,-17cm)$) node [above,xshift=0.8cm]{$15$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(15)}=C^{(7)}-C^{(14)}$};
-% \end{pgfonlayer}
+ \begin{pgfonlayer}{background layer}
+ \draw [densely dotted]($(n1)+ (-5.0cm,1cm)$) node [above,xshift=0.8cm]{round id $k$}-- +(12.1cm,0);
+ \draw [densely dotted]($(n1)+ (-5.0cm,-1cm)$) node [above,xshift=0.8cm]{$1$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(1)}=\sum^n_{i=1}O^{(k)}_1$};
+ \draw [densely dotted]($(n1)+ (-5.0cm,-3cm)$) node [above,xshift=0.8cm]{$2$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(2)}=\sum^n_{i=1}O^{(k)}_2$};
+ \draw [densely dotted]($(n1)+ (-5.0cm,-5cm)$) node [above,xshift=0.8cm]{$3$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(3)}=C^{(1)}-C^{(2)}$};
+ \draw [densely dotted]($(n1)+ (-5.0cm,-7cm)$) node [above,xshift=0.8cm]{$4$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(4)}=\sum^n_{i=1}O^{(k)}_4$};
+ \draw [densely dotted]($(n1)+ (-5.0cm,-9cm)$) node [above,xshift=0.8cm]{$5$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(5)}=C^{(2)}-C^{(4)}$};
+ \draw [densely dotted]($(n1)+ (-5.0cm,-11cm)$) node [above,xshift=0.8cm]{$6$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(6)}=\sum^n_{i=1}O^{(k)}_6$};
+ \draw [densely dotted]($(n1)+ (-5.0cm,-13cm)$) node [above,xshift=0.8cm]{$7$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(7)}=C^{(3)}-C^{(6)}$};
+ \draw [densely dotted]($(n1)+ (-5.0cm,-15cm)$) node [above,xshift=0.8cm]{$14$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(14)}=\sum^n_{i=1}O^{(k)}_{14}$};
+ \draw [densely dotted]($(n1)+ (-5.0cm,-17cm)$) node [above,xshift=0.8cm]{$15$}-- +(12.1cm,0) node[above,anchor=south west,xshift=-2.5cm]{$C^{(15)}=C^{(7)}-C^{(14)}$};
+ \end{pgfonlayer}
 
-% \node[inner sep=0cm,fit=(n1) (n3g) (n2x)] (la) {};
-% %\node at (la.south)[below=0.3cm,inner sep=0,font=\small] {(a) Collision resolution tree.};
-% \end{scope}
+ \node[inner sep=0cm,fit=(n1) (n3g) (n2x)] (la) {};
+ %\node at (la.south)[below=0.3cm,inner sep=0,font=\small] {(a) Collision resolution tree.};
+ \end{scope}
 
 
-% \end{tikzpicture}
-% \par\end{centering}
+ \end{tikzpicture}
+ \par\end{centering}
 
-% \protect\caption{Exemplary binary collision resolution tree with superposed receiving.
-% In rounds 1,2,4,6 and 14, ciphertexts $O^{(k)}$ are transmitted,
-% and $C^{(k)}$ is computed using these ciphertexts. In rounds 3,5,7
-% and 15, no data is transmitted and $C^{(k)}$ is computed using data
-% from the parent and the sibling node.}
-% \label{supreceiving_tree-1}
-% \end{figure}
+ \protect\caption{Exemplary binary collision resolution tree with superposed receiving.
+ In rounds 1,2,4,6 and 14, ciphertexts $O^{(k)}$ are transmitted,
+ and $C^{(k)}$ is computed using these ciphertexts. In rounds 3,5,7
+ and 15, no data is transmitted and $C^{(k)}$ is computed using data
+ from the parent and the sibling node.}
+ \label{supreceiving_tree-1}
+ \end{figure}
 
 \section{Compartición de Llaves}
 
