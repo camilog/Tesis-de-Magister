@@ -80,7 +80,7 @@ reales para poder resolver dicha colisión.
  blockx/.style ={rectangle, dashed, draw=black, very thick, text centered,  inner sep=0.12cm,font=\footnotesize}]
  \begin{pgfonlayer}{foreground layer}
  \node[block] (n1){$\underbrace{M_1+M_2+M_3+M_4+M_5}_{\displaystyle (5,130)}$}
- %[edge from parent fork down]
+ % [edge from parent fork down]
  child {node (n21)[block] {$\underbrace{M_2+M_4}_{\displaystyle (2,28)}$} 
  child {node (n2x)[block,yshift=-1.6cm] {$\underbrace{M_2}_{\displaystyle (1,11)}$} edge from parent node[fill=white,anchor=east,xshift=-0.05cm] {$<14 $}}
  child {node (n2a)[blockx,yshift=-3.2cm] {$\underbrace{M_4}_{\displaystyle (1,17)}$}}
