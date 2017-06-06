@@ -64,7 +64,7 @@
 \begin{flushright}
 \small
 \begin{tabular}{l}
-RESUMEN DE LA MEMORIA PARA OPTAR \\
+RESUMEN DE LA TESIS PARA OPTAR \\
 AL TÍTULO DE \MakeUppercase\@carrera \\
 POR: \MakeUppercase\@author \\
 FECHA: \MakeUppercase\@date\\
