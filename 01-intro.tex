@@ -2,36 +2,33 @@
 
 \section{Anonimato en Internet}
 
-Desde las primeras revelaciones del grupo \emph{Wikileaks}\footnote{\url{https://wikileaks.org/}} en el año 2006, 
-pasando por la información revelada por el ex agente de la \emph{CIA}, \emph{Edward Snowden}\footnote{\url{http://www.huffingtonpost.com/news/nsa/}} 
-en el año 2013, se ha generado un vuelco en la manera que 
-los usuarios navegan por \emph{Internet}, por el hecho de tener la presunción que todos sus movimientos están siendo 
-registrados por organismos de Estado, a pesar de no ser amenaza a la seguridad de las naciones que suponen proteger.
+Fruto tanto de las primeras revelaciones del grupo \emph{Wikileaks}\footnote{\url{https://wikileaks.org/}} en el año 2006, 
+así como de la información revelada por el ex agente de la \emph{CIA}, \emph{Edward Snowden}\footnote{\url{http://www.huffingtonpost.com/news/nsa/}} 
+en el año 2013, muchos usuarios han modificado su comportamiento de navegación por \emph{Internet} simplemente por el hecho de tener la presunción que todos sus movimientos están siendo 
+registrados por organismos de Estado, a pesar de no ser amenaza a la seguridad de ninguna nación.
 
-Usuarios de todo el mundo reclaman por su derecho a la privacidad\footnote{\url{http://www.livescience.com/37398-right-to-privacy.
-html}}, reflejándose en tomar acciones que oculten las páginas que visitan o cualquier movimiento que realicen 
-navegando en Internet a los organismos de Estado (o cualquier tercero que ellos no autoricen) que monitorean y 
-recopilan dichos movimientos. Existen numerosos grupos que abogan por que se haga valer el legítimo derecho a la 
-privacidad de los usuarios de Internet, argumentando sobre la importancia del anonimato\footnote{\url{https://www.derechosdigitales.org/anonimato/}} 
-\footnote{\url{http://www.ted.com/talks/glenn_greenwald_why_privacy_matters}}, haciendo de éste un tema altamente 
-necesario de abordar desde una perspectiva científica, brindando herramientas y protocolos que puedan asegurar el 
-anonimato en Internet de manera segura, eficaz y eficiente, características centrales en el desarrollo del presente trabajo.
+Por ende, usuarios de todo el mundo han comenzado a reclamar por su derecho a la privacidad\footnote{\url{http://www.livescience.com/37398-right-to-privacy.
+html}}, por ejemplo, tomando acciones que ocultan las páginas que visitan navegando en Internet de los organismos de Estado, o de cualquier tercero, que estén monitoreando y/o recopilando dichas visitas. 
+Existe una basta comunidad compuesta por activistas de derechos humanos, abogados, ONGs, académicos y profesionales 
+que abogan por que se haga valer el legítimo derecho a la 
+privacidad de los usuarios de Internet, argumentando la importancia del anonimato\footnote{\url{https://www.derechosdigitales.org/anonimato/}} 
+\footnote{\url{http://www.ted.com/talks/glenn_greenwald_why_privacy_matters}}, y motivando su tratamiento desde una perspectiva científica, brindando herramientas y protocolos que puedan asegurar el 
+anonimato en Internet de manera segura, eficaz y eficiente. 
+El trabajo de esta tesis está motivado por dicho objetivo.
 
-Hoy en dia navegar de manera anónima en Internet está vinculado fuertemente al software \emph{TOR}\footnote{\url{https://www.torproject.org/}}, 
-el cual en su versión más popular se traduce en un explorador web (variante del explorador 
+Hoy en día navegar de manera anónima en Internet se realiza principalmente usando el software \emph{TOR}\footnote{\url{https://www.torproject.org/}}, 
+el cual en su versión más popular consiste en un explorador web (variante de 
 \emph{Firefox}\footnote{\url{https://www.mozilla.org/en-US/firefox}}) que ejecuta el protocolo \emph{onion-routing} 
 (detallado en la siguiente sección), el cual permite dos objetivos: (1) ocultar la identidad del usuario tanto al proveedor 
-del servicio que está consumiendo (página web que está visitando), como a algun observador externo, y (2) acceder a servicios ``ocultos'' que solo 
-son accesibles con el uso de \emph{TOR}. En este trabajo nos concentraremos en el primer objetivo solamente, detallando la manera en que 
+del servicio que está consumiendo (página web que está visitando), como de algun observador externo, y (2) acceder a servicios ``ocultos'' que solo 
+son accesibles por medio de \emph{TOR}. En este trabajo nos concentraremos en el primer objetivo solamente, detallando la manera en que 
 \emph{TOR} logra ocultar la identidad del usuario del servicio. Es importante nombrar que \emph{TOR} no es la única manera de 
-navegar de manera anónima en Internet: \emph{I2P}\footnote{\url{https://geti2p.net/en/}} es otro servicio que provee anonimato, 
-utilizar \emph{mix-networks} (explicadas a continuación) también logra ocultar la identidad del usuario, entre otros más 
-detallados en este trabajo.
+navegar de manera anónima en Internet: protocolos como \emph{mix-networks} y \emph{DC-Nets} (tema central en esta tesis) también logran ocultar la identidad del usuario.
 
-Anonimato, más allá del atractivo científico que posea el tema, es una cuestión socialmente difícil de abordar. Esto se debe a que 
-posee contras que, puestos en un contexto determinado, pueden llegar a generar 
-muchas problemáticas. Los peligros que surgen se debe a la posibilidad de realizar acciones ilícitas 
-bajo el paraguas del anonimato, impidiendo su persecución. Entre estos peligros se pueden mencionar: 
+El anonimato, más allá de su atractivo científico, es una problemática socialmente difícil de abordar. Esto se debe a que 
+invoca prejuicios y dilemas éticos que, puestos en un contexto poco informado, pueden llegar a generar 
+aprehensión e incluso rechazo. Parte de las aprehensiones se deben a la posibilidad de realizar acciones ilícitas 
+bajo el paraguas del anonimato, lo cual puede impedir la persecucion policial de delitos donde el criminal use herramientas que permitan anonimato efectivo. Entre estas acciones se pueden mencionar: 
 denuncias falsas, compra/venta de drogas, distribución de material pornográfico infantil, fraude, \emph{bullying}, etc. 
 ¿Deberían los científicos crear y promover herramientas que permitan esas acciones? 
 ¿Valen la pena las ventajas del anonimato como para permitir la realización de estas acciones sin la posibilidad de 
@@ -41,7 +38,7 @@ debería realizarse antes de generar un trabajo (independiente del tema de inves
 Desde el punto de vista 
 del autor, la labor del científico es siempre generar el ``mejor conocimiento'' posible, expandir la barrera del conocimiento 
 humano, y al mismo tiempo, estar conciente de las posibles implicancias que posea en otras esferas de la sociedad, como por ejemplo en este caso, 
-facilitar acciones ilícitas a través de Internet. 
+facilitar acciones ilícitas a través de Internet. Pese a los potenciales usos negativos, es nuestra opinion que los sistemas de anonimato pueden ser herramientas efectivas contra la censura y violacion de la privacidad existentes en regimenes autoritarios. También en situaciones de denuncia donde los potenciales enviadores arriesgan su vida (denuncias de narcotrafico o espionaje). El problema de limitar el uso socialmente negativo de estas tecnologias es un problema de investigacion abierto y extremadamente interesante.  
 
 \section{Protocolos de Anonimato}
 
