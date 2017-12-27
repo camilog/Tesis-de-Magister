@@ -1,13 +1,13 @@
 \chapter{Detalles de Implementación}\label{cap4}
 
 La parte esencial de este trabajo esta dado por llevar a cabo una 
-implementación que refleje el diseño propuesto en el capitulo anterior, 
+implementación que refleje el diseño propuesto en el capítulo anterior, 
 brindando así una herramienta real a la comunidad que permita la comunicación 
 anónima entre distintas partes interesadas.
 
 Como fue explicado anteriormente, no existen muchas implementaciones de 
-protocolos basados en DC-Net, por lo que llevar a cabo este trabajo conllevó 
-soslayar muchos obstáculos que se detallan a continuación.
+protocolos basados en DC-Net, por lo que llevar a cabo este trabajo significó 
+soslayar muchos obstáculos, los cuales se detallan a continuación.
 
 \section{Tecnologías Involucradas}
 
@@ -16,10 +16,11 @@ soslayar muchos obstáculos que se detallan a continuación.
     proyecto se escogió realizarlo en \emph{Java}, debido principalmente a que 
     un objetivo era poder realizar una aplicación móvil como prueba de 
     concepto de lo implementado, y el sistema operativo móvil más común hoy en 
-    día es \emph{Android}\footnote{\url{http://www.idc.com/promo/smartphone-market-share/os}}, el 
-    cual está basado en \emph{Java}. No existe una razón de fondo (mayor \emph{
-    performance} o expresividad del lenguaje), por el que se escogió \emph{Java
-    }, por lo que los mismos resultados se pueden lograr si se utiliza otro 
+    día es \emph{Android}\footnote{\url{http://www.idc.com/promo/
+    smartphone-market-share/os}}, el 
+    cual está basado en \emph{Java}. Aparte de esto, no existe una razón de 
+    fondo para escoger \emph{Java} como lenguaje de programación, por lo que 
+    los mismos resultados se pueden lograr si se utiliza otro 
     lenguaje más común en otras implementaciones de DC-Net, como sería \emph{
     C++}.
 
@@ -34,62 +35,69 @@ soslayar muchos obstáculos que se detallan a continuación.
     necesarias para el protocolo).
 \end{enumerate}
 
-\section{Arquitectura del Sistema: Nodos Directorio y Participantes}
+\section{Arquitectura del Sistema: Nodos \texttt{Directorio} y 
+\texttt{Participantes}
 
 Un desafío importante a considerar en la implementación (y que el diseño del 
-protocolo no se preocupa) es como cada participante descubre la locación del resto de los 
-participantes que formarán parte del \emph{anonymity-set}. Para ello se tomó 
-la decisión de contar, además de los nodos participantes, con un nodo 
-Directorio. Este nodo funcionará como punto de entrada al \emph{anonymity-set} 
-y será el responsable de informar la dirección IP de cada uno de los nodos 
-participantes presentes en la sala. Además de esto, el nodo Directorio tiene 
-como responsabilidad establecer los parámetros necesarios para correr el protocolo (número de 
-participantes que admitirá la sala, valores públicos para realizar los \emph{commitments}, 
-largo máximo de los mensajes a enviar, entre otros), por lo que también se vuelve 
-un punto de control dentro del protocolo. Un aspecto importante es que todo lo que 
-relaciona el protocolo con mantener anonimato (envío y verificaciones de 
-demostraciones de seguridad) no pasa por el nodo Directorio, por lo que su 
-incorporación no altera en nada la seguridad y privacidad del sistema.
+protocolo no se preocupa) es como cada participante descubre la locación del 
+resto de los participantes que formarán parte del \emph{anonymity set}. Para 
+ello se tomó la decisión de contar, además de los nodos Participantes, con un 
+nodo \texttt{Directorio}. Este nodo funcionará como punto de entrada al 
+\emph{anonymity set} y será el responsable de informar la dirección IP de cada 
+uno de los nodos participantes presentes en la sala. Además de esto, el nodo 
+\texttt{Directorio} tiene como responsabilidad establecer los parámetros 
+necesarios para correr el protocolo (número de participantes que admitirá la 
+sala, valores públicos para realizar los \emph{commitments} y largo máximo de 
+los mensajes a enviar, entre otros), por lo que también se vuelve un punto de 
+control dentro del protocolo. Importante mencionar que la incorporación del 
+nodo \texttt{Directorio} no modifica la seguridad y privacidad del sistema, 
+debido a que el diseño explicado en el capítulo anterior se empieza a 
+desarrollar \emph{a posteriori} de la labor desempeñada por el nodo 
+\texttt{Directorio}.
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.5\textwidth]{imagenes/architecture.pdf}
-  \caption{Conexión entre nodos Directorio y Participantes}
+  \caption{Conexión entre nodos \texttt{Directorio} y Participantes}
   \label{fig:connections-directory-participants}
 \end{figure}
 
-Esta tarea (punto de entrada a la sala) también se podría realizar entre los propios nodos participantes, 
-sin la necesidad de incorporar un nodo Directorio. Si bien en esta 
-investigación se priorizó la facilidad de implementar la variante utilizando 
-el nodo adicional, se podría ejecutar alguna variante de \emph{gossip protocol} 
-\cite{Demers:1987:EAR:41840.41841} 
-para informar la identidad de participantes nuevos que vayan entrando a la sala, lo 
-cual podría solucionar el problema. Esta segunda variante además tiene la ventaja 
-de no poseer un punto vulnerable (que sería el nodo Directorio), evitando 
-ataques directos al nodo Directorio, retrasando (o incluso imposibilitando) la 
-creación del \emph{anonimity-set}. Reiterar que se implementó el nodo 
-Directorio por simplicidad, pero se tienen en cuenta los posibles ataques que 
-puede recibir el sistema, que no tienen incidencia en romper el anonimato que 
-brinda el protocolo.
+La funcionalidad de proveer un punto de entrada a la sala también se podría 
+realizar entre los propios nodos participantes, sin la necesidad de incorporar 
+un nodo \texttt{Directorio}. Si bien en esta investigación se priorizó la 
+facilidad de implementar la variante utilizando el nodo adicional, se podría 
+ejecutar alguna variante de \emph{gossip protocol} 
+\cite{Demers:1987:EAR:41840.41841} para informar la identidad de participantes 
+nuevos que vayan entrando a la sala, lo cual podría solucionar el problema. 
+Esta segunda variante además tiene la ventaja de no poseer un punto vulnerable 
+(que sería el nodo \texttt{Directorio}), evitando ataques directos al nodo 
+\texttt{Directorio}, retrasando (o incluso imposibilitando) la 
+creación del \emph{anonimity set}. 
+<<MEJORAR LA SIGUIENTE FRASE:>>Reiterar que se implementó el nodo 
+\texttt{Directorio} por simplicidad, pero se tienen en cuenta los posibles 
+ataques que puede recibir el sistema, que no tienen incidencia en romper el 
+anonimato que brinda el protocolo.
 
-Actualmente el nodo Directorio inicializa estableciendo los parámetros 
-públicos del protocolo y publica su dirección IP. Luego, cada nodo 
+Actualmente el nodo \texttt{Directorio} inicializa estableciendo los 
+parámetros públicos del protocolo y publica su dirección IP. Luego, cada nodo 
 Participante que se quiera unir se conecta a la dirección pública del 
-Directorio y espera que se complete la cuota de participantes establecida en 
-un comienzo. Cuando se conectan los $n$ participantes necesarios al Directorio, éste informa 
-la dirección IP de cada uno de los participantes a todo el resto, para que 
-posteriormente inicien el protocolo solo enviándose mensajes entre ellos, 
-finalizando así la labor del nodo Directorio. En la Figura \ref{fig:connections-directory-participants} 
+\texttt{Directorio} y espera que se complete la cuota de participantes 
+establecida en un comienzo. Cuando se conectan los $n$ participantes 
+necesarios, el \texttt{Directorio} informa la dirección IP de cada uno de los 
+participantes a todo el resto, para que posteriormente inicien el protocolo 
+solo enviándose mensajes entre ellos. Esto termina la labor del nodo 
+\texttt{Directorio}. En la Figura \ref{fig:connections-directory-participants} 
 se observa las conexiones que se realizan durante el desarrollo del protocolo, 
 primero conectando cada participante que viene entrando a la sala al nodo 
-Directorio (representado por las conexiones verdes), y luego que todos los 
-participantes se hayan conectado al nodo Directorio, éste le comunica a toda 
-la sala las direcciones de los nodos participantes presentes, terminando su labor, 
-desconectándose de los nodos Participantes, y estos finalmente se conectan mediante 
-los enlaces rojos entre cada uno de ellos. En la Figura \ref{fig:connections-participants} 
-se observa en mayor detalle la conexión entre cada par de participantes, la 
-cual se realiza a través de \emph{sockets} tipo \emph{requestor-replier}, formando 
-así el \emph{anonimity-set} deseado, y continuando con el normal desarrollo 
+\texttt{Directorio} (representado por las conexiones verdes), y luego que 
+todos los participantes se hayan conectado al nodo \texttt{Directorio}, éste 
+le comunica a toda la sala las direcciones de los nodos participantes 
+presentes, terminando su labor, desconectándose de los nodos Participantes, y 
+estos finalmente se conectan mediante los enlaces rojos entre cada uno de 
+ellos. En la Figura \ref{fig:connections-participants} se observa en mayor 
+detalle la conexión entre cada par de participantes, la cual se realiza a 
+través de \emph{sockets} tipo \emph{requestor-replier}, formando así el 
+\emph{anonymity set} deseado, y continuando con el normal desarrollo 
 del protocolo anteriormente descrito.
 
 \begin{figure}[H]
@@ -135,8 +143,8 @@ la \emph{API} disponible:
     que es necesario instanciar para utilizar los métodos descritos a 
     continuación. 
     \item \texttt{boolean connectToDirectory():} luego de setear la dirección 
-    IP del nodo directorio, este método realiza la conexión desde el nodo partcipante
-    hacia el directorio, utilizando las funciones provistas por la librería 
+    IP del nodo \texttt{directorio}, este método realiza la conexión desde el nodo partcipante
+    hacia el \texttt{directorio}, utilizando las funciones provistas por la librería 
     \emph{ZeroMQ}.
     \item \texttt{void setMessageToSend(String s, boolean b):} este método tiene 
     como finalidad permitir al nodo participante establecer el mensaje que desea 
@@ -149,7 +157,7 @@ la \emph{API} disponible:
     \item \texttt{ObservableParticipantsLeft:} objeto que emplea el patrón de diseño 
     \emph{Observer} para ir informando cuáles participantes se van conectando a la sala 
     a medida que va ocurriendo, y así tener una noción de cuantos participantes faltan 
-    para completar la cuota puesta en un principio por el nodo directorio.
+    para completar la cuota puesta en un principio por el nodo \texttt{directorio}.
     \item \texttt{ObservableMessagesArrived:} también emplea el patrón de diseño 
     \emph{Observer} para informar al participante de los mensajes que van resultando 
     de correr el protocolo, a medida que éste avanza. Despliega los mensajes en tiempo 
@@ -163,7 +171,7 @@ aplicación móvil prototipo, que tiene como objetivo permitir un uso simplifica
 del protocolo implementado, que permita a los usuarios montar una conversación 
 que asegure el anonimato de sus participantes.
 
-La aplicación está compuesta de 3 módulos: (1) conexión al nodo directorio, (2) envío 
+La aplicación está compuesta de 3 módulos: (1) conexión al nodo \texttt{directorio}, (2) envío 
 del mensaje por parte del participante, y (3) recepción de los mensajes 
 del resto de los participantes de la sala.
 
@@ -171,13 +179,13 @@ del resto de los participantes de la sala.
     \centering
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{imagenes/mobile_first.png}
-        \caption{Conexión al Nodo Directorio}
+        \caption{Conexión al Nodo \texttt{Directorio}}
         \label{fig:mobile_connect}
     \end{subfigure}
     ~
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{imagenes/mobile_connect.png}
-        \caption{Establecer dirección del Directorio}
+        \caption{Establecer dirección del \texttt{Directorio}}
         \label{fig:mobile_set_ip}
     \end{subfigure}
     \caption{Screenshots de Aplicación Móvil (parte 1)}\label{fig:mobile_screenshots_1}
@@ -247,7 +255,7 @@ $m_i$ (bytes) & $S_i$ (bytes) & $S_i / m_i$ \\ \hline
 Cabe destacar, que entre más grande es el mensaje original a enviar, menor es 
 el \emph{overhead} relativo que añade la ejecución del protocolo para asegurar 
 anonimato y seguridad del sistema. Importante mencionar además que el tamaño 
-del mensaje es determinado por el nodo directorio, en el comienzo del protocolo. 
+del mensaje es determinado por el nodo \texttt{directorio}, en el comienzo del protocolo. 
 El nodo directorio determina un largo máximo permitido para un mensaje a enviar 
 durante la sesión actual. Independiente si algún participa envía un mensaje de largo menor a dicho 
 máximo, el \emph{overhead} que presentará es el mismo que alguien que envía un 
