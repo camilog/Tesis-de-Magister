@@ -106,6 +106,61 @@ parámetros:
   \label{fig:times-variable}
 \end{figure}
 
+\section{Tamaños de los mensajes}
+
+Una observación importante a realizar de la implementación desarollada, es la 
+cantidad de información (medida simplemente como el largo de los mensajes) que 
+se envía en el protocolo. Se debe tomar como base el largo del mensaje 
+original $m_i$ que cada participante debe comunicar. A esto se le debe agregar 
+todas las \emph{zero-knowledge proofs} que necesita enviar, además de los \emph
+{commitments}, los valores necesarios que debe comunicar para establecer 
+llaves compartidas con todo el resto de la sala y considerar que en realidad 
+lo que se envía en el protocolo es el mensaje $M_i$. A la suma de todos esos 
+valores enviados le denotaremos $S_i$. Por último hay que considerar también 
+que entre más participantes colisionen sus mensajes, más veces será necesario 
+reenviar esta cantidad de información, debido a que se debe desarrollar un 
+mayor número de rondas reales.
+
+Para medir este sobrecosto que agrega el protocolo, se realizaron varios 
+experimentos, donde se varió el tamaño del mensaje original que desea 
+comunicar cada participante y se observó cuanta información se enviaba 
+finalmente (por ronda) al resto de la sala. Es importante notar que la cantidad 
+de participantes presentes en la sala hace cambiar la cantidad de información a 
+enviar, éste es un valor fijo (le envío a todos los participantes, la misma 
+información), por lo que los resultados que se muestran en la Tabla \ref{table:message_sizes_table}, 
+son por cada participante presente en la sala:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}[h!]{|c|c|c|}
+\hline
+$m_i$ (bytes) & $S_i$ (bytes) & $S_i / m_i$ \\ \hline
+5                                   & 1633                               & 326.6       \\ \hline
+10                                  & 1933                               & 193.3       \\ \hline
+20                                  & 2624                               & 131.2       \\ \hline
+40                                  & 3987                               & 99.7        \\ \hline
+60                                  & 5288                               & 88.1        \\ \hline
+80                                  & 6276                               & 78.5        \\ \hline
+100                                 & 7459                               & 74.6        \\ \hline
+120                                 & 8848                               & 73.7        \\ \hline
+140                                 & 10281                              & 73.4        \\ \hline
+200                                 & 14008                              & 70.1        \\ \hline
+300                                 & 20200                              & 67.3        \\ \hline
+\end{tabular}
+\caption{Tamaño de mensajes enviados (por ronda)}
+\label{table:message_sizes_table}
+\end{table}
+
+Cabe destacar, que entre más grande es el mensaje original a enviar, menor es 
+el \emph{overhead} relativo que añade la ejecución del protocolo para asegurar 
+anonimato y seguridad del sistema. Importante mencionar además que el tamaño 
+del mensaje es determinado por el nodo \texttt{directorio}, en el comienzo del protocolo. 
+El nodo directorio determina un largo máximo permitido para un mensaje a enviar 
+durante la sesión actual. Independiente si algún participa envía un mensaje de largo menor a dicho 
+máximo, el \emph{overhead} que presentará es el mismo que alguien que envía un 
+mensaje con el largo máximo establecido por el nodo directorio.
+
+
 \section{Discusión de los Resultados}
 
 Las pruebas realizadas muestran varias tendencias que son dificiles de predecir 

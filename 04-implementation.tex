@@ -21,8 +21,8 @@ soslayar muchos obstáculos, los cuales se detallan a continuación.
     cual está basado en \emph{Java}. Aparte de esto, no existe una razón de 
     fondo para escoger \emph{Java} como lenguaje de programación, por lo que 
     los mismos resultados se pueden lograr si se utiliza otro 
-    lenguaje más común en otras implementaciones de DC-Net, como sería \emph{
-    C++}.
+    lenguaje más común en otras implementaciones de DC-Net, como sería 
+    \emph{C++}.
 
     \item \underline{Capa de comunicación:} para la conexión entre las 
     distintas partes se utilizó \emph{ZeroMQ}, el cual es un \emph{framework} 
@@ -41,10 +41,10 @@ soslayar muchos obstáculos, los cuales se detallan a continuación.
 Un desafío importante a considerar en la implementación (y que el diseño del 
 protocolo no se preocupa) es como cada participante descubre la locación del 
 resto de los participantes que formarán parte del \emph{anonymity set}. Para 
-ello se tomó la decisión de contar, además de los nodos Participantes, con un 
+ello se tomó la decisión de contar, además de los nodos \texttt{Participantes}, con un 
 nodo \texttt{Directorio}. Este nodo funcionará como punto de entrada al 
 \emph{anonymity set} y será el responsable de informar la dirección IP de cada 
-uno de los nodos participantes presentes en la sala. Además de esto, el nodo 
+uno de los nodos \texttt{Participantes} presentes en la sala. Además de esto, el nodo 
 \texttt{Directorio} tiene como responsabilidad establecer los parámetros 
 necesarios para correr el protocolo (número de participantes que admitirá la 
 sala, valores públicos para realizar los \emph{commitments} y largo máximo de 
@@ -63,7 +63,7 @@ desarrollar \emph{a posteriori} de la labor desempeñada por el nodo
 \end{figure}
 
 La funcionalidad de proveer un punto de entrada a la sala también se podría 
-realizar entre los propios nodos participantes, sin la necesidad de incorporar 
+realizar entre los propios nodos \texttt{Participantes}, sin la necesidad de incorporar 
 un nodo \texttt{Directorio}. Si bien en esta investigación se priorizó la 
 facilidad de implementar la variante utilizando el nodo adicional, se podría 
 ejecutar alguna variante de \emph{gossip protocol} 
@@ -91,8 +91,8 @@ se observa las conexiones que se realizan durante el desarrollo del protocolo,
 primero conectando cada participante que viene entrando a la sala al nodo 
 \texttt{Directorio} (representado por las conexiones verdes), y luego que 
 todos los participantes se hayan conectado al nodo \texttt{Directorio}, éste 
-le comunica a toda la sala las direcciones de los nodos participantes 
-presentes, terminando su labor, desconectándose de los nodos Participantes, y 
+le comunica a toda la sala las direcciones de los nodos \texttt{Participantes} 
+presentes, terminando su labor, desconectándose de los nodos \texttt{Participantes}, y 
 estos finalmente se conectan mediante los enlaces rojos entre cada uno de 
 ellos. En la Figura \ref{fig:connections-participants} se observa en mayor 
 detalle la conexión entre cada par de participantes, la cual se realiza a 
@@ -103,7 +103,7 @@ del protocolo anteriormente descrito.
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.5\textwidth]{imagenes/participants_connection.pdf}
-  \caption{Conexión entre nodos participantes}
+  \caption{Conexión entre nodos \texttt{Participantes}}
   \label{fig:connections-participants}
 \end{figure}
 
@@ -114,24 +114,25 @@ han sido implementadas desde cero, valiéndose principalmente de la biblioteca
 para manejar números grandes de \emph{Java}, \emph{BigInteger}\footnote{\url{
 https://docs.oracle.com/javase/7/docs/api/java/math/BigInteger.html}}. Si bien 
 esto no es una práctica recomendada (lo ideal es utilizar bibliotecas 
-criptográficas ya probadas por la comunidad), no se ha descubierto ninguna que 
-se adecúe a las necesidades requeridas por el protocolo (\emph{Pedersen 
-Commitments} y \emph{ZKP} asociadas). Este punto es algo importante a resolver 
-ya que, como fue dicho, la implementación de primitivas criptográficas no es 
-recomendado y es imperante utilizar implementaciones ya probadas y verificadas 
-por la comunidad, como lo podría ser Charm-Crypto\footnote{\url{http://charm-
-crypto.com/index.html}} o Scapi\footnote{\url{https://scapi.readthedocs.
-io/en/latest/}}. De todas maneras, la criptografía implementada se desarrolló 
-utilizando interfaces, por lo que cuando se descubra una librería que cumpla 
-los requerimientos criptográficos que se buscan, su implantación sea realizada 
-de manera expedita y transparente al resto de la implementación.
+criptográficas ya probadas por la comunidad), se decidió por esto luego de no 
+encontrar bibliotecas que implementaran las funcionalidades requeridas por el 
+protocolo (\emph{Pedersen Commitments} y \emph{ZKP} asociadas). Como fue 
+dicho, la implementación de primitivas criptográficas no es recomendado. Más 
+bien, se recomienda utilizar implementaciones ya probadas y verificadas por la 
+comunidad, como lo podría ser 
+Charm-Crypto\footnote{\url{http://charm-crypto.com/index.html}} o 
+Scapi\footnote{\url{https://scapi.readthedocs.io/en/latest/}}. De todas 
+maneras, la criptografía implementada se desarrolló utilizando interfaces, por 
+lo que de tener una librería que cumpla los requerimientos criptográficos 
+indicados en el Capítulo 3, su implantación podrá ser realizada de manera 
+expedita y transparente al resto de la implementación.
 
 \section{\emph{API} implementada}
 
 Como fue dicho anteriormente, una contribución importante de este trabajo 
-sería el hecho de estar apuntado a implementar una \emph{API} disponible para 
-toda la comunidad que quiera desarrollar una aplicación que esté basada en el 
-protocolo anteriormente descrito. 
+es implementar una \emph{API} disponible para toda la comunidad. Esta API 
+permitirá a la comunidad una aplicación que esté basada en el protocolo 
+anteriormente descrito. 
 
 La implementación anterior fue empaquetada como librería \emph{Java}, 
 utilizable por otras aplicaciones al importar el archivo \emph{.jar} generado. 
@@ -143,37 +144,38 @@ la \emph{API} disponible:
     que es necesario instanciar para utilizar los métodos descritos a 
     continuación. 
     \item \texttt{boolean connectToDirectory():} luego de setear la dirección 
-    IP del nodo \texttt{directorio}, este método realiza la conexión desde el nodo partcipante
-    hacia el \texttt{directorio}, utilizando las funciones provistas por la librería 
-    \emph{ZeroMQ}.
-    \item \texttt{void setMessageToSend(String s, boolean b):} este método tiene 
-    como finalidad permitir al nodo participante establecer el mensaje que desea 
-    comunicar al resto de la sala utilizando el protocolo. 
-    \item \texttt{void runProtocol(PrintStream p):} corre el protocolo anteriormente 
-    descrito de manera automática, calculando los diferentes \emph{commitments} y 
-    \emph{zero-knowledge proofs} necesarios, repitiendo las rondas necesarios 
-    y finalizando cuando todos los mensajes han sido recibidos por la totalidad 
-    de los participantes en cuestión.
-    \item \texttt{ObservableParticipantsLeft:} objeto que emplea el patrón de diseño 
-    \emph{Observer} para ir informando cuáles participantes se van conectando a la sala 
-    a medida que va ocurriendo, y así tener una noción de cuantos participantes faltan 
-    para completar la cuota puesta en un principio por el nodo \texttt{directorio}.
-    \item \texttt{ObservableMessagesArrived:} también emplea el patrón de diseño 
-    \emph{Observer} para informar al participante de los mensajes que van resultando 
-    de correr el protocolo, a medida que éste avanza. Despliega los mensajes en tiempo 
-    real.
+    IP del nodo \texttt{Directorio}, este método realiza la conexión desde el 
+    nodo \texttt{Participante} hacia el \texttt{Directorio}, utilizando las funciones 
+    provistas por la librería \emph{ZeroMQ}.
+    \item \texttt{void setMessageToSend(String s, boolean b):} este método 
+    tiene como finalidad permitir al nodo \texttt{Participante} establecer el mensaje 
+    que desea comunicar al resto de la sala utilizando el protocolo. 
+    \item \texttt{void runProtocol(PrintStream p):} corre el protocolo 
+    anteriormente descrito de manera automática, calculando los diferentes 
+    \emph{commitments} y \emph{zero-knowledge proofs} necesarios, repitiendo 
+    las rondas necesarias y finalizando cuando todos los mensajes han sido 
+    recibidos por la totalidad de los participantes en cuestión.
+    \item \texttt{ObservableParticipantsLeft:} objeto que emplea el patrón de 
+    diseño \emph{Observer} para ir informando cuáles participantes se van 
+    conectando a la sala a medida que va ocurriendo, y así tener una noción de 
+    cuantos participantes faltan para completar la cuota puesta en un 
+    principio por el nodo \texttt{Directorio}.
+    \item \texttt{ObservableMessagesArrived:} también emplea el patrón de 
+    diseño \emph{Observer} para informar al participante de los mensajes que 
+    van resultando de correr el protocolo, a medida que éste avanza. 
+    Importante señalar que los mensajes se despliegan en tiempo real.
 \end{itemize}
 
 \section{Aplicación Móvil}
 
 Para poder probar el uso de la \emph{API} implementada, se desarrolló una 
-aplicación móvil prototipo, que tiene como objetivo permitir un uso simplificado 
+aplicación móvil prototipo, que tiene como objetivo permitir un uso 
+simplificado 
 del protocolo implementado, que permita a los usuarios montar una conversación 
 que asegure el anonimato de sus participantes.
 
-La aplicación está compuesta de 3 módulos: (1) conexión al nodo \texttt{directorio}, (2) envío 
-del mensaje por parte del participante, y (3) recepción de los mensajes 
-del resto de los participantes de la sala.
+La aplicación está compuesta de 3 módulos: (1) conexión al nodo 
+\texttt{Directorio}, (2) envío del mensaje por parte del participante, y (3) recepción de los mensajes del resto de los participantes de la sala.
 
 \begin{figure}[H]
     \centering
@@ -206,57 +208,3 @@ del resto de los participantes de la sala.
     \end{subfigure}
     \caption{Screenshots de Aplicación Móvil (parte 2)}\label{fig:mobile_screenshots_2}
 \end{figure}
-
-\section{Observación sobre tamaños de los mensajes}
-
-Una observación importante a realizar de la implementación desarollada, es la 
-cantidad de información (medida simplemente como el largo de los mensajes) que 
-se envía en el protocolo. Se debe tomar como base el largo del mensaje 
-original $m_i$ que cada participante debe comunicar. A esto se le debe agregar 
-todas las \emph{zero-knowledge proofs} que necesita enviar, además de los \emph
-{commitments}, los valores necesarios que debe comunicar para establecer 
-llaves compartidas con todo el resto de la sala y considerar que en realidad 
-lo que se envía en el protocolo es el mensaje $M_i$. A la suma de todos esos 
-valores enviados le denotaremos $S_i$. Por último hay que considerar también 
-que entre más participantes colisionen sus mensajes, más veces será necesario 
-reenviar esta cantidad de información, debido a que se debe desarrollar un 
-mayor número de rondas reales.
-
-Para medir este sobrecosto que agrega el protocolo, se realizaron varios 
-experimentos, donde se varió el tamaño del mensaje original que desea 
-comunicar cada participante y se observó cuanta información se enviaba 
-finalmente (por ronda) al resto de la sala. Importante notar que la cantidad 
-de participantes presentes en la sala hace cambiar la cantidad de información a 
-enviar, éste es un valor fijo (le envío a todos los participantes, la misma 
-información), por lo que los resultados que se muestran en la Tabla \ref{table:message_sizes_table}, 
-son por cada participante presente en la sala:
-
-\begin{table}[h!]
-\centering
-\begin{tabular}[h!]{|c|c|c|}
-\hline
-$m_i$ (bytes) & $S_i$ (bytes) & $S_i / m_i$ \\ \hline
-5                                   & 1633                               & 326.6       \\ \hline
-10                                  & 1933                               & 193.3       \\ \hline
-20                                  & 2624                               & 131.2       \\ \hline
-40                                  & 3987                               & 99.7        \\ \hline
-60                                  & 5288                               & 88.1        \\ \hline
-80                                  & 6276                               & 78.5        \\ \hline
-100                                 & 7459                               & 74.6        \\ \hline
-120                                 & 8848                               & 73.7        \\ \hline
-140                                 & 10281                              & 73.4        \\ \hline
-200                                 & 14008                              & 70.1        \\ \hline
-300                                 & 20200                              & 67.3        \\ \hline
-\end{tabular}
-\caption{Tamaño de mensajes enviados (por ronda)}
-\label{table:message_sizes_table}
-\end{table}
-
-Cabe destacar, que entre más grande es el mensaje original a enviar, menor es 
-el \emph{overhead} relativo que añade la ejecución del protocolo para asegurar 
-anonimato y seguridad del sistema. Importante mencionar además que el tamaño 
-del mensaje es determinado por el nodo \texttt{directorio}, en el comienzo del protocolo. 
-El nodo directorio determina un largo máximo permitido para un mensaje a enviar 
-durante la sesión actual. Independiente si algún participa envía un mensaje de largo menor a dicho 
-máximo, el \emph{overhead} que presentará es el mismo que alguien que envía un 
-mensaje con el largo máximo establecido por el nodo directorio.
