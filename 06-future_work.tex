@@ -1,82 +1,90 @@
 \chapter{Trabajo Futuro}\label{cap6}
 
-Entre más se avanzaba en el trabajo desarrollado, mayor era la posibilidad de transformar
-una investigación académica-científica en una herramienta disponible para múltiples
-usuarios en el mundo que deseen transmitir información de manera anónima y simple, 
-utilizando su dispositivo móvil.
+Entre más se avanzaba en el trabajo desarrollado, mayor era la posibilidad de 
+transformaruna investigación académica-científica en una herramienta 
+disponible para múltiplesusuarios en el mundo que deseen transmitir 
+información de manera anónima y simple, utilizando su dispositivo móvil.
 
-Para lograr dicho objetivo aún falta trabajo que realizar, sobre todo en la capa de
-comunicación entre los distintos nodos partícipes del protocolo. Las tareas que se
-realizarán a futuro son las siguientes:
+Para lograr dicho objetivo aún falta trabajo que realizar, sobre todo en la 
+capa decomunicación entre los distintos nodos partícipes del protocolo. Las 
+tareas que serealizarán a futuro son las siguientes:
 
 \begin{enumerate}
-    \item Autenticar canales: la seguridad del protocolo criptográfico se basa fuertemente
-    en que los canales de comunicación que existan entre los distintos nodos participantes
-    sean autenticados, es decir, que cada usuario debe enviar sus mensajes firmados, para
-    así el receptor de cada mensaje se asegure que el emisor es quien dice ser. Con esto
-    se evitan participantes impostores, es decir, que se hagan pasar por otro 
-    participante, lo que podría resultar en bajar la reputación de algún usuario,
-    eliminándolo de la sala.
+    \item Autenticar canales: la seguridad del protocolo criptográfico se basa 
+    fuertemente en que los canales de comunicación que existan entre los 
+    distintos nodos participantes sean autenticados, es decir, que cada 
+    usuario debe enviar sus mensajes firmados, para así el receptor de cada 
+    mensaje se asegure que el emisor es quien dice ser. Con esto se evitan 
+    participantes impostores, es decir, que se hagan pasar por otro 
+    participante, lo que podría resultar en bajar la reputación de algún 
+    usuario, eliminándolo de la sala.
     
-    \item Manejar desconexión de usuarios: cualquier aplicación que pretenda ser utilizada
-    en ambientes ``reales'' debe manejar la posible desconexión de usuarios en cualquier 
-    momento del protocolo. Actualmente esto no es manejado y simplemente la aplicación 
-    deja de funcionar. Es importante además, que cualquier medida que se adopte, se 
-    verifique que no influye en el anonimato y seguridad de los participantes. Por 
-    ejemplo se puede adoptar la medida de ``simular'' al participante desconectado 
-    suponiendo que envía mensajes vacíos, pero hay que establecer si esta medida no 
-    afecta tanto la integridad del protocolo (los mensajes que aun no se reciben 
-    se van a enviar satisfactoriamente) como el anonimato y seguridad de los 
-    participantes que quedan involucrados, o incluso el mismo participante que sufrió 
-    la desconexión (se podría saber que el participante que se desconectó envió o no 
-    envió alguno de los mensajes publicados anteriormente). Este es un problema abierto.
+    \item Manejar desconexión de usuarios: cualquier aplicación que pretenda 
+    ser utilizada en ambientes ``reales'' debe manejar la posible desconexión 
+    de usuarios en cualquier momento del protocolo. Actualmente esto no es 
+    manejado y simplemente la aplicación deja de funcionar. Es importante 
+    además, que cualquier medida que se adopte, se verifique que no influye en 
+    el anonimato y seguridad de los participantes. Por ejemplo se puede 
+    adoptar la medida de ``simular'' al participante desconectado suponiendo 
+    que envía mensajes vacíos, pero hay que establecer si esta medida no 
+    afecta tanto la integridad del protocolo (los mensajes que aun no se 
+    reciben se van a enviar satisfactoriamente) como el anonimato y seguridad 
+    de los participantes que quedan involucrados, o incluso el mismo 
+    participante que sufrió la desconexión (se podría saber que el 
+    participante que se desconectó envió o no envió alguno de los mensajes 
+    publicados anteriormente). Este es un problema abierto.
     
-    \item Manejar participantes maliciosos: actualmente el protocolo y la implementación 
-    es capaz de encontrar a un participante malicioso, pero más allá de identificarlo 
-    no emplea ninguna medida en contra de éste. Podría seguir el protocolo suponiendo 
-    la desconexión del participante malicioso, lo que sería análogo al punto anterior, 
-    pero tal vez existan medidas más drásticas como suspensión por un cierto tiempo 
-    de participar en otras sesiones del protocolo, o derechamente la expulsión del 
-    participante para siempre. 
+    \item Manejar participantes maliciosos: actualmente el protocolo y la 
+    implementación es capaz de encontrar a un participante malicioso, pero más 
+    allá de identificarlo no emplea ninguna medida en contra de éste. Podría 
+    seguir el protocolo suponiendo la desconexión del participante malicioso, 
+    lo que sería análogo al punto anterior, pero tal vez existan medidas más 
+    drásticas como suspensión por un cierto tiempo de participar en otras 
+    sesiones del protocolo, o derechamente la expulsión del participante para 
+    siempre. 
     
-    \item Optimizar recepción de mensajes: una parte importante a analizar por gente 
-    más experta en el área de Redes es la manera en que se están recibiendo los 
-    mensajes por parte de los participantes. Actualmente se delegó toda responsabilidad 
-    a \emph{ZeroMQ}, el cual emplea una cola para no perder los mensajes entrantes 
-    y la implementación actual se queda esperando entre mensajes, sin realizar 
-    ninguna operación. Tal vez sea necesario revisar ese protocolo y optimizar la 
-    recepción de mensajes, abriendo múltiples \emph{sockets}, o utilizando el tiempo 
-    de espera entre mensajes para poder realizar alguna operación criptográfica 
-    pendiente, y así no tener tiempo ocioso.
+    \item Optimizar recepción de mensajes: una parte importante a analizar por 
+    gente más experta en el área de Redes es la manera en que se están 
+    recibiendo los mensajes por parte de los participantes. Actualmente se 
+    delegó toda responsabilidad a \emph{ZeroMQ}, el cual emplea una cola para 
+    no perder los mensajes entrantes y la implementación actual se queda 
+    esperando entre mensajes, sin realizar ninguna operación. Tal vez sea 
+    necesario revisar ese protocolo y optimizar la recepción de mensajes, 
+    abriendo múltiples \emph{sockets}, o utilizando el tiempo de espera entre 
+    mensajes para poder realizar alguna operación criptográfica pendiente, y 
+    así no tener tiempo ocioso.
     
-    \item Refinar protocolo criptográfico: a medida que se avanzaba en el diseño del 
-    protocolo, se iban encontrando más detalles criptográficos necesarios de añadir 
-    para asegurar la seguridad e integridad del sistema. Algunos de estas necesarias 
-    mejoras alcanzaron a ser implementadas, pero otras aun no (por ejemplo, demostrar 
-    que el mensaje enviado en un ronda para resolver colisiones es menor al mensaje 
-    promedio de la ronda padre).
+    \item Refinar protocolo criptográfico: a medida que se avanzaba en el 
+    diseño del protocolo, se iban encontrando más detalles criptográficos 
+    necesarios de añadir para asegurar la seguridad e integridad del sistema. 
+    Algunos de estas necesarias mejoras alcanzaron a ser implementadas, pero 
+    otras aun no (por ejemplo, demostrar que el mensaje enviado en un ronda 
+    para resolver colisiones es menor al mensaje promedio de la ronda padre).
     
-    \item Mejorar diseño de aplicación móvil: la aplicación móvil implementada fue 
-    creada solo como prototipo, para pensar en dejar un producto disponible para la 
-    comunidad es muy importante considerar la usabilidad que posea dicha aplicación, 
-    requisito que se logra proponiendo un diseño moderno que se ponga a prueba 
-    realizando pruebas estándar de usabilidad de aplicaciones (seguir líneas de diseño 
-    modernas, pruebas con usuarios reales, etc.).
+    \item Mejorar diseño de aplicación móvil: la aplicación móvil implementada 
+    fue creada solo como prototipo, para pensar en dejar un producto 
+    disponible para la comunidad es muy importante considerar la usabilidad 
+    que posea dicha aplicación, requisito que se logra proponiendo un diseño 
+    moderno que se ponga a prueba realizando pruebas estándar de usabilidad de 
+    aplicaciones (seguir líneas de diseño modernas, pruebas con usuarios 
+    reales, etc.).
     
-    \item Utilizar aplicación a través de Internet: la implementación actual solo 
-    permite establecer comunicación entre nodos conectados en una misma red local. Para 
-    masificar su uso es necesario que pueda soportar comunicación nodo-a-nodo a través 
-    de Internet. Una posible solución a esto sería replicar el modelo utilizado por el 
-    protocolo \emph{Bit Torrent}\footnote{\url{http://www.bittorrent.org/beps/bep_0003.html}}, el cual 
-    posee una parte esencial que es la conexión punto-a-punto entre sus nodos (llamados 
-    \emph{peers}) para realizar la descarga de algun archivo en particular.
+    \item Utilizar aplicación a través de Internet: la implementación actual 
+    solo permite establecer comunicación entre nodos conectados en una misma 
+    red local. Para masificar su uso es necesario que pueda soportar 
+    comunicación nodo-a-nodo a través de Internet. Una posible solución a esto 
+    sería replicar el modelo utilizado por el protocolo 
+    \emph{Bit Torrent}\footnote{\url{http://www.bittorrent.org/beps/bep_0003.html}}, el cual posee una parte esencial que es la conexión 
+    punto-a-punto entre sus nodos (llamados \emph{peers}) para realizar la 
+    descarga de algun archivo en particular.
     
-    \item Pruebas de seguridad: cualquier aplicación que tenga como objetivo ser 
-    utilizada por múltiples usuarios alrededor del mundo, y que además maneje 
-    información sensible, es necesario que pase una serie de pruebas de seguridad 
-    realizadas por terceras personas a los diseñadores y creadores de la aplicación 
-    misma. Con esto se puede tener la certeza que la aplicación ha sido revisada en 
-    contra de posibles \emph{leaks} de seguridad, que puedan comprometer la seguridad 
-    de sus usuarios, producto de errores en la implementación (y no necesariamente 
-    errores en el protocolo criptográfico).
+    \item Pruebas de seguridad: cualquier aplicación que tenga como objetivo 
+    ser utilizada por múltiples usuarios alrededor del mundo, y que además 
+    maneje información sensible, es necesario que pase una serie de pruebas de 
+    seguridad realizadas por terceras personas a los diseñadores y creadores 
+    de la aplicación misma. Con esto se puede tener la certeza que la 
+    aplicación ha sido revisada en contra de posibles \emph{leaks} de 
+    seguridad, que puedan comprometer la seguridad de sus usuarios, producto 
+    de errores en la implementación (y no necesariamente errores en el 
+    protocolo criptográfico).
 \end{enumerate}

@@ -5,12 +5,12 @@
 \begin{itemize}
     \item Participante: agente que participa activamente del protocolo, ya sea 
     enviando un mensaje o contribuyendo para aumentar el tamaño del 
-    \emph{anonimity-set} y así ocultar ``de mejor manera'' a los emisores de 
+    \emph{anonymity set} y así ocultar ``de mejor manera'' a los emisores de 
     mensajes. 
     \item Ronda: serie de pasos (descritos a partir de la próxima sección) que 
     se llevan a cabo (principalmente intercambiando mensajes entre los 
-    participantes) con el objetivo de ir reduciendo, ronda a ronda, los mensajes 
-    enviados por cada participante.  
+    participantes) con el objetivo de ir reduciendo, ronda a ronda, los 
+    mensajes enviados por cada participante.
     \item Mensaje: información que cada participante desea transmitir de 
     manera anónima. Generalmente se relacionará a un conjunto de caracteres 
     (representados como \emph{String}), en un cierto idioma, que se desea 
@@ -35,12 +35,12 @@
     adversario puede ser un mismo participante del protocolo (al cual 
     llamaremos participante malicioso) o un observador externo.
     \item Canal de comunicación: enlace existente entre dos nodos del 
-    sistema. Estos canales deben ser autenticados y no encriptados, es decir, todos los mensajes 
-    enviados en el protocolos deben ir firmados utilizando un protocolo 
-    de clave pública y éstos pueden enviarse ``en plano'', de manera que cualquier 
-    monitoreo tiene la capacidad de observar los mensajes enviados, pero no 
-    incorporar mensajes al sistema por parte de emisores no participantes del 
-    protocolo.
+    sistema. Estos canales deben ser autenticados y no encriptados, es decir, 
+    todos los mensajes enviados en el protocolos deben ir firmados utilizando 
+    un protocolo de clave pública y éstos pueden enviarse ``en plano'', de 
+    manera que cualquier monitoreo tiene la capacidad de observar los mensajes 
+    enviados, pero no incorporar mensajes al sistema por parte de emisores no 
+    participantes del protocolo.
 \end{itemize}
 
 \section{Resolución de Colisiones}
@@ -469,15 +469,14 @@ Notar que el valor $\alpha_i$ se utilizará exclusivamente cuando el
 participante deba demostrar que envía un mensaje. La otra situación (no enviar 
 un mensaje) se demostrará, igual que en un paso anterior, mostrando que 
 $b_i= 0 \land m_i = 0$. Cuando sucede la primera alternativa (enviar un 
-mensaje, y que éste sea igual que al enviado en la ronda padre), $\alpha$ toma 
+mensaje, y que éste sea igual que al enviado en la ronda padre), $\alpha_i$ toma 
 el siguiente valor:
 \begin{flalign*}
-    \quad \alpha_i &= {{(g^{m_i} h^{r_i^m})}^{-1}}^{\mathtt{[k]}} \cdot {(g^{m_i} h^{r_i^m})}^{\mathtt{[k/2]}} &\\
+    \quad \alpha_i &= {{{(g^{m_i} h^{r_i^m})}^{\mathtt{[k]}}}^{-1}} \cdot {(g^{m_i} h^{r_i^m})}^{\mathtt{[k/2]}} &\\
         &= \frac{1}{{{(\cancel{g^{m_i}} h^{r_i^m})}^{\mathtt{[k]}}}} \cdot {(\cancel{g^{m_i}} h^{r_i^m})}^{\mathtt{[k/2]}} &\\
-        &= {h^{r_i^m}}^{\mathtt{[k/2]}} \cdot \frac{1}{{h^{r_i^m}}^{\mathtt{[k]}}} &\\
-        &= {h^{r_i^m}}^{\mathtt{[k/2]}} - {h^{r_i^m}}^{\mathtt{[k]}} &\\
+        &= {h^{r_i^m}}^{\mathtt{[k/2]}} \cdot \frac{1}{{h^{r_i^m}}^{\mathtt{[k]}}} &\\        
         &= h^{({r_i^m}^{\mathtt{[k/2]}} - {r_i^m}^{\mathtt{[k]}})} &\\
-        &= h^{r_i^{m*}}
+        &= h^{r_i^{\tilde{m}}}
 \end{flalign*}
 
 Con lo anterior, lo que debe demostrar cada participante $P_i$ en este punto 
@@ -487,8 +486,8 @@ enviado en la ronda padre (ronda $k/2$), o (2) codifica un mensaje $m_i = 0$,
 lo cual se traduce en demostrar que $b_i = 0 \land m_i = 0$. 
 Con esto, la \emph{zero-knowledge proof-of-knowledge} necesaria es la 
 siguiente: 
-$$\mathtt{PoK_i^{O, real}} = PoK\{(r(b_i), r(m_i), r({m*}_i)) : (c_{b_i} = 
-h^{r(b_i)} \land c_{m_i} = h^{r(m_i)}) \lor (\alpha_i = h^{r({m*}_i)}) \}$$
+$$\mathtt{PoK_i^{O, real}} = PoK\{(r(b_i), r(m_i), r({\tilde{m}}_i)) : (c_{b_i} = 
+h^{r(b_i)} \land c_{m_i} = h^{r(m_i)}) \lor (\alpha_i = h^{r({\tilde{m}}_i)}) \}$$
 
 Luego de calcular la \emph{zero-knowledge proof} anterior, cada participante 
 $P_i$ va a enviar al resto de la sala vía \emph{broadcast} el par 

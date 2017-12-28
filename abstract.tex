@@ -1,52 +1,51 @@
-El derecho a la privacidad en Internet se ha visto fuertemente 
-vulnerado en los últimos años, debido a revelaciones period\'isticas acerca de un 
-sinnúmero de operaciones realizadas por organismos estatales de inteligencia
-de distintas naciones.
-Con la excusa de monitorear actividades terroristas, dichos organismos 
-han monitoreado en forma indiscriminada y sin aparente autorizaci\'on judicial 
-las comunicaciones de millones de usuarios en Internet. Esto ha causado un inter\'es creciente en  
-herramientas que anonimicen las actividades 
-de dichos usuarios. 
-Tal es el caso del software TOR, basado en el 
-protocolo \emph{onion-routing}. El problema actual es que 
-dicho protocolo es a priori vulnerable frente a un adversario que posea 
-un poder de monitoreo global de la red -- una capacidad probablemente ya existente 
-por parte de los organismos de inteligencia mencionados anteriormente. Es 
-por esta razón que es necesario encontrar un nuevo protocolo 
-para asegurar comunicaciones verdaderamente anónimas.\\
-El protocolo DC-Net (\emph{Dining Cryptographers Network}), 
-es un protocolo que asegura anonimato incondicional, esto es, independiente 
-del poder de cómputo y monitoreo del adversario. Los obstáculos 
-que presenta el protocolo original son dos: (1) es necesario establecer 
-canales de comunicación entre todos los participantes, por lo 
-que no posee escalabilidad, y (2) esta diseñado para transmitir 
-solo un \'unico mensaje, por lo que el envío de más mensajes resulta 
-en una \emph{colisión} de mensajes. Una DC-Net debe manejar de alguna manera dichas colisiones
-para admitir el envío de varios mensajes en forma simult\'anea.\\
-En este trabajo se propone una variante del protocolo DC-Net, 
-la cual emplea primitivas criptográficas (\emph{commitments} y 
-\emph{Zero-knowledge proofs}) para lidiar con adversarios 
-maliciosos y manejar colisiones de manera eficiente. 
-Si bien existen propuestas de protocolos de anonimato que atacan el problema 
-de escalabilidad, ellas lo resuelven sacrificando un poco de seguridad, en particular,
-agregando servidores que funcionan como tercera parte confiable. 
-La variante propuesta en este trabajo, si bien no alcanza la 
-escalabilidad de otras propuestas, no sacrifica seguridad pues
-funciona bajo un modelo de amenaza significativamente m\'as fuerte donde el
-adversario puede monitorear todas las conexiones, e incluso 
-infiltrarse como participante del sistema.\\
-Se realizó además una implementación concreta del protocolo.
-Esta implementaci\'on sirvi\'o de base para la construcción de un 
-prototipo de aplicación móvil, el cual entrega un 
-canal anónimo entre un número potencialmente arbitrario de participantes. 
-Por otro lado, la implementación realizada fue sometida a 
-variados experimentos a fin de evaluarla frente a distintos escenarios 
-(todos en una red local).
-Dichos experimentos muestran que el protocolo se comporta mejor 
-en un escenario de foro anónimo, donde el envío de mensajes 
-se realiza sin esperar una respuesta inmediata, y donde no necesariamente
-todos los participantes de dicho foro requieren emitir un 
-mensaje al mismo tiempo. Si bien los experimentos realizados contemplaron
-escenarios de hasta 30 participantes, los resultados obtenidos permiten extrapolar los
-tiempos a escenarios más generales, esto es, con un conjunto mayor 
-de participantes enviando y/o participando en el protocolo. 
+Recientes reportajes periodísticos han puesto en evidencia que el derecho a la 
+privacidad en Internet ha sido fuertemente menoscabado en los últimos años 
+debido a la existencia de un sinnúmero de operaciones de monitoreo realizadas 
+por organismos estatales de inteligencia de distintas naciones.
+Con la excusa de detectar actividades terroristas, tales organismos han 
+monitoreado en forma indiscriminada y sin aparente autorización judicial las 
+comunicaciones de millones de usuarios en Internet. Esto ha causado un interés 
+creciente en herramientas que anonimicen las actividades de los usuarios. 
+Tal es el caso del software \emph{TOR}, basado en el protocolo 
+\emph{onion-routing}. Sin embargo, dicho protocolo es \emph{a priori} 
+vulnerable frente a un adversario que posea un poder de monitoreo global de la 
+red -- una capacidad probablemente ya existente. Es por esta razón que se hace 
+necesario encontrar un nuevo protocolo para asegurar comunicaciones 
+verdaderamente anónimas.\\
+El protocolo DC-Net (\emph{Dining Cryptographers Network}), es un protocolo 
+que asegura anonimato incondicional, esto es, independiente del poder de 
+cómputo y la capacidad de monitoreo del adversario. Lamentablemente, el 
+protocolo original presenta dos obstáculos: (1) es necesario establecer 
+canales de comunicación entre todos los participantes, lo que dificulta la 
+escalabilidad, y (2) esta diseñado para transmitir solo un único mensaje en 
+forma simultánea, de manera que el envío de más mensajes resulta en servicio 
+degradado (se dice que hay una \emph{colisión} de mensajes). Una DC-Net 
+robusta debe poder manejar dichas colisiones para admitir el envío de varios 
+mensajes en forma simultánea.\\
+En este trabajo se propone una variante del protocolo DC-Net la cual emplea 
+primitivas criptográficas sofisticadas (\emph{commitments} y 
+\emph{zero-knowledge-proofs}) para lidiar con adversarios maliciosos y manejar 
+colisiones de manera eficiente. Si bien ya existen propuestas de protocolos de 
+anonimato que atacan el problema de escalabilidad, lo resuelven sacrificando 
+un poco de seguridad, en particular, agregando servidores que funcionan como 
+tercera parte confiable. La variante propuesta en este trabajo, si bien no 
+alcanza la escalabilidad de otras propuestas, no sacrifica seguridad pues 
+funciona bajo un modelo de amenaza significativamente más fuerte, uno donde el 
+adversario puede monitorear todas las conexiones e incluso infiltrarse como 
+participante del sistema.\\
+A fin de evaluar esta propuesta en la práctica, se realizó una implementación 
+concreta del protocolo. Esta implementación sirvió de base para la 
+construcción de un prototipo de aplicación móvil, el cual efectivamente provee 
+un canal anónimo entre un número potencialmente arbitrario de participantes. 
+Por otro lado, la implementación realizada fue sometida a variados 
+experimentos a fin de evaluar el enfoque en distintos escenarios (todos en una 
+red local). Dichos experimentos muestran que el protocolo se comporta mejor en 
+un escenario de foro anónimo, donde el envío de mensajes se realiza sin 
+esperar una respuesta inmediata, y donde no necesariamente todos los 
+participantes de dicho foro deben enviar un mensaje al mismo tiempo. 
+Si bien los experimentos realizados contemplaron escenarios de hasta $30$ 
+participantes, los resultados obtenidos permiten extrapolar el rendimiento del 
+protocolo en situaciones más generales y con un conjunto mayor de emisores y/o 
+participantes, mostrando que para escenarios de baja interactividad el enfoque 
+es suficientemente práctico como para ser una alternativa efectiva de 
+comunicación anónima.

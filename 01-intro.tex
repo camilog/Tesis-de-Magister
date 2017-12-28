@@ -2,155 +2,236 @@
 
 \section{Anonimato en Internet}
 
-Fruto tanto de las primeras revelaciones del grupo \emph{Wikileaks}\footnote{\url{https://wikileaks.org/}} en el año 2006, 
-así como de la información revelada por el ex agente de la \emph{CIA}, \emph{Edward Snowden}\footnote{\url{http://www.huffingtonpost.com/news/nsa/}} 
-en el año 2013, muchos usuarios han modificado su comportamiento de navegación por \emph{Internet} simplemente por el hecho de tener la presunción que todos sus movimientos están siendo 
-registrados por organismos de Estado, a pesar de no ser amenaza a la seguridad de ninguna nación.
+Fruto tanto de las primeras revelaciones del grupo 
+\emph{Wikileaks}\footnote{\url{https://wikileaks.org/}} en el año 2006, 
+así como de la información revelada por el ex agente de la \emph{CIA}, 
+\emph{Edward Snowden}\footnote{\url{http://www.huffingtonpost.com/news/nsa/}} 
+en el año 2013, muchos usuarios han modificado su comportamiento de navegación 
+por \emph{Internet} simplemente por el hecho de tener la presunción que todos 
+sus movimientos están siendo registrados por organismos de Estado, a pesar de 
+no ser amenaza a la seguridad de ninguna nación.
 
-Por ende, usuarios de todo el mundo han comenzado a reclamar por su derecho a la privacidad\footnote{\url{http://www.livescience.com/37398-right-to-privacy.
-html}}, por ejemplo, tomando acciones que ocultan las páginas que visitan navegando en Internet de los organismos de Estado, o de cualquier tercero, que estén monitoreando y/o recopilando dichas visitas. 
-Existe una basta comunidad compuesta por activistas de derechos humanos, abogados, ONGs, académicos y profesionales 
+Por ende, usuarios de todo el mundo han comenzado a reclamar por su derecho a 
+la privacidad\footnote{\url{http://www.livescience.com/37398-right-to-privacy.html}}, por ejemplo, tomando 
+acciones que ocultan las páginas que visitan navegando en Internet de los 
+organismos de Estado, o de cualquier tercero, que estén monitoreando y/o 
+recopilando dichas visitas. Existe una basta comunidad compuesta por 
+activistas de derechos humanos, abogados, ONGs, académicos y profesionales 
 que abogan por que se haga valer el legítimo derecho a la 
-privacidad de los usuarios de Internet, argumentando la importancia del anonimato\footnote{\url{https://www.derechosdigitales.org/anonimato/}} 
-\footnote{\url{http://www.ted.com/talks/glenn_greenwald_why_privacy_matters}}, y motivando su tratamiento desde una perspectiva científica, brindando herramientas y protocolos que puedan asegurar el 
-anonimato en Internet de manera segura, eficaz y eficiente. 
-El trabajo de esta tesis está motivado por dicho objetivo.
+privacidad de los usuarios de Internet, argumentando la importancia del 
+anonimato\footnote{\url{https://www.derechosdigitales.org/anonimato/}} 
+\footnote{\url{http://www.ted.com/talks/glenn_greenwald_why_privacy_matters}}, 
+y motivando su tratamiento desde una perspectiva científica, brindando 
+herramientas y protocolos que puedan asegurar el anonimato en Internet de 
+manera segura, eficaz y eficiente. El trabajo de esta tesis está motivado por 
+dicho objetivo.
 
-Hoy en día navegar de manera anónima en Internet se realiza principalmente usando el software \emph{TOR}\footnote{\url{https://www.torproject.org/}}, 
+Hoy en día navegar de manera anónima en Internet se realiza principalmente 
+usando el software \emph{TOR}\footnote{\url{https://www.torproject.org/}}, 
 el cual en su versión más popular consiste en un explorador web (variante de 
-\emph{Firefox}\footnote{\url{https://www.mozilla.org/en-US/firefox}}) que ejecuta el protocolo \emph{onion-routing} 
-(detallado en la siguiente sección), el cual permite dos objetivos: (1) ocultar la identidad del usuario tanto al proveedor 
-del servicio que está consumiendo (página web que está visitando), como de algun observador externo, y (2) acceder a servicios ``ocultos'' que solo 
-son accesibles por medio de \emph{TOR}. En este trabajo nos concentraremos en el primer objetivo solamente, detallando la manera en que 
-\emph{TOR} logra ocultar la identidad del usuario del servicio. Es importante nombrar que \emph{TOR} no es la única manera de 
-navegar de manera anónima en Internet: protocolos como \emph{mix-networks} y \emph{DC-Nets} (tema central en esta tesis) también logran ocultar la identidad del usuario.
+\emph{Firefox}\footnote{\url{https://www.mozilla.org/en-US/firefox}}) que 
+ejecuta el protocolo \emph{onion-routing} (detallado en la siguiente sección), 
+el cual permite dos objetivos: (1) ocultar la identidad del usuario tanto al 
+proveedor del servicio que está consumiendo (página web que está visitando), 
+como de algun observador externo, y (2) acceder a servicios ``ocultos'' que 
+solo son accesibles por medio de \emph{TOR}. En este trabajo nos 
+concentraremos en el primer objetivo solamente, detallando la manera en que 
+\emph{TOR} logra ocultar la identidad del usuario del servicio. Es importante 
+nombrar que \emph{TOR} no es la única manera de navegar de manera anónima en 
+Internet: protocolos como \emph{mix-networks} y \emph{DC-Nets} (tema central 
+en esta tesis) también logran ocultar la identidad del usuario.
 
-El anonimato, más allá de su atractivo científico, es una problemática socialmente difícil de abordar. Esto se debe a que 
-invoca prejuicios y dilemas éticos que, puestos en un contexto poco informado, pueden llegar a generar 
-aprehensión e incluso rechazo. Parte de las aprehensiones se deben a la posibilidad de realizar acciones ilícitas 
-bajo el paraguas del anonimato, lo cual puede impedir la persecucion policial de delitos donde el criminal use herramientas que permitan anonimato efectivo. Entre estas acciones se pueden mencionar: 
-denuncias falsas, compra/venta de drogas, distribución de material pornográfico infantil, fraude, \emph{bullying}, etc. 
-¿Deberían los científicos crear y promover herramientas que permitan esas acciones? 
-¿Valen la pena las ventajas del anonimato como para permitir la realización de estas acciones sin la posibilidad de 
-perseguir a sus ejecutores?
-Estas son algunas preguntas que todo científico 
-debería realizarse antes de generar un trabajo (independiente del tema de investigación) que afecta directamente la sociedad en que está envuelto. 
-Desde el punto de vista 
-del autor, la labor del científico es siempre generar el ``mejor conocimiento'' posible, expandir la barrera del conocimiento 
-humano, y al mismo tiempo, estar conciente de las posibles implicancias que posea en otras esferas de la sociedad, como por ejemplo en este caso, 
-facilitar acciones ilícitas a través de Internet. Pese a los potenciales usos negativos, es nuestra opinion que los sistemas de anonimato pueden ser herramientas efectivas contra la censura y violacion de la privacidad existentes en regimenes autoritarios. También en situaciones de denuncia donde los potenciales enviadores arriesgan su vida (denuncias de narcotrafico o espionaje). El problema de limitar el uso socialmente negativo de estas tecnologias es un problema de investigacion abierto y extremadamente interesante.  
+El anonimato, más allá de su atractivo científico, es una problemática 
+socialmente difícil de abordar. Esto se debe a que invoca prejuicios y dilemas 
+éticos que, puestos en un contexto poco informado, pueden llegar a generar 
+aprehensión e incluso rechazo. Parte de las aprehensiones se deben a la 
+posibilidad de realizar acciones ilícitas bajo el paraguas del anonimato, lo 
+cual puede impedir la persecucion policial de delitos donde el criminal use 
+herramientas que permitan anonimato efectivo. Entre estas acciones se pueden 
+mencionar: denuncias falsas, compra/venta de drogas, distribución de material 
+pornográfico infantil, fraude, \emph{bullying}, etc. ¿Deberían los científicos 
+crear y promover herramientas que permitan esas acciones? ¿Valen la pena las 
+ventajas del anonimato como para permitir la realización de estas acciones sin 
+la posibilidad de perseguir a sus ejecutores? Estas son algunas preguntas que 
+todo científico debería realizarse antes de generar un trabajo (independiente 
+del tema de investigación) que afecta directamente la sociedad en que está 
+envuelto. Desde el punto de vista del autor, la labor del científico es 
+siempre generar el ``mejor conocimiento'' posible, expandir la barrera del 
+conocimiento humano, y al mismo tiempo, estar conciente de las posibles 
+implicancias que posea en otras esferas de la sociedad, como por ejemplo en 
+este caso, facilitar acciones ilícitas a través de Internet. Pese a los 
+potenciales usos negativos, es nuestra opinion que los sistemas de anonimato 
+pueden ser herramientas efectivas contra la censura y violacion de la 
+privacidad existentes en regimenes autoritarios. También en situaciones de 
+denuncia donde los potenciales enviadores arriesgan su vida (denuncias de 
+narcotráfico o espionaje). El problema de limitar el uso socialmente negativo 
+de estas tecnologias es un problema de investigacion abierto y extremadamente 
+interesante.  
 
 \section{Protocolos de Anonimato}
 
 \subsection{\emph{Mix-networks}}
 
-Una alternativa para anonimizar mensajes lo entregan protocolos de mezcla de mensajes, comúnmente llamados \emph{mixnets}. 
-Una \emph{mixnet} consiste en un proceso iterativo donde un conjunto de mensajes encriptados es mezclado (permutado) en forma 
-secuencial por una colección de servidores o ``\emph{mix-servers}'' \cite{chaum1981untraceable}. Este proceso puede verse como una 
-``mezcla no invertible'' donde la \emph{mixnet} disocia datos referentes a la emisión del 
-mensaje (identidad, tiempo del envío, etc.) con el mensaje mismo, impidiendo individualizar a un emisor con un mensaje en particular. 
-El principal problema de este protocolo es que el anonimato se preserva gracias a la participación de \emph{mix-servers} honestos, 
-y por ende requiere de una ``tercera parte confiable''. 
-Para garantizar la privacidad de la mezcla (esto es, el anonimato), es que se utilizan varias etapas (servidores) de mezcla, pues 
-basta que un servidor sea honesto, para que la permutación realmente permanezca oculta. Sin embargo, el depender de varios servidores 
-de mezcla repercute en un proceso más ineficiente, resultando en una alta latencia al momento de enviar 
-un mensaje. Importante es mencionar que la seguridad que, dado que utilizan típicamente encriptación de clave pública, se logra con 
-una \emph{mixnet} es solamente computacional, esto es, eventualmente en un 
-futuro donde sea posible adquirir un mayor poder de cómputo, el anonimato podría verse comprometido.
+Una alternativa para anonimizar mensajes lo entregan protocolos de mezcla de 
+mensajes, comúnmente llamados \emph{mixnets}. Una \emph{mixnet} consiste en un 
+proceso iterativo donde un conjunto de mensajes encriptados es mezclado 
+(permutado) en forma secuencial por una colección de servidores o 
+``\emph{mix-servers}'' \cite{chaum1981untraceable}. Este proceso puede verse 
+como una ``mezcla no invertible'' donde la \emph{mixnet} disocia datos 
+referentes a la emisión del mensaje (identidad, tiempo del envío, etc.) con el 
+mensaje mismo, impidiendo individualizar a un emisor con un mensaje en 
+particular. El principal problema de este protocolo es que el anonimato se 
+preserva gracias a la participación de \emph{mix-servers} honestos, y por ende 
+requiere de una ``tercera parte confiable''. Para garantizar la privacidad de 
+la mezcla (esto es, el anonimato), es que se utilizan varias etapas 
+(servidores) de mezcla, pues basta que un servidor sea honesto, para que la 
+permutación realmente permanezca oculta. Sin embargo, el depender de varios 
+servidores de mezcla repercute en un proceso más ineficiente, resultando en 
+una alta latencia al momento de enviar un mensaje. Importante es mencionar que 
+la seguridad que, dado que utilizan típicamente encriptación de clave pública, 
+se logra con una \emph{mixnet} es solamente computacional, esto es, 
+eventualmente en un futuro donde sea posible adquirir un mayor poder de 
+cómputo, el anonimato podría verse comprometido.
 
 \subsection{\emph{Onion-Routing}}
 
-El protocolo más utilizado hoy en día para proveer anonimato en la red es \emph{onion-routing} 
-\cite{reed1998anonymous}, utilizado principalmente a través del software \emph{TOR}. Su popularidad viene dada principalmente por 
-el carácter abierto que posee el proyecto. Esto le permite recibir contribuciones por parte de voluntarios todos los 
-días\footnote{\url{https://www.torproject.org/getinvolved/volunteer.html.en}}, arreglando fallas que puedan existir, además de recibir 
-permanentes análisis por parte de instituciones académicas que buscan la mejora, tanto del software como del protocolo subyacente. 
-Si bien el sistema posee múltiples ventajas (llegando a ser recomendado por el mismo Snowden para ocultarse de las intromisiones de 
-organismos de Estado\footnote{\url{https://www.inc.com/larry-kim/5-online-privacy-tips-from-edward-snowden.html}}), 
-se sabe que varias falencias. Por ejemplo la vulnerabilidad descrita en \cite{syverson2001towards}, llegando incluso a poder romper el 
-anonimato que éste provee si se posee la capacidad de monitorear toda la red (como la que poseen los distintos \emph{ISP} que proveen 
-la conexión a Internet a los usuarios de la red). También es importante mencionar que el protocolo \emph{onion-routing} fue pensado 
-bajo la amenaza de un adversario ``local'', es decir, uno que no puede monitorear toda la red. Este supuesto últimamente se ha ido 
-debilitando, puesto que varias filtraciones muestran que, la \emph{NSA} en particular, efectivamente poseería la capacidad de 
-monitorear todo Internet, haciendo inseguro al protocolo \emph{onion-routing}, y en consecuencia el software \emph{TOR}.
+El protocolo más utilizado hoy en día para proveer anonimato en la red es 
+\emph{onion-routing} \cite{reed1998anonymous}, utilizado principalmente a 
+través del software \emph{TOR}. Su popularidad viene dada principalmente por 
+el carácter abierto que posee el proyecto. Esto le permite recibir 
+contribuciones por parte de voluntarios todos los 
+días\footnote{\url{https://www.torproject.org/getinvolved/volunteer.html.en}}, 
+arreglando fallas que puedan existir, además de recibir permanentes análisis 
+por parte de instituciones académicas que buscan la mejora, tanto del software 
+como del protocolo subyacente. Si bien el sistema posee múltiples ventajas 
+(llegando a ser recomendado por el mismo Snowden para ocultarse de las 
+intromisiones de organismos de 
+Estado\footnote{\url{https://www.inc.com/larry-kim/5-online-privacy-tips-from-edward-snowden.html}}), se sabe que 
+varias falencias. Por ejemplo la vulnerabilidad descrita en 
+\cite{syverson2001towards}, llegando incluso a poder romper el anonimato que 
+éste provee si se posee la capacidad de monitorear toda la red (como la que 
+poseen los distintos \emph{ISP} que proveen la conexión a Internet a los 
+usuarios de la red). También es importante mencionar que el protocolo 
+\emph{onion-routing} fue pensado bajo la amenaza de un adversario ``local'', 
+es decir, uno que no puede monitorear toda la red. Este supuesto últimamente 
+se ha ido debilitando, puesto que varias filtraciones muestran que, la 
+\emph{NSA} en particular, efectivamente poseería la capacidad de monitorear 
+todo Internet, haciendo inseguro al protocolo \emph{onion-routing}, y en 
+consecuencia el software \emph{TOR}.
 
 \section{La Cena de Criptógrafos}
 
-David Chaum en el año 1985 propuso un protocolo que permitía el envío de mensajes de manera anónima entre un grupo de participantes 
-\cite{Chaum:1985:SWI:4372.4373, chaum1988dining}. Dicho protocolo fue motivado con una historia llamada ``El Problema de la Cena de 
-Criptógrafos'' (\emph{Dining Cryptographers Problem}), razón por la cual el protocolo desde entonces se conoce como \emph{DC-Net} 
-(\emph{Dining Cryptographers Network}).
+David Chaum en el año 1985 propuso un protocolo que permitía el envío de 
+mensajes de manera anónima entre un grupo de participantes 
+\cite{Chaum:1985:SWI:4372.4373, chaum1988dining}. Dicho protocolo fue motivado 
+con una historia llamada ``El Problema de la Cena de Criptógrafos'' 
+(\emph{Dining Cryptographers Problem}), razón por la cual el protocolo desde 
+entonces se conoce como \emph{DC-Net} (\emph{Dining Cryptographers Network}).
 
-El problema es el siguiente: están tres criptógrafos cenando tranquilamente en su restorán favorito. Al terminar la cena, el mozo 
-se acerca a su mesa y les comunica que su cena ya está pagada y que pueden irse a sus casas. Los criptógrafos, altamente consternados, 
-se miran mutuamente y llegan a la conclusión de que debió haber sucedido una de dos cosas: (1) uno de ellos pagó la cuenta de manera 
-anónima (haciéndose el amable e invitando al resto sin que ellos sepan), ó (2) la cuenta fue pagada por alguien distinto a ellos tres 
-(como la \emph{NSA} por ejemplo), revelando la intromisión del organismo de inteligencia de EE.UU. en la vida de los criptógrafos. 
-En esta situación, se hace necesario poder dilucidar este problema, pero sin comprometer (si es que fue el caso) al criptógrafo que 
-pagó la cuenta de manera anónima. Por lo tanto los criptógrafos necesitan saber si uno de ellos pagó la cuenta (sin saber quién) o si 
-fue alguien distinto.
+El problema es el siguiente: están tres criptógrafos cenando tranquilamente en 
+su restorán favorito. Al terminar la cena, el mozo se acerca a su mesa y les 
+comunica que su cena ya está pagada y que pueden irse a sus casas. Los 
+criptógrafos, altamente consternados, se miran mutuamente y llegan a la 
+conclusión de que debió haber sucedido una de dos cosas: (1) uno de ellos pagó 
+la cuenta de manera anónima (haciéndose el amable e invitando al resto sin que 
+ellos sepan), ó (2) la cuenta fue pagada por alguien distinto a ellos tres 
+(como la \emph{NSA} por ejemplo), revelando la intromisión del organismo de 
+inteligencia de EE.UU. en la vida de los criptógrafos. En esta situación, se 
+hace necesario poder dilucidar este problema, pero sin comprometer (si es que 
+fue el caso) al criptógrafo que pagó la cuenta de manera anónima. Por lo tanto 
+los criptógrafos necesitan saber si uno de ellos pagó la cuenta (sin saber 
+quién) o si fue alguien distinto.
 
-David Chaum generaliza el problema de la siguiente manera: se tienen 3 participantes (los criptógrafos) donde cada uno de ellos quiere 
-comunicar un mensaje (pagó o no pagó la cena). El resultado del protocolo debe entregar, ya sea el mensaje de alguno de ellos 
-(que pagó la cena), sin conocer el emisor de dicho mensaje, o bien que todos los mensajes fueron iguales (revelando que nadie pagó la 
-cena, concluyendo que fue un agente externo). El protocolo debe poder mantener el anonimato del participante que envió el mensaje 
-tanto para el resto de los participantes como para cualquier observador externo que esté monitoreando las conversaciones.
+David Chaum generaliza el problema de la siguiente manera: se tienen 3 
+participantes (los criptógrafos) donde cada uno de ellos quiere comunicar un 
+mensaje (pagó o no pagó la cena). El resultado del protocolo debe entregar, ya 
+sea el mensaje de alguno de ellos (que pagó la cena), sin conocer el emisor de 
+dicho mensaje, o bien que todos los mensajes fueron iguales (revelando que 
+nadie pagó la cena, concluyendo que fue un agente externo). El protocolo debe 
+poder mantener el anonimato del participante que envió el mensaje tanto para 
+el resto de los participantes como para cualquier observador externo que esté 
+monitoreando las conversaciones.
 
-La solución propuesta supone el envío de solo un bit de información (si pagó o no pagó la cena). 
-La solución generalizada consiste en los siguientes pasos:
+La solución propuesta supone el envío de solo un bit de información (si pagó o 
+no pagó la cena). La solución generalizada consiste en los siguientes pasos:
 \begin{enumerate}
-    \item Cada par de participantes $(p_i, p_j)$ escogen un bit al azar compartido $b_{ij}$. Además, se fija $b_{ij} = -b_{ji}$
-    \item Cada participante $p_i$ calcula $b_i$ como el \texttt{XOR} binario (denotado $\oplus$) entre todos los $b_{ij}$ que posee 
-    compartidos. Por ejemplo, en el caso de la cena: $b_1 = b_{12} \oplus b_{13}$, $b_2 = b_{12} \oplus b_{23}$, $b_3 = b_{13} \oplus b_{23}$.
-    \item Cada participante $p_i$ define su propio $M_i$, el cual corresponderá al bit que quiere comunicar ($M_i = 1$ si pagó la cena, $0$ si no).
+    \item Cada par de participantes $(p_i, p_j)$ escogen un bit al azar 
+    compartido $b_{ij}$. Además, se fija $b_{ij} = -b_{ji}$
+    \item Cada participante $p_i$ calcula $b_i$ como el \texttt{XOR} binario 
+    (denotado $\oplus$) entre todos los $b_{ij}$ que posee compartidos. Por 
+    ejemplo, en el caso de la cena: $b_1 = b_{12} \oplus b_{13}$, $b_2 = b_{12}
+     \oplus b_{23}$, $b_3 = b_{13} \oplus b_{23}$.
+    \item Cada participante $p_i$ define su propio $M_i$, el cual 
+    corresponderá al bit que quiere comunicar ($M_i = 1$ si pagó la cena, $0$ 
+    si no).
     \item Cada $p_i$ revelará el valor $o_i = M_i \oplus b_i$.
-    \item Cualquier $p_i$ u observador externo puede calcular el valor $D = \displaystyle\bigoplus_i o_i$.
-    \item Si $D = 1$, entonces uno de los participantes envió el mensaje 1 (alguien pagó la cena), si $D = 0$, todos los participantes 
-    enviaron el mensaje 0 (la cena la pagó un agente externo a los participantes).
+    \item Cualquier $p_i$ u observador externo puede calcular el valor 
+    $D = \displaystyle\bigoplus_i o_i$.
+    \item Si $D = 1$, entonces uno de los participantes envió el mensaje 1 
+    (alguien pagó la cena), si $D = 0$, todos los participantes enviaron el 
+    mensaje 0 (la cena la pagó un agente externo a los participantes).
 \end{enumerate}
 
 \begin{figure}[H]
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
     \input{KEYGRAPH_A.tex}
-    \caption{Ilustración del bit al azar $b_{ij}$ compartido entre cada par de participantes.}
+    \caption{Ilustración del bit al azar $b_{ij}$ compartido entre cada par de 
+    participantes.}
     \label{2a}
 \end{subfigure}
 ~
 \begin{subfigure}[b]{0.4\textwidth}
     \input{KEYGRAPH_B.tex}
-    \caption{Cálculo de $o_i$ por cada participante, dependiendo si pagó o no la cena.}
+    \caption{Cálculo de $o_i$ por cada participante, dependiendo si pagó o no 
+    la cena.}
     \label{2b}
 \end{subfigure}
 
-\protect\caption{Ejemplo de Cena de Criptógrafos donde uno de los participantes pagó la cena. En este caso $D = 0 \oplus 0 \oplus 1 = 1$. 
-No es difícil observar que si ningún participante pagó la cena, $D = 0$. }
+\protect\caption{Ejemplo de Cena de Criptógrafos donde uno de los 
+participantes pagó la cena. En este caso $D = 0 \oplus 0 \oplus 1 = 1$. 
+No es difícil observar que si ningún participante pagó la cena, $D = 0$.}
 \label{fig:example_dcnet_chaum}
 \end{figure}
 
-Luego de proponer esta solución, David Chaum realiza el análisis de seguridad del protocolo (para detalles consultar el paper original 
-\cite{chaum1988dining}), del cual concluye que el protocolo sugerido entrega anonimato de manera \emph{incondicional}: que incluso 
-un adversario que posea todo el poder de cómputo posible no puede dar con una estrategia que le permita encontrar al emisor del mensaje 
-con mejor probabilidad que $1/n$ (donde $n$ es la cantidad total de participantes).
+Luego de proponer esta solución, David Chaum realiza el análisis de seguridad 
+del protocolo (para detalles consultar el paper original 
+\cite{chaum1988dining}), del cual concluye que el protocolo sugerido entrega 
+anonimato de manera \emph{incondicional}: que incluso un adversario que posea 
+todo el poder de cómputo posible no puede dar con una estrategia que le 
+permita encontrar al emisor del mensaje con mejor probabilidad que $1/n$ 
+(donde $n$ es la cantidad total de participantes).
 
-Posteriormente se propone una manera de generalizar el protocolo para utilizarlo con mensajes más largos (de más de 1 bit), lo cual será 
+Posteriormente se propone una manera de generalizar el protocolo para 
+utilizarlo con mensajes más largos (de más de 1 bit), lo cual será 
 visto en la siguiente sección.
 
 \section{\emph{DC-Net} como protocolo de anonimato}
 
-\emph{DC-Net} (\emph{Dining Cryptographers Network}) es un protocolo que permite enviar un mensaje de manera anónima a un grupo de participantes 
-(llamado \emph{anonymity-set}). Este protocolo protege la identidad del emisor del mensaje de manera 
-\emph{incondicional}, es decir, que ningún adversario (independiente del poder de cómputo que posea) puede encontrar a dicho emisor con 
-una probabilidad mayor a $1/n$ (donde $n$ es el tamaño del \emph{anonimity-set} o la cantidad total de participantes). Dicho adversario puede 
-ser interno (uno de los participantes) o externo (por ejemplo, un observador externo que esté monitoreando todas las comunicaciones entre los distintos participantes).
+\emph{DC-Net} (\emph{Dining Cryptographers Network}) es un protocolo que 
+permite enviar un mensaje de manera anónima a un grupo de participantes 
+(llamado \emph{anonymity-set}). Este protocolo protege la identidad del emisor 
+del mensaje de manera \emph{incondicional}, es decir, que ningún adversario 
+(independiente del poder de cómputo que posea) puede encontrar a dicho emisor 
+con una probabilidad mayor a $1/n$ (donde $n$ es el tamaño del 
+\emph{anonymity set} o la cantidad total de participantes). Dicho adversario 
+puede ser interno (uno de los participantes) o externo (por ejemplo, un 
+observador externo que esté monitoreando todas las comunicaciones entre los 
+distintos participantes).
 
-A continuación se detallará la generalización del protocolo para permitir el envío de mensajes de largo arbitrario. 
-Supongamos un \emph{anonymity-set} de $n$ participantes $\{p_1, p_2, \ldots, p_n\}$. Sin pérdida de generalidad, supondremos que $p_1$ es el único 
-participante que quiere enviar un mensaje (más adelante 
-se discutirá el caso cuando dos o más participantes quieren enviar un mensaje). 
-En este caso $M_1 = m \in \mathbb{Z}_q$\footnote{$\mathbb{Z}_q = \{1, 2, \ldots, q - 1\}$}, para todo el resto $M_i = 0$ $(\forall i \in \{2, \ldots, n\})$.
+A continuación se detallará la generalización del protocolo para permitir el 
+envío de mensajes de largo arbitrario. Supongamos un \emph{anonymity set} de 
+$n$ participantes $\{p_1, p_2, \ldots, p_n\}$. Sin pérdida de generalidad, 
+supondremos que $p_1$ es el único participante que quiere enviar un mensaje 
+(más adelante se discutirá el caso cuando dos o más participantes quieren 
+enviar un mensaje). En este caso $M_1 = m \in 
+\mathbb{Z}_q$\footnote{$\mathbb{Z}_q = \{1, 2, \ldots, q - 1\}$}, para todo el 
+resto $M_i = 0$ $(\forall i \in \{2, \ldots, n\})$.
 
-El primer paso, al igual que en el protocolo original, es generar valores (o claves) compartidos entre cada par de participantes. Cada par $\{p_i, p_j\}$ comparte un valor único $k_{ij}$ (y se define además que $k_{ij} = -k_{ji}$ y $k_{ii} = 0$).
+El primer paso, al igual que en el protocolo original, es generar valores (o 
+claves) compartidos entre cada par de participantes. Cada par $\{p_i, p_j\}$ 
+comparte un valor único $k_{ij}$ (y se define además que $k_{ij} = -k_{ji}$ y 
+$k_{ii} = 0$).
 
 \begin{figure}[H]
   \centering
@@ -158,56 +239,96 @@ El primer paso, al igual que en el protocolo original, es generar valores (o cla
   \caption{Claves compartidas en DC-Net}
 \end{figure}
 
-Con esto, cada participante $p_i$ genera un valor igual a la suma de todas las claves compartidas que posee, esto es $K_i = \sum_{j=1}^n k_{ij}$. 
-Luego, genera el valor $O_i = K_i + M_i$ que comunica al resto de los participantes. Este valor es la suma de la clave $K_i$ con el mensaje $M_i$, (recordemos que solo $p_1$ posee su mensaje distinto a 0, por lo que para el todo el resto de los participantes $O_i = K_i$). 
-Finalmente, cada participante envia el valor $O_i$ al resto de los participantes (vía \emph{broadcast}, por ejemplo). Con esto, los 
-valores $O_i$ quedan disponibles tanto para el resto de los participantes, como para cualquier observador externo.
+Con esto, cada participante $p_i$ genera un valor igual a la suma de todas las 
+claves compartidas que posee, esto es $K_i = \sum_{j=1}^n k_{ij}$. 
+Luego, genera el valor $O_i = K_i + M_i$ que comunica al resto de los 
+participantes. Este valor es la suma de la clave $K_i$ con el mensaje $M_i$, 
+(recordemos que solo $p_1$ posee su mensaje distinto a 0, por lo que para el 
+todo el resto de los participantes $O_i = K_i$). Finalmente, cada participante 
+envia el valor $O_i$ al resto de los participantes (vía \emph{broadcast}, por 
+ejemplo). Con esto, los valores $O_i$ quedan disponibles tanto para el resto 
+de los participantes, como para cualquier observador externo.
 
-Ahora solo queda encontrar el mensaje enviado por $p_1$. Para ello, se calcula el valor $D$ como la suma de todos los $O_i$ enviados por los 
-participantes: $$D = \sum_{i=1}^n O_i \overset{(1)}{=} \sum_{i=1}^n K_i + \sum_{i=1}^n M_i \overset{(2)}{=} \sum_{i=1}^n K_i + m \overset{(3)}{=} m$$
+Ahora solo queda encontrar el mensaje enviado por $p_1$. Para ello, se calcula 
+el valor $D$ como la suma de todos los $O_i$ enviados por los participantes: 
+$$D = \sum_{i=1}^n O_i \overset{(1)}{=} \sum_{i=1}^n K_i + \sum_{i=1}^n M_i 
+\overset{(2)}{=} \sum_{i=1}^n K_i + m \overset{(3)}{=} m$$
 
-La primera (1) igualdad se debe a la definición de $O_i$ y la separación de la suma en las dos componentes $K_i$ y $M_i$. La segunda 
-(2) hace referencia al hecho que $M_i = 0$ $\forall i \geq 2$, por lo que solo ``sobrevive'' $M_1 = m$. Finalmente la tercera (3) 
-se debe al hecho que las claves compartidas se cancelan mutuamente, debido a que $k_{ij} = -k_{ji}$. Por lo tanto, el 
-valor $D$ corresponde al único mensaje enviado $m$, el cual es revelado al resto de los participantes, manteniendo en el anonimato a su emisor (en este caso, $p_1$).
+La primera (1) igualdad se debe a la definición de $O_i$ y la separación de la 
+suma en las dos componentes $K_i$ y $M_i$. La segunda (2) hace referencia al 
+hecho que $M_i = 0$ $\forall i \geq 2$, por lo que solo ``sobrevive'' 
+$M_1 = m$. Finalmente la tercera (3) se debe al hecho que las claves 
+compartidas se cancelan mutuamente, debido a que $k_{ij} = -k_{ji}$. Por lo 
+tanto, el valor $D$ corresponde al único mensaje enviado $m$, el cual es 
+revelado al resto de los participantes, manteniendo en el anonimato a su 
+emisor (en este caso, $p_1$).
 
-Informalmente, el mensaje $m$ se oculta entre la suma de las claves compartidas. En principio conocer el 
-valor de todas las claves compartidas (a menos que se coludan $n-1$ participantes), no es claro como poder dilucidar si un mensaje $m$ vino de un cierto valor $O_i$ revelado por participante $p_i$.
+Informalmente, el mensaje $m$ se oculta entre la suma de las claves 
+compartidas. En principio conocer el valor de todas las claves compartidas (a 
+menos que se coludan $n-1$ participantes), no es claro como poder dilucidar si 
+un mensaje $m$ vino de un cierto valor $O_i$ revelado por participante $p_i$.
 
-Ahora bien, el protocolo anteriormente descrito sufre de dos problemas: (1) el protocolo funciona sólo cuando un 
-único participante envía un mensaje (de haber dos o más participantes con $M_i \neq 0$, se tendría que $D = \sum M_i$, por lo que sería imposible 
-rescatar los mensajes individuales). Y, (2) no evita que participantes maliciosos envíen mensajes erróneos: por ejemplo, que participantes maliciosos envíen 
-valores de claves compartidas distintos, causando que estas no se cancelen, evitando así la revelación del mensaje $m$ final. En este 
-trabajo se detallará una variante que soluciona estos problema utilizando herramientas criptográficas que serán presentadas en el próximo capítulo.
+Ahora bien, el protocolo anteriormente descrito sufre de dos problemas: (1) el 
+protocolo funciona sólo cuando un único participante envía un mensaje (de 
+haber dos o más participantes con $M_i \neq 0$, se tendría que $D = \sum M_i$, 
+por lo que sería imposible rescatar los mensajes individuales). Y, (2) no 
+evita que participantes maliciosos envíen mensajes erróneos: por ejemplo, que 
+participantes maliciosos envíen valores de claves compartidas distintos, 
+causando que estas no se cancelen, evitando así la revelación del mensaje $m$ 
+final. En este trabajo se detallará una variante que soluciona estos problema 
+utilizando herramientas criptográficas que serán presentadas en el próximo 
+capítulo.
 
 \section{Objetivos del Trabajo}
 
 \subsection{Objetivo General}
 
-Diseñar e implementar una variante del protocolo \emph{DC-Net} que alcance mejores niveles de seguridad que los ofrecidos por otros protocolos 
-actualmente utilizados para mantener anonimato. Además la variante debe estar optimizada para sistemas completamente distribuidos donde la implementación presente mejores resultados que las 
-alternativas existentes, tomando en cuenta distintos factores como el tipo de seguridad alcanzada y la eficiencia en el envío de los mensajes.
+Diseñar e implementar una variante del protocolo \emph{DC-Net} que alcance 
+mejores niveles de seguridad que los ofrecidos por otros protocolos 
+actualmente utilizados para mantener anonimato. Además la variante debe estar 
+optimizada para sistemas completamente distribuidos donde la implementación 
+presente mejores resultados que las alternativas existentes, tomando en cuenta 
+distintos factores como el tipo de seguridad alcanzada y la eficiencia en el 
+envío de los mensajes.
 
 \subsection{Objetivos Específicos}
 
 \begin{itemize}
-    \item Analizar las actuales soluciones (protocolos) que brindan anonimato con el fin de evaluarlos críticamente y mejorarlos o contrastarlos con la solución propuesta en el presente trabajo.
-    \item Analizar otras implementaciones de variantes de \emph{DC-Net}, identificando aspectos a mejorar, a fin de proponer una solución que permita disminuir los supuestos de 
-    seguridad en que se basan dichas soluciones.
-    \item Testear la implementación realizada en distintos escenarios, analizando el tiempo de ejecución en cada uno de ellos, con el objetivo 
+    \item Analizar las actuales soluciones (protocolos) que brindan anonimato 
+    con el fin de evaluarlos críticamente y mejorarlos o contrastarlos con la 
+    solución propuesta en el presente trabajo.
+    \item Analizar otras implementaciones de variantes de \emph{DC-Net}, 
+    identificando aspectos a mejorar, a fin de proponer una solución que 
+    permita disminuir los supuestos de seguridad en que se basan dichas 
+    soluciones.
+    \item Testear la implementación realizada en distintos escenarios, 
+    analizando el tiempo de ejecución en cada uno de ellos, con el objetivo 
     de encontrar el mejor contexto en que se desempeñaría la solución final.
-    \item Crear un caso de prueba del sistema implementado, que sirva como motivación a distintos posibles usos que se le pueda dar al código realizado.
+    \item Crear un caso de prueba del sistema implementado, que sirva como 
+    motivación a distintos posibles usos que se le pueda dar al código 
+    realizado.
 \end{itemize}
 
 \section{Organización del Documento}
 
-En el presente documento se describen los pasos que se siguieron para la propuesta de un diseño y una implementación de un sistema de mensajería que 
-provee anonimato a los emisores basado en el protocolo \emph{DC-Net}. En el Capítulo \ref{cap2} se describen los antecedentes criptográficos 
-necesarios para comprender la solución propesta, además de un análisis de soluciones similares propuestas en otros trabajos. Luego en el Capítulo \ref{cap3} 
-se describe de manera detallada el diseño de la variante propuesta, especificando paso a paso lo que cada uno de los participantes debe realizar 
-para poder contar con el sistema que se propuso como objetivo. Posteriormente en el Capítulo \ref{cap4} se presentan detalles de la implementación del diseño 
-descrito anteriormente, incluido decisiones de diseño y cómo se fueron tomando para dar forma al sistema finalmente implementado. En este capítulo también se entrega una breve 
-descripción de un caso de uso, una aplicación móvil. En el Capítulo \ref{cap5} se detallan los experimentos que se llevaron a cabo para testear la solución, incluyendo la evaluación de los tiempos de ejecución bajo distintos escenarios. Los resultados son discutidos en la parte 
-final del capítulo. Luego en el Capítulo \ref{cap6} se 
-brindan posibles mejoras tanto al protocolo diseñado como a la implementación realizada. Finalmente en el Capítulo \ref{cap7} se 
-presentan tanto las conclusiones del presente trabajo, como las experiencias que dejaron tanto su diseño como su implementación.
+En el presente documento se describen los pasos que se siguieron para la 
+propuesta de un diseño y una implementación de un sistema de mensajería que 
+provee anonimato a los emisores basado en el protocolo \emph{DC-Net}. En el 
+Capítulo \ref{cap2} se describen los antecedentes criptográficos 
+necesarios para comprender la solución propesta, además de un análisis de 
+soluciones similares propuestas en otros trabajos. Luego en el Capítulo 
+\ref{cap3} se describe de manera detallada el diseño de la variante propuesta, 
+especificando paso a paso lo que cada uno de los participantes debe realizar 
+para poder contar con el sistema que se propuso como objetivo. Posteriormente 
+en el Capítulo \ref{cap4} se presentan detalles de la implementación del 
+diseño descrito anteriormente, incluido decisiones de diseño y cómo se fueron 
+tomando para dar forma al sistema finalmente implementado. En este capítulo 
+también se entrega una breve descripción de un caso de uso, una aplicación 
+móvil. En el Capítulo \ref{cap5} se detallan los experimentos que se llevaron 
+a cabo para testear la solución, incluyendo la evaluación de los tiempos de 
+ejecución bajo distintos escenarios. Los resultados son discutidos en la parte 
+final del capítulo. Luego en el Capítulo \ref{cap6} se brindan posibles 
+mejoras tanto al protocolo diseñado como a la implementación realizada. 
+Finalmente en el Capítulo \ref{cap7} se presentan tanto las conclusiones del 
+presente trabajo, como las experiencias que dejaron tanto su diseño como su 
+implementación.

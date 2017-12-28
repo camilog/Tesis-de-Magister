@@ -4,63 +4,68 @@ Las actuales alternativas que existen para proveer anonimato en comunicación
 entre personas o mientras se navega en Internet están altamente cuestionadas 
 debido a nuevos ataques que vulneran la seguridad de sus usuarios. Es por ello 
 que es necesario explorar nuevas alternativas y proponer nuevos protocolos 
-que no posean las vulnerabilidades de las actuales soluciones y puedan ser usadas 
-por distintas personas, cualesquiera sea su necesidad de anonimato.
+que no posean las vulnerabilidades de las actuales soluciones y puedan ser 
+usadas por distintas personas, cualesquiera sea su necesidad de anonimato.
 
-Es en esa dirección que el presente trabajo realiza un aporte importante, avanzando 
-en la investigación de crear protocolos basados en el concepto de \emph{DC-Nets}, (un tipo de protocolo que no 
-posee las vulnerabilidades antes mencionadas) que, a la vez, sean eficientes y prácticos para 
-uso masivo. 
-La manera más específica para asegurar la eficiencia del protocolo es probar su 
-desempeño mediante una implementación concreta que se ajuste a todos los detalles criptográficos 
-que el protocolo implica.
+Es en esa dirección que el presente trabajo realiza un aporte importante, 
+avanzando en la investigación de crear protocolos basados en el concepto de 
+\emph{DC-Nets}, (un tipo de protocolo que no posee las vulnerabilidades antes 
+mencionadas) que, a la vez, sean eficientes y prácticos para uso masivo. 
+La manera más específica para asegurar la eficiencia del protocolo es probar 
+su desempeño mediante una implementación concreta que se ajuste a todos los 
+detalles criptográficos que el protocolo implica.
 
-Finalmente la implementación realizada muestra varias conclusiones que eran difícil 
-de visualizar solamente con la descripción criptográfica del protocolo:
+Finalmente la implementación realizada muestra varias conclusiones que eran 
+difícil de visualizar solamente con la descripción criptográfica del protocolo:
 
 \begin{enumerate}
-    \item Escenarios ideales: las pruebas realizadas muestran que el protocolo posee una 
-    alta dependencia (en términos de tiempo total del protocolo) a dos factores: 
-    (1) tamaño de los mensajes, y (2) número de participantes. Por lo anterior, el escenario 
-    ideal de uso del protocolo son grupos no muy grandes de participantes, enviando mensajes 
-    no muy largos tampoco. Dicho escenario se ajusta muy bien a un protocolo de 
-    \emph{microblogging} anónimo (un símil a \emph{Twitter} anónimo).
-    \item Usabilidad del protocolo: el protocolo propuesto implica muy poca participación 
-    del usuario que desea enviar un mensaje anónimo, o que simplemente desea ayudar en proveer 
-    mayor anonimato para el resto de los participantes. Esto resulta en que el protocolo 
-    puede volverse transparente para el usuario, y simplemente enviar mensajes tal como lo hace 
-    con otras aplicaciones más populares como 
+    \item Escenarios ideales: las pruebas realizadas muestran que el protocolo 
+    posee una alta dependencia (en términos de tiempo total del protocolo) a 
+    dos factores: (1) tamaño de los mensajes, y (2) número de participantes. 
+    Por lo anterior, el escenario ideal de uso del protocolo son grupos no muy 
+    grandes de participantes, enviando mensajes no muy largos tampoco. Dicho 
+    escenario se ajusta muy bien a un protocolo de \emph{microblogging} 
+    anónimo (un símil a \emph{Twitter} anónimo).
+    \item Usabilidad del protocolo: el protocolo propuesto implica muy poca 
+    participación del usuario que desea enviar un mensaje anónimo, o que 
+    simplemente desea ayudar en proveer mayor anonimato para el resto de los 
+    participantes. Esto resulta en que el protocolo puede volverse 
+    transparente para el usuario, y simplemente enviar mensajes tal como lo 
+    hace con otras aplicaciones más populares como 
     \emph{WhatsApp}\footnote{\url{https://www.whatsapp.com/}}, 
-    \emph{Telegram}\footnote{\url{https://telegram.org/}} o \emph{Signal}\footnote{\url{https://signal.org//}}. 
-    Además de esto, el protocolo no necesita mayor infraestructura adicional (servidores externos o 
-    nodos intermedios), sino 
-    simplemente un nodo Directorio (que puede ser iniciado por uno de los mismos participantes), 
-    que igualmente posee una aplicación móvil fácil de utilizar.
-    \item Requisitos de confianza: la gran diferencia del protocolo propuesto con 
-    otras propuestas realizadas en el último tiempo, es la falta del requerimiento de 
-    confianza en un servidor externo al protocolo. Para poder escalar de manera importante 
-    con el número de participantes, la gran mayoría de las nuevas propuestas han necesitado 
-    que los participantes depositen confianza en un servidor externo ajeno a los propios 
-    participantes. Si bien el protocolo descrito en este trabajo no posee la escalabilidad 
-    de otras propuestas, el hecho de no obligar a los participantes a confiar en un servidor 
-    externo, eleva su estándar de seguridad y privacidad, volviendo a la idea original del 
-    protocolo \emph{DC-Net}, de compartir un mensaje anónimo, incluso en un contexto de 
+    \emph{Telegram}\footnote{\url{https://telegram.org/}} o 
+    \emph{Signal}\footnote{\url{https://signal.org//}}. 
+    Además de esto, el protocolo no necesita mayor infraestructura adicional 
+    (servidores externos o nodos intermedios), sino simplemente un nodo 
+    \texttt{Directorio} (que puede ser iniciado por uno de los mismos 
+    participantes), que igualmente posee una aplicación móvil fácil de 
+    utilizar.
+    \item Requisitos de confianza: la gran diferencia del protocolo propuesto 
+    con otras propuestas realizadas en el último tiempo, es la falta del 
+    requerimiento de confianza en un servidor externo al protocolo. Para poder 
+    escalar de manera importante con el número de participantes, la gran 
+    mayoría de las nuevas propuestas han necesitado que los participantes 
+    depositen confianza en un servidor externo ajeno a los propios 
+    participantes. Si bien el protocolo descrito en este trabajo no posee la 
+    escalabilidad de otras propuestas, el hecho de no obligar a los 
+    participantes a confiar en un servidor externo, eleva su estándar de 
+    seguridad y privacidad, volviendo a la idea original del protocolo 
+    \emph{DC-Net}, de compartir un mensaje anónimo, incluso en un contexto de 
     desconfianza hacia el resto de los participantes. 
-    \item Importancia de capa de comunicación: la implementación de un protocolo criptográfico 
-    implica un conocimiento, no solo de la matemática y de los conceptos criptográficos del 
-    protocolo en sí, sino también de la capa de comunicación entre los distintos participantes, 
-    combinando conceptos e implementación de sistemas distribuidos, junto con intercambio de 
-    mensajes en redes de manera general. Muchas de las mejoras a la eficiencia de protocolos 
-    criptográficos viene de la mano de las mejoras en la capa de comunicación (manejo de colas 
-    de mensajes, manejo de desconexiones de usuarios, sincronización entre los distintos
-     participantes, 
-    etc).
-    \item Construcción de aplicación final: un paso muy importante en el estudio de protocolos 
-    criptográficos 
-    es poder crear aplicaciones finales, permitiendo a los usuarios aprovechar los últimos avances 
-    en el estudio de la criptografía. De nada sirven los avances en la teoría, sino se transforman 
-    en aplicaciones finales para los usuarios, los cuales pueden mejorar su seguridad y privacidad 
-    valiéndose de esos últimos avances.
+    \item Importancia de capa de comunicación: la implementación de un 
+    protocolo criptográfico implica un conocimiento, no solo de la matemática 
+    y de los conceptos criptográficos del protocolo en sí, sino también de la 
+    capa de comunicación entre los distintos participantes, combinando 
+    conceptos e implementación de sistemas distribuidos, junto con intercambio 
+    de mensajes en redes de manera general. Muchas de las mejoras a la 
+    eficiencia de protocolos criptográficos viene de la mano de las mejoras en 
+    la capa de comunicación (manejo de colas de mensajes, manejo de 
+    desconexiones de usuarios, sincronización entre los distintos 
+    participantes, etc).
+    \item Construcción de aplicación final: un paso muy importante en el 
+    estudio de protocolos criptográficos es poder crear aplicaciones finales, 
+    permitiendo a los usuarios aprovechar los últimos avances en el estudio de 
+    la criptografía. De nada sirven los avances en la teoría, sino se 
+    transforman en aplicaciones finales para los usuarios, los cuales pueden 
+    mejorar su seguridad y privacidad valiéndose de esos últimos avances.
 \end{enumerate}
-
-

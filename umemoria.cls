@@ -29,11 +29,13 @@
 %% Pasar Opciones a clase Book
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
-\LoadClass[12pt, openany]{book}
+%\LoadClass[12pt, openany]{book}
+\LoadClass[12pt, oneside]{book}
 
 %% Packages necesarios
 \RequirePackage[utf8]{inputenc} %Encoding
-\RequirePackage[top=2cm, left=3cm, bottom=2cm, right=2cm, paper=letterpaper]{geometry} % Margenes
+%\RequirePackage[top=2cm, left=3cm, bottom=2cm, right=2cm, paper=letterpaper]{geometry} % Margenes
+\RequirePackage[top=2cm, left=2cm, bottom=2cm, right=2cm, paper=letterpaper]{geometry}
 \RequirePackage{amsmath, amssymb, amsthm, graphicx} % Varios
 \RequirePackage[spanish, es-nolists, es-lcroman]{babel} % Lenguaje
 \RequirePackage[pdfpagelabels]{hyperref} % Links y numeracion del PDF
@@ -47,7 +49,7 @@
 
 %% Interlineado
 \RequirePackage{parskip}
-\setlength{\parskip}{1em}
+\setlength{\parskip}{1em plus1em minus1em}
 \setlength{\parindent}{15pt}
 
 %% Renovar enumerate e itemize
@@ -62,7 +64,7 @@
 \newenvironment{abstract}{%
 \cleardoublepage
 \begin{flushright}
-\small
+\footnotesize
 \begin{tabular}{l}
 RESUMEN DE LA TESIS PARA OPTAR \\
 AL TÍTULO DE \MakeUppercase\@carrera \\
@@ -74,7 +76,7 @@ PROF. GUÍA: SR. \MakeUppercase\@guia \\
 \begin{center}
 \MakeUppercase\@title
 \end{center}
-}{\vfill\null}
+}{\small\vfill\null}
 
 \newenvironment{dedicatoria}{\cleardoublepage\null\vspace{\stretch{1}}\begin{flushright}\itshape}{\end{flushright}\vspace{\stretch{2}}\null}
 \let\thanks\undefined
