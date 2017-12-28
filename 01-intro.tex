@@ -33,7 +33,7 @@ el cual en su versión más popular consiste en un explorador web (variante de
 ejecuta el protocolo \emph{onion-routing} (detallado en la siguiente sección), 
 el cual permite dos objetivos: (1) ocultar la identidad del usuario tanto al 
 proveedor del servicio que está consumiendo (página web que está visitando), 
-como de algun observador externo, y (2) acceder a servicios ``ocultos'' que 
+como de algún observador externo, y (2) acceder a servicios ``ocultos'' que 
 solo son accesibles por medio de \emph{TOR}. En este trabajo nos 
 concentraremos en el primer objetivo solamente, detallando la manera en que 
 \emph{TOR} logra ocultar la identidad del usuario del servicio. Es importante 
@@ -46,7 +46,7 @@ socialmente difícil de abordar. Esto se debe a que invoca prejuicios y dilemas
 éticos que, puestos en un contexto poco informado, pueden llegar a generar 
 aprehensión e incluso rechazo. Parte de las aprehensiones se deben a la 
 posibilidad de realizar acciones ilícitas bajo el paraguas del anonimato, lo 
-cual puede impedir la persecucion policial de delitos donde el criminal use 
+cual puede impedir la persecución policial de delitos donde el criminal use 
 herramientas que permitan anonimato efectivo. Entre estas acciones se pueden 
 mencionar: denuncias falsas, compra/venta de drogas, distribución de material 
 pornográfico infantil, fraude, \emph{bullying}, etc. ¿Deberían los científicos 
@@ -57,15 +57,15 @@ todo científico debería realizarse antes de generar un trabajo (independiente
 del tema de investigación) que afecta directamente la sociedad en que está 
 envuelto. Desde el punto de vista del autor, la labor del científico es 
 siempre generar el ``mejor conocimiento'' posible, expandir la barrera del 
-conocimiento humano, y al mismo tiempo, estar conciente de las posibles 
+conocimiento humano, y al mismo tiempo, estar consciente de las posibles 
 implicancias que posea en otras esferas de la sociedad, como por ejemplo en 
 este caso, facilitar acciones ilícitas a través de Internet. Pese a los 
-potenciales usos negativos, es nuestra opinion que los sistemas de anonimato 
-pueden ser herramientas efectivas contra la censura y violacion de la 
-privacidad existentes en regimenes autoritarios. También en situaciones de 
-denuncia donde los potenciales enviadores arriesgan su vida (denuncias de 
+potenciales usos negativos, es nuestra opinión que los sistemas de anonimato 
+pueden ser herramientas efectivas contra la censura y violación de la 
+privacidad existentes en regímenes autoritarios. También en situaciones de 
+denuncia donde los potenciales informantes arriesgan su vida (denuncias de 
 narcotráfico o espionaje). El problema de limitar el uso socialmente negativo 
-de estas tecnologias es un problema de investigacion abierto y extremadamente 
+de estas tecnologías es un problema de investigación abierto y extremadamente 
 interesante.  
 
 \section{Protocolos de Anonimato}
@@ -195,7 +195,7 @@ No es difícil observar que si ningún participante pagó la cena, $D = 0$.}
 \end{figure}
 
 Luego de proponer esta solución, David Chaum realiza el análisis de seguridad 
-del protocolo (para detalles consultar el paper original 
+del protocolo (para detalles consultar el \emph{paper} original 
 \cite{chaum1988dining}), del cual concluye que el protocolo sugerido entrega 
 anonimato de manera \emph{incondicional}: que incluso un adversario que posea 
 todo el poder de cómputo posible no puede dar con una estrategia que le 
@@ -210,7 +210,7 @@ visto en la siguiente sección.
 
 \emph{DC-Net} (\emph{Dining Cryptographers Network}) es un protocolo que 
 permite enviar un mensaje de manera anónima a un grupo de participantes 
-(llamado \emph{anonymity-set}). Este protocolo protege la identidad del emisor 
+(llamado \emph{anonymity set}). Este protocolo protege la identidad del emisor 
 del mensaje de manera \emph{incondicional}, es decir, que ningún adversario 
 (independiente del poder de cómputo que posea) puede encontrar a dicho emisor 
 con una probabilidad mayor a $1/n$ (donde $n$ es el tamaño del 
@@ -245,7 +245,7 @@ Luego, genera el valor $O_i = K_i + M_i$ que comunica al resto de los
 participantes. Este valor es la suma de la clave $K_i$ con el mensaje $M_i$, 
 (recordemos que solo $p_1$ posee su mensaje distinto a 0, por lo que para el 
 todo el resto de los participantes $O_i = K_i$). Finalmente, cada participante 
-envia el valor $O_i$ al resto de los participantes (vía \emph{broadcast}, por 
+envía el valor $O_i$ al resto de los participantes (vía \emph{broadcast}, por 
 ejemplo). Con esto, los valores $O_i$ quedan disponibles tanto para el resto 
 de los participantes, como para cualquier observador externo.
 
@@ -315,7 +315,7 @@ En el presente documento se describen los pasos que se siguieron para la
 propuesta de un diseño y una implementación de un sistema de mensajería que 
 provee anonimato a los emisores basado en el protocolo \emph{DC-Net}. En el 
 Capítulo \ref{cap2} se describen los antecedentes criptográficos 
-necesarios para comprender la solución propesta, además de un análisis de 
+necesarios para comprender la solución propuesta, además de un análisis de 
 soluciones similares propuestas en otros trabajos. Luego en el Capítulo 
 \ref{cap3} se describe de manera detallada el diseño de la variante propuesta, 
 especificando paso a paso lo que cada uno de los participantes debe realizar 

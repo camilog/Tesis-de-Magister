@@ -164,17 +164,20 @@ desconocidos entre sí, al tiempo que se mantiene la seguridad y privacidad
 de cada uno de ellos; (2) no necesita fase de asignación de \emph{slots} para 
 cada uno de los participantes como lo hace \emph{Dissent}, ya que el objetivo 
 no es evitar la colisión de mensajes\footnote{En una \emph{DC-Net}, una 
-colisión de mensajes es en el envío simultáneo de dos o más mensajes por parte 
+colisión de mensajes es el envío simultáneo de dos o más mensajes por parte 
 de distintos participantes durante la misma ronda}, sino más bien aceptar la 
 posibilidad de colisión, y resolverla cuando se presenten, con lo que no se 
 pierde tiempo potencialmente innecesario asignando \emph{slots} de envío, 
-cuando puede que no se presente colisión, o ésta sea más rápida resolverla que 
-evitarla; (3) utiliza técnicas criptográficas que aseguran tanto seguridad 
-incondicional, como la prevención de ataques por parte de participantes 
-maliciosos que pretendan perturbar su correcto desarrollo; por último (4) se 
-tiene asociada una aplicación final enfocada en el usuario, lo cual permite 
-acercar el diseño de un protocolo criptográfico seguro hacia los usuarios 
-finales, aspecto que no ha sido desarrollado por el resto de las propuestas 
-estudiadas. Si bien el sistema propuesto no escala a la cantidad de usuarios 
-que los últimos sistemas discutidos, es, en nuestra opinión, un precio justo a 
-pagar para alcanzar el nivel de seguridad que este sistema ofrece.
+cuando puede que no se presente colisión, o ésta sea más rápida 
+resolverla\footnote{Resolver una colisión significa correr un mecanismo que 
+permita el envío individual de todos los mensajes enviados de manera 
+simultánea.} que evitarla; (3) utiliza técnicas criptográficas que aseguran 
+tanto seguridad incondicional, como la prevención de ataques por parte de 
+participantes maliciosos que pretendan perturbar su correcto desarrollo; por 
+último (4) se tiene asociada una aplicación final enfocada en el usuario, lo 
+cual permite acercar el diseño de un protocolo criptográfico seguro hacia los 
+usuarios finales, aspecto que no ha sido desarrollado por el resto de las 
+propuestas estudiadas. Si bien el sistema propuesto no escala a la cantidad de 
+usuarios que los últimos sistemas discutidos, es, en nuestra opinión, un 
+precio justo a pagar para alcanzar el nivel de seguridad que este sistema 
+ofrece.

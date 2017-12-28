@@ -108,7 +108,7 @@ parámetros:
 
 \section{Tamaños de los mensajes}
 
-Una observación importante a realizar de la implementación desarollada, es la 
+Una observación importante a realizar de la implementación desarrollada, es la 
 cantidad de información (medida simplemente como el largo de los mensajes) que 
 se envía en el protocolo. Se debe tomar como base el largo del mensaje 
 original $m_i$ que cada participante debe comunicar. A esto se le debe agregar 
@@ -165,7 +165,7 @@ establecido por el nodo directorio.
 
 \section{Discusión de los Resultados}
 
-Las pruebas realizadas muestran varias tendencias que son dificiles de 
+Las pruebas realizadas muestran varias tendencias que son difíciles de 
 predecir solamente con la descripción teórica del protocolo criptográfico, 
 mientras que otras son confirmaciones de resultados esperados observando 
 netamente el diseño del protocolo.
@@ -181,7 +181,7 @@ Los puntos más importante a destacar son los siguientes:
 	leer 30 mensajes de 140 caracteres cada uno. Además importante notar que 
 	los primeros mensajes empiezan a llegar aproximadamente a los 30 segundos 
 	de ejecución (en el mismo caso anterior), por lo que hay una 
-	retroalimentación temprana que el protocolo está funcionando y empezando a 
+	retro-alimentación temprana que el protocolo está funcionando y empezando a 
 	revelar los mensajes enviados.
 	\item Tendencia en el aumento de tiempos: los tiempos totales muestran 
 	tendencias que eran esperadas. Mientras que en la Figura 
@@ -201,7 +201,7 @@ Los puntos más importante a destacar son los siguientes:
 	\emph{zero-knowledge proofs} enviados por otros participantes). 
 	Independiente del tamaño de la sala o el número de mensajes involucrados 
 	en la colisión, el tiempo de procesamiento (generación de 
-	\emph{commitments} y de \emph{zero-knowldge proofs}, ejecutar una ronda 
+	\emph{commitments} y de \emph{zero-knowledge proofs}, ejecutar una ronda 
 	virtual o procesar la resolución de la ronda), es significativamente menor 
 	que las etapas de comunicación, por lo que mejoras al protocolo 
 	criptográfico en términos de eficiencia (hacer \emph{zero-knowledge proofs 
@@ -219,7 +219,7 @@ Los puntos más importante a destacar son los siguientes:
 	un 10 y un 20 por ciento del tiempo total, por lo que su eliminación 
 	mostraría una mejora importante en los tiempos totales de ejecución del 
 	protocolo. Obviamente, esta modificación significaría cambiar la seguridad 
-	incondicional por seguridad spolo computacional.
+	incondicional por seguridad sólo computacional.
 	\item Costo extra para asegurar anonimato: alcanzar el nivel de anonimato 
 	que ofrece el protocolo significa un sobre costo importante que cada 
 	participante debe pagar, reflejado especialmente en la cantidad de 
@@ -249,7 +249,7 @@ Los puntos más importante a destacar son los siguientes:
 \subsection{Escenario propuesto de uso}
 
 Con los resultados discutidos anteriormente, se propone un escenario que logre 
-porporcionar anonimato a sus participantes, y que esto no suponga pagar un 
+proporcionar anonimato a sus participantes, y que esto no suponga pagar un 
 alto costo por un rendimiento pobre de la aplicación desarrollada.
 
 Como el protocolo es altamente sensible a (1) el tamaño de los mensajes, y (2) 

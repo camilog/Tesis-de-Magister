@@ -182,7 +182,7 @@ con un segundo valor compartido $r(k_{ij})$ (también se define que
 $r(k_{ij}) = -r(k_{ji})$).
 
 Si bien el proceso descrito (acuerdo \emph{Diffie-Hellman}) no alcanza 
-seguridad incodicional (como sí lo hace el resto del protocolo \emph{DC-Net}), 
+seguridad incondicional (como sí lo hace el resto del protocolo \emph{DC-Net}), 
 es posible alcanzarla precalculando estas claves en forma \emph{offline} vía 
 un canal privado. Por simplificación, la implementación realizada para este 
 trabajo utiliza \emph{Diffie-Hellman}.
@@ -331,7 +331,8 @@ establecer primero si en la presente ronda el participante enviará un mensaje
 Como no se puede saber si el participante enviará o no un mensaje 
 (comprometería su anonimato) se va a solicitar que demuestre cualquiera de las 
 dos condiciones anteriores. La \emph{zero-knowledge proof-of-knowledge} (no 
-interactiva) que necesita demostrar cada participante es la siguiente: 
+interactiva)\footnote{El protocolo \emph{ZKP} no interactivo se detalla en el 
+Apéndice A.} que necesita demostrar cada participante es la siguiente: 
 $$\mathtt{PoK_i^{format}} = PoK\{(r(m_i), r(b_i)) : (c_{m_i} = h^{r(m_i)} 
 \land c_{b_i} = h^{r(b_i)}) \lor (g^{-1} c_{b_i} = h^{r(b_i)})\}$$
 
@@ -351,13 +352,13 @@ los \emph{commitments} que acompañarán a la \emph{zero-knowledge proof}.
 
 \section{Cálculo del mensaje a enviar y su \emph{commitment}}
 
-Cada particiante $P_i$ debe enviar un \emph{commitment} sobre el mensaje $M_i$ 
+Cada participante $P_i$ debe enviar un \emph{commitment} sobre el mensaje $M_i$ 
 construido anteriormente, con el objetivo que más adelante envíe el mensaje 
 que ha estado construyendo durante la presente ronda. Para construir dicho 
 \emph{commitment} utilizará los \emph{commitments} de los valores individuales 
 enviados anteriormente. 
 Para ello calculará $c_{M_i} = f(c_{m_i}, c_{pad_i}, c_{b_i})$\footnote{
-$f(x, y, z) = x^{2^{|pad|}(n+1)} y^{(n+1)} z$} 
+$f(x, y, z) = x^{2^{|pad|}(n+1)} y^{(n+1)} z$. Esta fórmula se obtiene a partir del formato del mensaje $M_i$ descrito en la Figura \ref{fig:M_sending}.} 
 $= g^{M_i} h^{r({M}_i)}$ (donde $r({M}_i)$ es un valor aleatorio definido por 
 los valores $r(m_i), r({pad}_i), r(b_i)$). 
 
