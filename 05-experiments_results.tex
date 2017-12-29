@@ -63,7 +63,7 @@ parámetros:
 	el protocolo para proporcionar anonimato en el envío de mensajes.
 \end{itemize}
 
-\section{Resultados y Discusión}
+\section{Resultados}
 
 \subsection{Tiempos de Ejecución}
 
@@ -103,10 +103,10 @@ parámetros:
   \centering
     \includegraphics[scale=0.7]{logs/bandwidth.png}
   \caption{\emph{Bandwidth} del peor caso (último mensaje transmitido)}
-  \label{fig:times-variable}
+  \label{fig:bandwidth}
 \end{figure}
 
-\section{Tamaños de los mensajes}
+\subsection{Tamaños de los mensajes}
 
 Una observación importante a realizar de la implementación desarrollada, es la 
 cantidad de información (medida simplemente como el largo de los mensajes) que 
@@ -157,7 +157,7 @@ el \emph{overhead} relativo que añade la ejecución del protocolo para asegurar
 anonimato y seguridad del sistema. Importante mencionar además que el tamaño 
 del mensaje es determinado por el nodo \texttt{Directorio}, en el comienzo del 
 protocolo. El nodo directorio determina un largo máximo permitido para un 
-mensaje a enviar durante la sesión actual. Independiente si algún participa 
+mensaje a enviar durante la sesión actual. Independiente si algún participante 
 envía un mensaje de largo menor a dicho máximo, el \emph{overhead} que 
 presentará es el mismo que alguien que envía un mensaje con el largo máximo 
 establecido por el nodo directorio.
@@ -204,8 +204,8 @@ Los puntos más importante a destacar son los siguientes:
 	\emph{commitments} y de \emph{zero-knowledge proofs}, ejecutar una ronda 
 	virtual o procesar la resolución de la ronda), es significativamente menor 
 	que las etapas de comunicación, por lo que mejoras al protocolo 
-	criptográfico en términos de eficiencia (hacer \emph{zero-knowledge proofs 
-	menos complejas, por ejemplo), no significarían un incremento muy 
+	criptográfico en términos de eficiencia (hacer \emph{zero-knowledge proofs} 
+	menos complejas, por ejemplo) no significarían un incremento muy 
 	importante en el tiempo total de la ejecución del protocolo, por lo que el 
 	trabajo futuro debería enfocarse en mejorar el rendimiento de la capa de 
 	comunicación, manejando de manera más eficiente el envío y recepción de 
@@ -218,18 +218,17 @@ Los puntos más importante a destacar son los siguientes:
 	par de participantes. Las pruebas muestran que esta etapa se lleva entre 
 	un 10 y un 20 por ciento del tiempo total, por lo que su eliminación 
 	mostraría una mejora importante en los tiempos totales de ejecución del 
-	protocolo. Obviamente, esta modificación significaría cambiar la seguridad 
-	incondicional por seguridad sólo computacional.
+	protocolo.
 	\item Costo extra para asegurar anonimato: alcanzar el nivel de anonimato 
-	que ofrece el protocolo significa un sobre costo importante que cada 
+	que ofrece el protocolo significa un sobrecosto importante que cada 
 	participante debe pagar, reflejado especialmente en la cantidad de 
 	información extra que debe enviarse con respecto al mensaje final que 
 	desea comunicar. Estos tamaños se ven reflejados en la Tabla 
-	\ref{table:message_sizes_table}, lo que muestra un altísimo sobre costo 
+	\ref{table:message_sizes_table}, lo que muestra un altísimo sobrecosto 
 	relativo que experimenta cada participante (alrededor de 70 veces por 
 	ronda y por participante presente en la sala). Eso quiere decir que si un 
 	participante desea comunicar un mensaje de 140 caracteres en una sala de 
-	30 participantes (y tiene la ``mala'' suerte que todo el resto de la sala 
+	30 participantes (y tiene la ``mala suerte'' que todo el resto de la sala 
 	también quiere comunicar un mensaje), tendrá que enviar un total de 8.8 MB 
 	de información aproximadamente. Junto con esto, en el peor caso (es decir, 
 	cuando su mensaje es el último en ser revelado), experimentará un ancho de 
@@ -267,11 +266,11 @@ protocolo, mientras que una fracción de ellos va a tener la necesidad de
 enviar un mensaje (de un máximo de 140 caracteres, \emph{á la} Twitter) en la 
 sesión actual. Al tener una repetición periódica de la ejecución de sesiones, 
 la posibilidad de una colisión masiva de mensajes en cada una de ellas es 
-menor, logrando así que cada una de ellas pueda resolver de manera rápida la 
+menor, logrando así que en cada una de ellas se pueda resolver de manera rápida la 
 colisión de los mensajes resultantes. Efectivamente cada participante que 
 necesite enviar un mensaje, puede observar una baja latencia y podrá 
 comunicarse de manera rápida y expedita. La ejecución de sesiones 
-debe hacerse de manera constante, teniendo que en muchas de ellas no se 
+debe hacerse de manera constante, teniendo en cuenta que en muchas de ellas no se 
 enviará ningún mensaje, resultando así en una ejecución rápida y de bajo costo 
 para todos los participantes. Además de esta manera se pueden agregar o 
 expulsar a participantes entre sesiones, para así, ya sea aumentar el 
