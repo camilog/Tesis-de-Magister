@@ -1,2 +1,61 @@
-\chapter{Apéndice A: Descripción de \emph{Zero-Knowledge Proofs-of-Knowledge}}\label{apen}
+\chapter{Apéndice}
+
+\section{Apéndice A: Descripción de \emph{Zero-Knowledge Proofs}}\label{apen-a}
+
+\subsection{Consideraciones Generales}
+
+Las \emph{Zero-Knowledge Proofs} necesitadas para el desarrollo de este trabajo son del tipo \emph{proof-of-knowledge}, las cuales permiten a un cierto \emph{prover} demostrarle a un \emph{verifier} que conoce un cierto valor (o varios valores) que hacen verdad una cierta proposición, sin la necesidad de revelar dicho valor. Por ejemplo, a través de esta técnica criptográfica una persona podría demostrar que conoce los todos los distintos valores que solucionan un cierto tablero de \emph{sudoku}, sin la necesidad de revelar estos valores.
+
+Generalmente estas demostraciones son \emph{interactivas}, es decir, 
+\emph{prover} y \emph{verifier} se comparten distintos valores durante el desarrollo del protocolo, lo cual finalmente convence al \emph{verifier} de la propiedad que se quería demostrar. Eso si, toda demostración interactiva puede transformarse a \emph{no interactiva}, es decir, sin la necesidad de intercambiar valores, el \emph{prover} puede demostrar el conocimiento de cierto valor solamente con el cálculo de algunos valores, suponiendo que existen otros valores que son públicamente conocidos (en particular, conocidos por el \emph{verifier}). Las demostraciones utilizadas en este trabajo y detalladas a continuación son no interactivas.
+
+\subsection{Logaritmo Discreto}
+
+$$PoK\{w: y = g^w\}$$
+
+Sean $g, y$ valores públicos. El \emph{prover} (de identidad pública 
+\texttt{id}) debe demostrar que conoce el valor $w$ que hace verdad la 
+siguiente proposición: $y = g^w$. Los pasos que debe seguir son los siguientes:
+\begin{enumerate}
+	\item Escoger $r$ aleatorio.
+	\item Calcular $z = g^r$
+	\item Calcular $b = H(z \mid\mid g \mid\mid y \mid\mid \mathtt{id})$, 
+	donde $H(\cdot)$ es una función de hash segura (por ejemplo, 
+	\texttt{SHA3}).
+	\item Calcular $a = r + bw$
+	\item Enviar como demostración la tupla $\mathcal{D} = (g, z, a)$
+\end{enumerate}
+
+Finalmente, el \emph{verifier} debe recibir la demostración $\mathcal{D}$ y verificarla siguiendo estos pasos:
+\begin{enumerate}
+	\item Calcular $\hat{b} = H(z \mid\mid g \mid\mid y \mid\mid \mathtt{id})$ utilizando la misma función de hash usada por el \emph{prover}.
+	\item Verificar que $g^a = y^{\hat{b}} z$
+\end{enumerate} 
+
+\subsection{Uno de dos logaritmos discretos}
+
+$$PoK\{x_1, x_2 : h_1 = g^{x_1} \lor h_2 = g^{x_2}\}$$
+
+Sean $g,h_1,h_2$ valores públicos. El \emph{prover} (de identidad pública \texttt{id}) debe demostrar que conoce al menos uno de los valores $(x_1,x_2)$ que hacen verdad la siguiente proposición: $h_1 = g^{x_1} \lor h_2 = g^{x_2}$. Los pasos que debe seguir son los siguientes (sin pérdida de generalidad, supondremos que conoce el valor $x_1$):
+\begin{enumerate}
+	\item Escoger $c, r_1, r_2$ aleatorios.
+	\item Calcular $z_1 = g^{r_1}$
+	\item Calcular $z_2 = g^{r_2} h_2^{-c}$
+	\item Calcular $b = H(z_1 \mid\mid z_2 \mid\mid g \mid\mid h_1 \mid\mid h_2 \mid\mid \mathtt{id})$, donde $H(\cdot)$ es una función de hash segura (por ejemplo, \texttt{SHA3}).
+	\item Calcular $t = b - c$
+	\item Calcular $a = r_1 + t x_1$
+	\item Enviar como demostración la tupla $\mathcal{D} = (t, c, z_1, z_2, a, r_2)$.
+\end{enumerate}
+
+Finalmente, el \emph{verifier} debe recibir la demostración $\mathcal{D}$ y verificarla siguiendo estos pasos:
+\begin{enumerate}
+	\item Calcular $\hat{b} = H(z_1 \mid\mid z_2 \mid\mid g \mid\mid h_1 \mid\mid h_2 \mid\mid \mathtt{id})$ utilizando la misma función de hash usada por el \emph{prover}.
+	\item Verificar que $\hat{b} = t + c$
+	\item Verificar que $g^a = h_1^t z_1$
+	\item Verificar que $g^{r_2} = h_2^c z_2$
+\end{enumerate} 
+
+\subsection{Dos logaritmos discretos}
+
+\subsection{Valores en \emph{Pedersen Commitments}}
 
