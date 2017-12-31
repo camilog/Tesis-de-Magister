@@ -57,5 +57,42 @@ Finalmente, el \emph{verifier} debe recibir la demostración $\mathcal{D}$ y ver
 
 \subsection{Dos logaritmos discretos}
 
+$$PoK\{x_1, x_2 : h_1 = g^{x_1} \land h_2 = g^{x_2}\}$$
+
+Sean $g,h_1,h_2$ valores públicos. El \emph{prover} (de indentidad pública \texttt{id}) debe demostrar que conoce ambos valores $(x_1,x_2)$ que hacen verdad la siguiente proposición: $h_1 = g^{x_1} \land h_2 = g^{x_2}$. Los pasos que debe seguir son los siguientes:
+\begin{enumerate}
+	\item Escoger $r_1, r_2$ aleatorios.
+	\item Calcular $z_1 = g^{r_1} $
+	\item Calcular $z_2 = g^{r_2}$
+	\item Calcular $b = H(z_1 \mid\mid z_2 \mid\mid g \mid\mid h_1 \mid\mid h_2 \mid\mid \mathttt{id})$, donde $H(\cdot)$ es una función de hash segura (por ejemplo, \texttt{SHA3}).
+	\item Calcular $a_1 = r_1 + b x_1$
+	\item Calcular $a_2 = r_2 + b x_2$
+	\item Enviar como demostración la tupla $\mathcal{D} = (z_1, z_2, a_1, a_2)$.
+\end{enumerate}
+
+Finalmente, el \emph{verifier} debe recibir la demostración $\mathcal{D}$ y verificarla siguiendo estos pasos:
+\begin{enumerate}
+	\item Calcular $\hat{b} = H(z_1 \mid\mid z_2, \mid\mid g \mid\mid h_1 \mid\mid h_2 \mid\mid \mathtt{id})$ utilizando la misma función de hash usada por el \emph{prover}.
+	\item Verificar que $g^{a_1} = z_1 h_1^\hat{b}$
+	\item Verificar que $g^{a_2} = z_2 h_2^\hat{b}$
+\end{enumerate}
+
 \subsection{Valores en \emph{Pedersen Commitments}}
 
+$$PoK\{x, r : c = g^x h^r\}$$
+
+Sean $c, g, h$ valores públicos. El \emph{prover} (de indentidad pública \texttt{id}) debe demostrar que conoce ambos valores $(x,r)$ que hacen verdad la siguiente proposición: $c = g^x h^r$. Los pasos que debe seguir son los siguientes:
+\begin{enumerate}
+	\item Escoger $y, s$ aleatorios.
+	\item Calcular $d = g^y h^s$
+	\item Calcular $e = H(d \mid\mid g \mid\mid h \mid\mid c \mid\mid \mathtt{id})$, donde $H(\cdot)$ es una función de hash segura (por ejemplo, \texttt{SHA3}).
+	\item Calcular $u = ex + y$
+	\item Calcular $v = er + s$
+	\item Enviar como demostración la tupla $\mathcal{D} = (d, u, v)$.
+\end{enumerate}
+
+Finalmente, el \emph{verifier} debe recibir la demostración $\mathcal{D}$ y verificarla siguiendo estos pasos:
+\begin{enumerate}
+	\item Calcular $\hat{e} = H(d \mid\mid g \mid\mid h \mid\mid c \mid\mid \mathttt{id})$ utilizando la misma función de hash usada por el \emph{prover}.
+	\item Verificar que $g^u h^v = c^\hat{e} d$
+\end{enumerate}
