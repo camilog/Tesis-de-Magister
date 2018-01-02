@@ -2,14 +2,50 @@
 
 \section{Conceptos Básicos}
 
-Para explicar el detalle de la variante de \emph{DC-Net} desarrollada e implementada en este trabajo, es necesario aclarar algunos términos y conceptos en que se basa su diseño.
+Para explicar el detalle de la variante de \emph{DC-Net} desarrollada e 
+implementada en este trabajo, es necesario aclarar algunos términos y 
+conceptos en que se basa su diseño.
 
-El diseño propuesto permite el envío de mensajes entre un grupo de participantes, quiénes forman el \emph{anonymity set}. El envío de estos mensajes se realiza de manera anónima, es decir, no se puede relacionar el mensaje con algún participante que esté tomando parte del protocolo. Cada participante tiene la posibilidad de enviar un mensaje por sesión, la cual finaliza al momento en que todos los mensajes que quisieron ser enviados son recibidos por todos los participantes. Para lograr el envío de estos mensajes, el protocolo se desarrolla en rondas, las cuáles son una serie de pasos 
-(descritos a partir de la próxima sección) que todos los participantes deben desarrollar enviando distintos valores que permitirán tanto mantener el anonimato como prevenir la corrupción del protocolo. Al conjunto de participantes desarrollando una sesión se le llama Sala. Como fue explicado anteriormente, el diseño original de \emph{DC-Net} solo permite el envío de un solo mensaje. Si se envían más mensajes se produce una colisión de mensajes, la cual debe ser resuelta para poder tener un correcto envío de los mensajes en cuestión.
+El diseño propuesto permite el envío de mensajes entre un grupo de 
+participantes, quiénes forman el \emph{anonymity set}, o conjunto de personas 
+donde el enviador se ``oculta''. El envío de estos 
+mensajes se realiza de manera anónima, es decir, no se puede relacionar el 
+mensaje con algún participante que esté tomando parte del protocolo. Cada 
+participante tiene la posibilidad de enviar un mensaje por sesión, la cual 
+finaliza cuando todos los mensajes enviados son 
+recibidos por todos los participantes. Para lograr el envío de estos mensajes, 
+el protocolo se desarrolla en rondas, las cuáles son una serie de pasos 
+(descritos a partir de la próxima sección) que todos los participantes deben 
+desarrollar para tanto mantener el anonimato como prevenir ataques o intentos 
+de corrupción del protocolo. Al conjunto de 
+participantes involucrados en una sesión se le llama Sala. Como fue explicado 
+anteriormente, el diseño original de \emph{DC-Net} sólo permite el envío de un 
+solo mensaje. Si se envían más mensajes se produce una colisión de mensajes,  
+donde dos o más mensajes se
+``mezclan'' resultando en un mensaje distinto, posiblemente
+ininteligible. Esta situación debe ser evitada o resuelta para poder
+tener un correcto envío de los mensajes en cuestión.
 
-La variante propuesta considero un modelo de amenaza bastante fuerte, esto es, que existe un adversario que puede monitorear todos los canales de comunicación entre los distintos participantes de la sala, solo se exige que estos canales sean autenticados, es decir, que cada participante firme de manera digital los distintos valores que se están enviando. Además de esto, se considera que el protocolo soporta hasta $n-2$ (donde $n$ es el tamaño de la sala, es decir, el número total de participantes) participantes maliciosos, es decir, participantes que tienen como objetivo, ya sea de quebrar el anonimato del emisor del mensaje, o bien, corromper el protocolo impidiendo un normal desarrollo de éste.
+La variante propuesta considera un modelo de amenaza fuerte, donde un 
+adversario puede monitorear todos los canales de 
+comunicación entre los distintos participantes de la sala, y solo se exige que 
+estos canales sean autenticados, es decir, que cada participante firme de 
+manera digital los distintos valores que se están enviando. Además de esto, el 
+protocolo mantiene su seguridad aún si hasta $n-2$ participantes maliciosos 
+(donde $n$ es el tamaño de la 
+sala, o el número total de participantes). Por éstos últimos entenderemos a 
+participantes que tienen como objetivo ya sea de quebrar el anonimato del 
+emisor del mensaje, o bien, corromper el protocolo impidiendo la recepción de 
+los mensajes enviados y, en general, el normal desarrollo de éste.
 
-Por último mencionar que tanto los mensajes que se envían entre los participantes, como todo el resto de los valores necesarios que deben ser compartidos son públicos, es decir, cualquier observador externo puede tener visión de lo que sucede en el desarrollo del protocolo, y aun así no podrá generar una relación entre un mensaje enviado y algún participante en particular dentro de la sala.
+Un último aspecto importante de mencionar es que, tanto los mensajes que se 
+envían entre los 
+participantes como todos los valores compartidos en la ejecución del 
+protocolo, son públicos. Cualquier observador externo puede saber lo que 
+sucede en el desarrollo del protocolo (qué computador transmite qué datos a 
+qué otro computador), y aun así no podrá 
+generar una relación entre un mensaje enviado y algún participante en 
+particular dentro de la sala.
 
 \section{Resolución de Colisiones}
 
@@ -150,10 +186,10 @@ con un segundo valor compartido $r(k_{ij})$ (también se define que
 $r(k_{ij}) = -r(k_{ji})$).
 
 Si bien el proceso descrito (acuerdo \emph{Diffie-Hellman}) no alcanza 
-seguridad incondicional (como sí lo hace el resto del protocolo \emph{DC-Net}), 
-es posible alcanzarla precalculando estas claves en forma \emph{offline} vía 
-un canal privado. Por simplificación, la implementación realizada para este 
-trabajo utiliza \emph{Diffie-Hellman}.
+seguridad incondicional (como sí lo hace el resto del protocolo 
+\emph{DC-Net}), es posible alcanzarla precalculando estas claves en forma 
+\emph{offline} vía un canal privado. Por simplificación, la implementación 
+realizada para este trabajo utiliza \emph{Diffie-Hellman}.
 
 \subsection{\emph{Commitments} sobre las claves}
 
