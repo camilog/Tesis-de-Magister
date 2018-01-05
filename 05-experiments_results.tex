@@ -63,9 +63,9 @@ parámetros:
 	el protocolo para proporcionar anonimato en el envío de mensajes.
 \end{itemize}
 
-\section{Resultados}
+\section{Resultados y Discusión}
 
-\subsection{Tiempos de Ejecución}
+\subsection{Tiempos Totales de Ejecución}
 
 \begin{figure}[H]
   \centering
@@ -80,6 +80,30 @@ parámetros:
   \caption{Tiempos de Ejecución en Tamaño de sala fijo}
   \label{fig:times-fixed}
 \end{figure}
+
+Los tiempos totales de ejecución descritos en las Figuras 
+\ref{fig:times-variable} y \ref{fig:times-fixed} 
+muestran resultados alentadores con relación al tiempo necesario que hay 
+que esperar para recibir mensajes de manera anónima. En el peor caso del 
+experimento (30 mensajes colisionando en una sala de 30 participantes), el 
+tiempo total resultó ser de 1 minuto y 30 segundos, tiempo razonable para 
+leer 30 mensajes de 140 caracteres cada uno. Además, importante notar, que 
+los primeros mensajes empiezan a llegar aproximadamente a los 30 segundos 
+de ejecución (en el mismo caso anterior), por lo que hay una 
+retro-alimentación temprana que el protocolo está funcionando y empezando a 
+revelar los mensajes enviados.
+
+Además de lo anterior, los tiempos totales muestran 
+tendencias que eran esperadas. Mientras que en la Figura 
+\ref{fig:times-variable} los tiempos totales siguen una tendencia 
+cuadrática, esperada por el hecho que al agregar un participante más a la 
+sala, se elevan al cuadrado la cantidad de conexiones necesarias (grafo 
+totalmente conectado); en cambio en la Figura \ref{fig:times-fixed} 
+los tiempos totales siguen una tendencia lineal, mostrando que al fijar un 
+tamaño de sala (en este caso, 30 participantes), el tiempo promedio por ronda 
+se mantiene constante, independiente del número de rondas necesarias para 
+resolver la colisión, resultando así en una tendencia lineal a medida que 
+más mensajes colisionan en la primera ronda.
 
 \subsection{\emph{Profiling} de las etapas}
 
@@ -96,6 +120,34 @@ parámetros:
   \caption{\emph{Profiling} de etapas en Tamaño de sala fijo}
   \label{fig:profile-fixed}
 \end{figure}
+
+El \emph{profiling} realizado mostrado en las Figuras 
+\ref{fig:profile-variable} y \ref{fig:profile-fixed}, tanto en el caso de 
+tamaño de sala variable o fijo respectivamente, muestra una 
+predominancia abrumadora de las etapas que implican un alto costo en la 
+capa de comunicación (recepción de \emph{commitments} y 
+\emph{zero-knowledge proofs} enviados por otros participantes). 
+Independiente del tamaño de la sala o el número de mensajes involucrados 
+en la colisión, el tiempo de procesamiento (generación de 
+\emph{commitments} y de \emph{zero-knowledge proofs}, ejecutar una ronda 
+virtual o procesar la resolución de la ronda), es significativamente menor 
+que las etapas de comunicación, por lo que mejoras al protocolo 
+criptográfico en términos de eficiencia (hacer \emph{zero-knowledge proofs}
+menos complejas, por ejemplo) no significarían un incremento muy 
+importante en el tiempo total de la ejecución del protocolo, por lo que el 
+trabajo futuro debería enfocarse en mejorar el rendimiento de la capa de 
+comunicación, manejando de manera más eficiente el envío y recepción de 
+mensajes en la sala.
+
+Es importante mencionar una propuesta sugerida en 
+el \emph{paper} original de la variante descrita en este trabajo 
+\cite{franck2014dining}, la cual hace referencia a la eliminación de la etapa 
+de compartición de llaves, e intercambiarla por una generación pseudo 
+aleatoria de la llave, compartiendo una semilla de generación entre cada 
+par de participantes. Las pruebas muestran que esta etapa se lleva entre 
+un 10 y un 20 por ciento del tiempo total, por lo que su eliminación 
+mostraría una mejora importante en los tiempos totales de ejecución del 
+protocolo.
 
 \subsection{\emph{Overhead} del protocolo}
 
@@ -162,88 +214,31 @@ envía un mensaje de largo menor a dicho máximo, el \emph{overhead} que
 presentará es el mismo que alguien que envía un mensaje con el largo máximo 
 establecido por el nodo directorio.
 
-
-\section{Discusión de los Resultados}
-
-Las pruebas realizadas muestran varias tendencias que son difíciles de 
-predecir solamente con la descripción teórica del protocolo criptográfico, 
-mientras que otras son confirmaciones de resultados esperados observando 
-netamente el diseño del protocolo.
-
-Los puntos más importante a destacar son los siguientes:
-
-\begin{itemize}
-	\item Tiempos totales de ejecución: los tiempos totales de ejecución 
-	mostraron resultados alentadores con relación al tiempo necesario que hay 
-	que esperar para recibir mensajes de manera anónima. En el peor caso del 
-	experimento (30 mensajes colisionando en una sala de 30 participantes), el 
-	tiempo total resultó ser de 1 minuto y 30 segundos, tiempo razonable para 
-	leer 30 mensajes de 140 caracteres cada uno. Además importante notar que 
-	los primeros mensajes empiezan a llegar aproximadamente a los 30 segundos 
-	de ejecución (en el mismo caso anterior), por lo que hay una 
-	retro-alimentación temprana que el protocolo está funcionando y empezando a 
-	revelar los mensajes enviados.
-	\item Tendencia en el aumento de tiempos: los tiempos totales muestran 
-	tendencias que eran esperadas. Mientras que en la Figura 
-	\ref{fig:times-variable} los tiempos totales siguen una tendencia 
-	cuadrática, esperada por el hecho que al agregar un participante más al a 
-	sala, se elevan al cuadrado la cantidad de conexiones necesarias (grafo 
-	totalmente conectado); en cambio en la Figura \ref{fig:times-fixed} 
-	los tiempos totales siguen una recta, mostrando que al fijar un tamaño de 
-	sala (en este caso, 30 participantes), el tiempo promedio por ronda se 
-	mantiene constante, independiente del número de rondas necesarias para 
-	resolver la colisión, resultando así en una tendencia lineal a medida que 
-	más mensajes colisionan en la primera ronda.
-	\item Predominancia de las etapas de comunicación: el \emph{profiling} 
-	realizado, tanto en el caso de tamaño de sala variable o fijo, muestra una 
-	predominancia abrumadora de las etapas que implican un alto costo en la 
-	capa de comunicación (recepción de \emph{commitments} y 
-	\emph{zero-knowledge proofs} enviados por otros participantes). 
-	Independiente del tamaño de la sala o el número de mensajes involucrados 
-	en la colisión, el tiempo de procesamiento (generación de 
-	\emph{commitments} y de \emph{zero-knowledge proofs}, ejecutar una ronda 
-	virtual o procesar la resolución de la ronda), es significativamente menor 
-	que las etapas de comunicación, por lo que mejoras al protocolo 
-	criptográfico en términos de eficiencia (hacer \emph{zero-knowledge proofs} 
-	menos complejas, por ejemplo) no significarían un incremento muy 
-	importante en el tiempo total de la ejecución del protocolo, por lo que el 
-	trabajo futuro debería enfocarse en mejorar el rendimiento de la capa de 
-	comunicación, manejando de manera más eficiente el envío y recepción de 
-	mensajes en la sala.
-	\item Mejora al eliminar compartición de llaves: una propuesta sugerida en 
-	el \emph{paper} original de la variante descrita en este trabajo 
-	\cite{franck2014dining}, hace referencia a la eliminación de la etapa de 
-	compartición de llaves, e intercambiarla por una generación pseudo 
-	aleatoria de la llave, compartiendo una semilla de generación entre cada 
-	par de participantes. Las pruebas muestran que esta etapa se lleva entre 
-	un 10 y un 20 por ciento del tiempo total, por lo que su eliminación 
-	mostraría una mejora importante en los tiempos totales de ejecución del 
-	protocolo.
-	\item Costo extra para asegurar anonimato: alcanzar el nivel de anonimato 
-	que ofrece el protocolo significa un sobrecosto importante que cada 
-	participante debe pagar, reflejado especialmente en la cantidad de 
-	información extra que debe enviarse con respecto al mensaje final que 
-	desea comunicar. Estos tamaños se ven reflejados en la Tabla 
-	\ref{table:message_sizes_table}, lo que muestra un altísimo sobrecosto 
-	relativo que experimenta cada participante (alrededor de 70 veces por 
-	ronda y por participante presente en la sala). Eso quiere decir que si un 
-	participante desea comunicar un mensaje de 140 caracteres en una sala de 
-	30 participantes (y tiene la ``mala suerte'' que todo el resto de la sala 
-	también quiere comunicar un mensaje), tendrá que enviar un total de 8.8 MB 
-	de información aproximadamente. Junto con esto, en el peor caso (es decir, 
-	cuando su mensaje es el último en ser revelado), experimentará un ancho de 
-	banda real de 1.5 bytes/sec (para comunicar su mensaje de 140 bytes, tuvo 
-	que esperar 90 segundos). Esto presenta un desafío muy importante a 
-	analizar por parte del diseño del protocolo criptográfico: ¿es posible 
-	alcanzar el mismo nivel de anonimato, utilizando menos cantidad de 
-	mensajes? ¿pudieran acortarse las rondas o utilizar 
-	\emph{zero-knowledge proofs} más ``cortas''? También es un desafío el 
-	mejorar la implementación y tratar de disminuir la cantidad de información 
-	enviada a través de la red, por ejemplo a través de mecanismos de 
-	compresión de información, pero procurando que los tiempos necesarios para 
-	comprimir y descomprimir la información sean tales que se evidencie una 
-	mejora sustancial en los tiempos totales de la ejecución del protocolo.
-\end{itemize}
+Por último mencionar que alcanzar el nivel de anonimato 
+que ofrece el protocolo significa un sobrecosto importante que cada 
+participante debe pagar, reflejado especialmente en la cantidad de 
+información extra que debe enviarse con respecto al mensaje final que 
+desea comunicar. Estos tamaños se ven reflejados en la Tabla 
+\ref{table:message_sizes_table}, lo que muestra un altísimo sobrecosto 
+relativo que experimenta cada participante (alrededor de 70 veces por 
+ronda y por participante presente en la sala). Eso quiere decir que si un 
+participante desea comunicar un mensaje de 140 caracteres en una sala de 
+30 participantes (y tiene la ``mala suerte'' que todo el resto de la sala 
+también quiere comunicar un mensaje), tendrá que enviar un total de 8.8 MB 
+de información aproximadamente. Junto con esto, como es descrito en la Figura 
+\ref{fig:bandwidth}, en el peor caso (es decir, 
+cuando su mensaje es el último en ser revelado), experimentará un ancho de 
+banda real de 1.5 bytes/sec (para comunicar su mensaje de 140 bytes, tuvo 
+que esperar 90 segundos). Esto presenta un desafío muy importante a 
+analizar por parte del diseño del protocolo criptográfico: ¿es posible 
+alcanzar el mismo nivel de anonimato, utilizando menos cantidad de 
+mensajes? ¿pudieran acortarse las rondas o utilizar 
+\emph{zero-knowledge proofs} más ``cortas''? También es un desafío el 
+mejorar la implementación y tratar de disminuir la cantidad de información 
+enviada a través de la red, por ejemplo a través de mecanismos de 
+compresión de información, pero procurando que los tiempos necesarios para 
+comprimir y descomprimir la información sean tales que se evidencie una 
+mejora sustancial en los tiempos totales de la ejecución del protocolo.
 
 \subsection{Escenario propuesto de uso}
 
