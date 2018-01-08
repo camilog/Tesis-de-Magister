@@ -49,6 +49,9 @@ verificarla siguiendo estos pasos:
 	\item Verificar que $g^a = y^{\hat{b}} z$
 \end{enumerate} 
 
+Este protocolo también es conocido como \emph{Firma de Schnorr} y para más detalles 
+sobre su seguridad y correctitud revisar \cite{schnorr1989efficient}.
+
 \subsection{Uno de dos logaritmos discretos}
 
 $$PoK\{x_1, x_2 : h_1 = g^{x_1} \lor h_2 = g^{x_2}\}$$
@@ -77,6 +80,8 @@ verificarla siguiendo estos pasos:
 	\item Verificar que $g^{r_2} = h_2^c z_2$
 \end{enumerate} 
 
+El protocolo descrito anteriormente es un caso específico del esquema propuesto en \cite{cramer1994proofs}, en el cual se describe la manera de demostrar el conocimiento de un subconjunto de valores dentro de un cierto \emph{statement} (en el caso necesario para este trabajo, se demostró el conocimiento de sólo un valor de dos posibles). 
+
 \subsection{Dos logaritmos discretos}
 
 $$PoK\{x_1, x_2 : h_1 = g^{x_1} \land h_2 = g^{x_2}\}$$
@@ -101,6 +106,8 @@ Finalmente, el \emph{verifier} debe recibir la demostración $\mathcal{D}$ y ver
 	\item Verificar que $g^{a_1} = z_1 h_1^\hat{b}$
 	\item Verificar que $g^{a_2} = z_2 h_2^\hat{b}$
 \end{enumerate}
+
+El protocolo anterior resulta de realizar en paralelo dos demostraciones como la descrita en \cite{schnorr1989efficient} (conocimiento de logaritmo discreto).
 
 \subsection{Valores en \emph{Pedersen Commitments}}
 

@@ -16,7 +16,7 @@ finaliza cuando todos los mensajes enviados son
 recibidos por todos los participantes. Para lograr el envío de estos mensajes, 
 el protocolo se desarrolla en rondas, las cuáles son una serie de pasos 
 (descritos a partir de la próxima sección) que todos los participantes deben 
-desarrollar para tanto mantener el anonimato como prevenir ataques o intentos 
+desarrollar tanto para mantener el anonimato, como para prevenir ataques o intentos 
 de corrupción del protocolo. Al conjunto de 
 participantes involucrados en una sesión se le llama Sala. Como fue explicado 
 anteriormente, el diseño original de \emph{DC-Net} sólo permite el envío de un 
@@ -31,7 +31,7 @@ adversario puede monitorear todos los canales de
 comunicación entre los distintos participantes de la sala, y solo se exige que 
 estos canales sean autenticados, es decir, que cada participante firme de 
 manera digital los distintos valores que se están enviando. Además de esto, el 
-protocolo mantiene su seguridad aún si hasta $n-2$ participantes maliciosos 
+protocolo mantiene su seguridad aún si existen hasta $n-2$ participantes maliciosos 
 (donde $n$ es el tamaño de la 
 sala, o el número total de participantes). Por éstos últimos entenderemos a 
 participantes que tienen como objetivo ya sea de quebrar el anonimato del 
@@ -93,8 +93,8 @@ ronda $k$, los mensajes se reenvían en las rondas $2k$ y $2k + 1$. Este
 protocolo de resolución se realiza hasta que todos los mensajes que 
 colisionaron en la ronda 1, son reenviados en rondas de forma individual, es 
 decir, no colisionaron con ningún otro mensaje (en el ejemplo, esto se produce 
-en las rondas 4, 5, 6, 14 y 15). Por último debemos mencionar las rondas 
-virtuales que se ejecutan. En la Figura se puede observar que la ronda 3 es 
+en las rondas 4, 5, 6, 14 y 15). En la Figura \ref{fig:supreceiving_tree-1} se 
+puede observar que la ronda 3 es 
 virtual, ya que su valor puede ser derivado a partir de los valores que se 
 obtuvieron en las rondas 1 y 2. De manera general, las rondas virtuales poseen 
 la forma $2k + 1$, cuyo valor puede ser derivado a partir de los valores 
@@ -245,7 +245,7 @@ colisiones de mensajes (lo cual es explicado más adelante en el documento).
 Estos valores auxiliares son los siguientes:
 \begin{itemize}
     \item $b_i$: bit que indica si el participante está, en la presente ronda, 
-    enviando un mensaje distinto a cero o no ($b_i = 1 ssi m_i \neq 0$).
+    enviando un mensaje distinto a cero o no ($b_i = 1\,\, ssi\,\, m_i \neq 0$).
     \item $pad_i$: cadena de bits aleatoria que se añade para prevenir 
     colisión de mensajes iguales, que podría desembocar en que la sesión nunca 
     finalice.

@@ -1,12 +1,12 @@
 \chapter{Detalles de Implementación}\label{cap4}
 
-La parte esencial de este trabajo esta dado por llevar a cabo una 
+La parte esencial de este trabajo esta dada por llevar a cabo una 
 implementación que refleje el diseño propuesto en el capítulo anterior, 
 brindando así una herramienta real a la comunidad que permita la comunicación 
 anónima entre distintas partes interesadas.
 
 Como fue explicado anteriormente, no existen muchas implementaciones de 
-protocolos basados en DC-Net, por lo que llevar a cabo este trabajo significó 
+protocolos basados en \emph{DC-Net}, por lo que llevar a cabo este trabajo significó 
 soslayar muchos obstáculos, los cuales se detallan a continuación.
 
 \section{Tecnologías Involucradas}
@@ -16,12 +16,11 @@ soslayar muchos obstáculos, los cuales se detallan a continuación.
     proyecto se escogió realizarlo en \emph{Java}, debido principalmente a que 
     un objetivo era poder realizar una aplicación móvil como prueba de 
     concepto de lo implementado, y el sistema operativo móvil más común hoy en 
-    día es \emph{Android}\footnote{\url{http://www.idc.com/promo/
-    smartphone-market-share/os}}, el 
+    día es \emph{Android}\footnote{\url{https://www.idc.com/promo/smartphone-market-share/os}}, el 
     cual está basado en \emph{Java}. Aparte de esto, no existe una razón de 
     fondo para escoger \emph{Java} como lenguaje de programación, por lo que 
     los mismos resultados se pueden lograr si se utiliza otro 
-    lenguaje más común en otras implementaciones de DC-Net, como sería 
+    lenguaje más común en otras implementaciones de \emph{DC-Net}, como sería 
     \emph{C++}.
 
     \item \underline{Capa de comunicación:} para la conexión entre las 
@@ -30,7 +29,7 @@ soslayar muchos obstáculos, los cuales se detallan a continuación.
     mensajería distribuida (desconexiones, pérdida de datos, etc.) y 
     concentrarse únicamente en la lógica de la aplicación. En palabras de sus 
     autores, ``\emph{ZeroMQ} son sockets con esteroides''. Con \emph{ZeroMQ} 
-    se simplifica la implementación de \emph{broadcasting} o conexiones punto 
+    se simplifica la implementación de \emph{broadcasting} o de conexiones punto 
     a punto entre los distintos participantes (ambos tipos de conexiones 
     necesarias para el protocolo).
 \end{enumerate}
@@ -74,10 +73,6 @@ Esta segunda variante además tiene la ventaja de no poseer un punto vulnerable
 (que sería el nodo \texttt{Directorio}), evitando ataques directos al nodo 
 \texttt{Directorio}, retrasando (o incluso imposibilitando) la 
 creación del \emph{anonymity set}. 
-<<MEJORAR LA SIGUIENTE FRASE:>>Reiterar que se implementó el nodo 
-\texttt{Directorio} por simplicidad, pero se tienen en cuenta los posibles 
-ataques que puede recibir el sistema, que no tienen incidencia en romper el 
-anonimato que brinda el protocolo.
 
 Actualmente el nodo \texttt{Directorio} inicia estableciendo los 
 parámetros públicos del protocolo y publica su dirección IP. Luego, cada nodo 
@@ -118,7 +113,7 @@ esto no es una práctica recomendada (lo ideal es utilizar bibliotecas
 criptográficas ya probadas por la comunidad), se decidió por esto luego de no 
 encontrar bibliotecas que implementaran las funcionalidades requeridas por el 
 protocolo (\emph{Pedersen Commitments} y \emph{ZKP} asociadas). Como fue 
-dicho, la implementación de primitivas criptográficas no es recomendado. Más 
+dicho, la implementación de primitivas criptográficas no es recomendado, más 
 bien, se recomienda utilizar implementaciones ya probadas y verificadas por la 
 comunidad, como lo podría ser 
 Charm-Crypto\footnote{\url{http://charm-crypto.com/index.html}} o 
@@ -132,7 +127,7 @@ expedita y transparente al resto de la implementación.
 
 Como fue dicho anteriormente, una contribución importante de este trabajo 
 es implementar una \emph{API} disponible para toda la comunidad. Esta API 
-permitirá a la comunidad una aplicación que esté basada en el protocolo 
+permitirá a la comunidad crear una aplicación que esté basada en el protocolo 
 anteriormente descrito. 
 
 La implementación anterior fue empaquetada como librería \emph{Java}, 
