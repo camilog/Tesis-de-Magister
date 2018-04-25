@@ -1,4 +1,24 @@
 \chapter{Experimentación y Resultados}\label{cap5}
+
+\section{Metodología Experimental}
+
+Para poner a prueba el protocolo implementado se montaron 
+distintos escenarios de experimentación, cada uno relacionados 
+a distintas situaciones reales donde un sistema de mensajería 
+anónima pueda ser necesario e imperante de utilizar.
+
+La experimentación constó de dos etapas relacionadas a la 
+infraestructura utilizada: (1) simulación de una red a través 
+de un software especializado, y (2) utilización de una red 
+real tanto para confirmar resultados entregados por la simulación, 
+como para tener más precisión en los resultados entregados.
+
+Las pruebas realizadas se centraron en la medición de tiempos reales 
+de ejecución, es decir, el tiempo que un usuario del sistema 
+percibe que tardó su uso en los distintos escenarios propuestos. 
+Los tiempos a medir se centraron en hitos que suceden en toda ejecución 
+del sistema, especificados más adelante en este capítulo.
+
 \section{Infraestructura utilizada}
 
 \subsection{Simulación de Red}
@@ -20,7 +40,18 @@ en una misma máquina.
 
 Ambas simulaciones mostraron un pobre rendimiento a la hora de 
 correr el protocolo, mostrando tiempos de un orden de magnitud 
-mayores que los tiempos reales que se lograron \emph{a posteriori}.
+mayores que los tiempos reales que se lograron \emph{a posteriori}. 
+Es por ello que el autor consideró no presentar dichos resultados 
+en el presente trabajo debido a la posibilidad de malinterpretarse y 
+que el protocolo se viera empobrecido debido a experimentos 
+mal realizados. La razón de los tiempos erróneos entregados por 
+el software de simulación se centrarían principalmente en la 
+inexperiencia en su uso para poder obtener como resultado tiempos 
+más cercanos a los tiempos reales de ejecución. Debido a que se pudieron 
+realizar pruebas en una red real, no se insistió en la mejora de los 
+tiempos de la simulación, aunque queda como un punto para trabajar a 
+futuro y poder probar el sistema en un sinnúmero de escenarios de 
+manera más eficaz.
 
 \subsection{Uso de red real}
 
@@ -286,3 +317,22 @@ necesita la opción de comunicar mensajes de manera anónima:
 	enviar un mensaje, 
 	simplemente se envía un bit, diferenciando entre SI y NO).
 \end{itemize} 
+
+\subsection{Consideraciones sobre escenarios no experimentados}
+
+Debido a la falta de posibilidad para usar el software de simulación, existe un 
+sinnúmero de escenarios que no se pudieron experimentar y que sería interesante 
+de observar como se comporta el protocolo en esos casos. En particular, 
+experimentar el comportamiento del protocolo con nodos conectados a través de 
+Internet (y no a través de una red local, como sí fue experimentado). Esto 
+entregaría resultados más cercanos a la realidad y daría la posibilidad 
+de establecer un canal anónimo para usuarios que no necesariamente comparten 
+una cercanía física u organizativa, sino más bien que comparten intereses 
+o simplemente que quieran aportar en fortalecer el anonimato resultante.
+
+Otro escenario interesante de experimentar para un trabajo futuro sería 
+la intermitencia en la conectividad de un subconjunto de los nodos participantes. 
+Esto es que los nodos puedan conectarse/desconectarse en medio de la sesión 
+que se esté ejecutando en dicho momento, y con ello observar tanto 
+el comportamiento que deba tener el protocolo, como la influencia que 
+esto pueda tener en los tiempos finales de ejecución. 
