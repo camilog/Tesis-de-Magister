@@ -6,20 +6,20 @@
 
 Las \emph{Zero-Knowledge Proofs} necesitadas para el desarrollo de este 
 trabajo son del tipo \emph{proof-of-knowledge}, las cuales permiten a un 
-cierto \emph{prover} demostrarle a un \emph{verifier} que conoce un cierto 
-valor (o varios valores) que hacen verdad una cierta proposición, sin la 
+participante, el \emph{prover}, demostrarle a otro participante, el \emph{verifier}, que conoce un cierto 
+valor (o varios valores) que hacen verdadera una cierta proposición, sin la 
 necesidad de revelar dicho valor. Por ejemplo, a través de esta técnica 
-criptográfica una persona podría demostrar que conoce los todos los distintos 
+criptográfica una persona podría demostrar que conoce todos los 
 valores que solucionan un cierto tablero de \emph{sudoku}, sin la necesidad de 
 revelar estos valores.
 
 Generalmente estas demostraciones son \emph{interactivas}, es decir, 
 \emph{prover} y \emph{verifier} se comparten distintos valores durante el 
 desarrollo del protocolo, lo cual finalmente convence al \emph{verifier} de la 
-propiedad que se quería demostrar. Eso si, toda demostración interactiva puede 
+propiedad que se quería demostrar. Eso si, casi toda demostración interactiva puede 
 transformarse a \emph{no interactiva}, es decir, sin la necesidad de 
-intercambiar valores, el \emph{prover} puede demostrar el conocimiento de 
-cierto valor solamente con el cálculo de algunos valores, suponiendo que 
+intercambiar valores. El \emph{prover} puede demostrar el conocimiento de 
+cierto valor solamente a través del cálculo de algunos valores, suponiendo que 
 existen otros valores que son públicamente conocidos (en particular, conocidos 
 por el \emph{verifier}). Las demostraciones utilizadas en este trabajo y 
 detalladas a continuación son no interactivas.
@@ -28,16 +28,18 @@ detalladas a continuación son no interactivas.
 
 $$PoK\{w: y = g^w\}$$
 
-Sean $g, y$ valores públicos. El \emph{prover} (de identidad pública 
-\texttt{id}) debe demostrar que conoce el valor $w$ que hace verdad la 
+Sean $g, y$ valores públicos, tales que $g$ es generador de un grupo cíclico $G$ de orden primo $q$, y 
+$y \in G$. 
+El \emph{prover} (de identidad pública 
+\texttt{id}) debe demostrar que conoce el valor $w$ que hace verdadera la 
 siguiente proposición: $y = g^w$. Los pasos que debe seguir son los siguientes:
 \begin{enumerate}
-	\item Escoger $r$ aleatorio.
+	\item Escoger $r \in \mathbb{Z}_q$ aleatorio.
 	\item Calcular $z = g^r$
 	\item Calcular $b = H(z \mid\mid g \mid\mid y \mid\mid \mathtt{id})$, 
-	donde $H(\cdot)$ es una función de hash segura (por ejemplo, 
-	\texttt{SHA3}).
-	\item Calcular $a = r + bw$
+	donde $H(\cdot)$ es una función de hash resistente a colisiones (por ejemplo, 
+	\texttt{SHA3}), tal que $H: \sum^{n} \rightarrow \mathbb{Z}_q$.
+	\item Calcular $a = r + bw \pmod q$
 	\item Enviar como demostración la tupla $\mathcal{D} = (g, z, a)$
 \end{enumerate}
 
@@ -65,7 +67,7 @@ supondremos que conoce el valor $x_1$):
 	\item Escoger $c, r_1, r_2$ aleatorios.
 	\item Calcular $z_1 = g^{r_1}$
 	\item Calcular $z_2 = g^{r_2} h_2^{-c}$
-	\item Calcular $b = H(z_1 \mid\mid z_2 \mid\mid g \mid\mid h_1 \mid\mid h_2 \mid\mid \mathtt{id})$, donde $H(\cdot)$ es una función de hash segura (por ejemplo, \texttt{SHA3}).
+	\item Calcular $b = H(z_1 \mid\mid z_2 \mid\mid g \mid\mid h_1 \mid\mid h_2 \mid\mid \mathtt{id})$, donde $H(\cdot)$ es una función de hash resistente a colisiones (por ejemplo, \texttt{SHA3}).
 	\item Calcular $t = b - c$
 	\item Calcular $a = r_1 + t x_1$
 	\item Enviar como demostración la tupla $\mathcal{D} = (t, c, z_1, z_2, a, r_2)$.
@@ -94,7 +96,7 @@ pasos que debe seguir son los siguientes:
 	\item Escoger $r_1, r_2$ aleatorios.
 	\item Calcular $z_1 = g^{r_1} $
 	\item Calcular $z_2 = g^{r_2}$
-	\item Calcular $b = H(z_1 \mid\mid z_2 \mid\mid g \mid\mid h_1 \mid\mid h_2 \mid\mid \mathttt{id})$, donde $H(\cdot)$ es una función de hash segura (por ejemplo, \texttt{SHA3}).
+	\item Calcular $b = H(z_1 \mid\mid z_2 \mid\mid g \mid\mid h_1 \mid\mid h_2 \mid\mid \mathttt{id})$, donde $H(\cdot)$ es una función de hash resistente a colisiones (por ejemplo, \texttt{SHA3}).
 	\item Calcular $a_1 = r_1 + b x_1$
 	\item Calcular $a_2 = r_2 + b x_2$
 	\item Enviar como demostración la tupla $\mathcal{D} = (z_1, z_2, a_1, a_2)$.
@@ -120,7 +122,7 @@ siguientes:
 \begin{enumerate}
 	\item Escoger $y, s$ aleatorios.
 	\item Calcular $d = g^y h^s$
-	\item Calcular $e = H(d \mid\mid g \mid\mid h \mid\mid c \mid\mid \mathtt{id})$, donde $H(\cdot)$ es una función de hash segura (por ejemplo, \texttt{SHA3}).
+	\item Calcular $e = H(d \mid\mid g \mid\mid h \mid\mid c \mid\mid \mathtt{id})$, donde $H(\cdot)$ es una función de hash resistente a colisiones (por ejemplo, \texttt{SHA3}).
 	\item Calcular $u = ex + y$
 	\item Calcular $v = er + s$
 	\item Enviar como demostración la tupla $\mathcal{D} = (d, u, v)$.
