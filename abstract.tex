@@ -11,7 +11,8 @@ Tal es el caso del software \emph{TOR}, basado en el protocolo
 vulnerable frente a un adversario que posea un poder de monitoreo global de la 
 red -- una capacidad probablemente ya existente. Es por esta razón que se hace 
 necesario encontrar un nuevo protocolo para asegurar comunicaciones 
-verdaderamente anónimas.\\
+verdaderamente anónimas.
+
 El protocolo DC-Net (\emph{Dining Cryptographers Network}), es un protocolo 
 que asegura anonimato incondicional, esto es, independiente del poder de 
 cómputo y la capacidad de monitoreo del adversario. Lamentablemente, el 
@@ -21,7 +22,8 @@ escalabilidad, y (2) esta diseñado para transmitir solo un único mensaje en
 forma simultánea, de manera que el envío de más mensajes resulta en servicio 
 degradado (se dice que hay una \emph{colisión} de mensajes). Una DC-Net 
 robusta debe poder manejar dichas colisiones para admitir el envío de varios 
-mensajes en forma simultánea.\\
+mensajes en forma simultánea.
+
 En este trabajo se propone una variante del protocolo DC-Net la cual emplea 
 primitivas criptográficas sofisticadas (\emph{commitments} y 
 \emph{zero-knowledge-proofs}) para lidiar con adversarios maliciosos y manejar 
@@ -32,7 +34,8 @@ tercera parte confiable. La variante propuesta en este trabajo, si bien no
 alcanza la escalabilidad de otras propuestas, no sacrifica seguridad pues 
 funciona bajo un modelo de amenaza significativamente más fuerte, uno donde el 
 adversario puede monitorear todas las conexiones e incluso infiltrarse como 
-participante del sistema.\\
+participante del sistema.
+
 A fin de evaluar esta propuesta en la práctica, se realizó una implementación 
 concreta del protocolo. Esta implementación sirvió de base para la 
 construcción de un prototipo de aplicación móvil, el cual efectivamente provee 

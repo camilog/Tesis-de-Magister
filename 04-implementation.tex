@@ -7,7 +7,7 @@ anónima entre distintas partes interesadas.
 
 Como fue explicado anteriormente, no existen muchas implementaciones de 
 protocolos basados en \emph{DC-Net}, por lo que llevar a cabo este trabajo significó 
-soslayar muchos obstáculos, los cuales se detallan a continuación.
+superar muchos obstáculos, los cuales se detallan a continuación.
 
 \section{Tecnologías Involucradas}
 
@@ -115,7 +115,8 @@ encontrar bibliotecas que implementaran las funcionalidades requeridas por el
 protocolo (\emph{Pedersen Commitments} y \emph{ZKP} asociadas). Como fue 
 dicho, la implementación de primitivas criptográficas no es recomendado, más 
 bien, se recomienda utilizar implementaciones ya probadas y verificadas por la 
-comunidad, como lo podría ser 
+comunidad debido a la facilidad que existe en agregar vulnerabilidades 
+a la hora de implementar protocolos criptográficos, como lo podría ser 
 Charm-Crypto\footnote{\url{http://charm-crypto.com/index.html}} o 
 Scapi\footnote{\url{https://scapi.readthedocs.io/en/latest/}}. De todas 
 maneras, la criptografía implementada se desarrolló utilizando interfaces, por 
@@ -126,9 +127,12 @@ expedita y transparente al resto de la implementación.
 \section{\emph{API} implementada}
 
 Como fue dicho anteriormente, una contribución importante de este trabajo 
-es implementar una \emph{API} disponible para toda la comunidad. Esta API 
+es implementar una \emph{API} disponible para toda la 
+comunidad\footnote{\url{https://github.com/clcert/dcnet-participant}, 
+\url{https://github.com/clcert/dcnet-directory}}. Esta API 
 permitirá a la comunidad crear una aplicación que esté basada en el protocolo 
-anteriormente descrito. 
+anteriormente descrito. En \ref{apen-b} se destacan algunas secciones del 
+código fuente implementado.
 
 La implementación anterior fue empaquetada como librería \emph{Java}, 
 utilizable por otras aplicaciones al importar el archivo \emph{.jar} generado. 
@@ -172,7 +176,11 @@ que asegure el anonimato de sus participantes.
 
 La aplicación está compuesta de 3 módulos: (1) conexión al nodo 
 \texttt{Directorio}, (2) envío del mensaje por parte del participante, y (3) 
-recepción de los mensajes del resto de los participantes de la sala.
+recepción de los mensajes del resto de los participantes de la sala. En las 
+Figuras \ref{fig:mobile_screenshots_1} y \ref{fig:mobile_screenshots_2} se 
+pueden apreciar \emph{screenshots} de la aplicación implementada, mostrando 
+las distintas fases y vistas que ésta posee: conexión al nodo \texttt{Directorio} y 
+el envío del mensaje que se quiere comunicar, respectivamente.
 
 \begin{figure}[H]
     \centering
