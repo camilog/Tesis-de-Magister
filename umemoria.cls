@@ -43,7 +43,7 @@
 
 %% Lenguaje
 \addto\captionsspanish{\renewcommand\tablename{Tabla}}
-\addto\captionsspanish{\renewcommand\contentsname{Tabla de Contenidos}}
+\addto\captionsspanish{\renewcommand\contentsname{Tabla de Contenido}}
 \addto\captionsspanish{\renewcommand\listtablename{Índice de Tablas}}
 \addto\captionsspanish{\renewcommand\listfigurename{Índice de Ilustraciones}}
 
@@ -63,17 +63,19 @@
 %% Entornos nuevos
 \newenvironment{abstract}{%
 \cleardoublepage
-\begin{flushright}
-\footnotesize
-\begin{tabular}{l}
-RESUMEN DE LA TESIS PARA OPTAR \\
-AL TÍTULO DE \MakeUppercase\@carrera \\
-POR: \MakeUppercase\@author \\
-FECHA: \MakeUppercase\@date\\
-PROF. GUÍA: SR. \MakeUppercase\@guia \\
-\end{tabular}
-\end{flushright}
+% \begin{flushright}
+% \footnotesize
+% \begin{tabular}{l}
+% RESUMEN DE LA TESIS PARA OPTAR \\
+% AL TÍTULO DE \MakeUppercase\@carrera \\
+% POR: \MakeUppercase\@author \\
+% FECHA: \MakeUppercase\@date\\
+% PROF. GUÍA: SR. \MakeUppercase\@guia \\
+% \end{tabular}
+% \end{flushright}
 \begin{center}
+RESUMEN DE LA TESIS
+
 \MakeUppercase\@title
 \end{center}
 }{\small\vfill\null}
@@ -133,10 +135,11 @@ PROF. GUÍA: SR. \MakeUppercase\@guia \\
 \global\let\@comisa\@empty
 \global\let\@comisb\@empty
 \global\let\@comisc\@empty
-\newcommand{\comision}[3]{
+\newcommand{\comision}[4]{
 	\def\@comisa{#1}
 	\def\@comisb{#2}
 	\def\@comisc{#3}
+	\def\@comisd{#4}
 }
 
 \global\let\@auspicio\@empty
@@ -168,7 +171,7 @@ PROF. GUÍA: SR. \MakeUppercase\@guia \\
 			PROFESOR GUÍA:\\ \MakeUppercase\@guia
 
 		\vspace{1cm}
-			MIEMBROS DE LA COMISIÓN:\\ \MakeUppercase\@comisa\\\MakeUppercase\@comisb\\\MakeUppercase\@comisc
+			MIEMBROS DE LA COMISIÓN:\\ \MakeUppercase\@comisa\\\MakeUppercase\@comisb\\\MakeUppercase\@comisc\\\MakeUppercase\@comisd
 		\if\@auspicio\@empty\else
 
 		\vfill

@@ -132,3 +132,181 @@ verificarla siguiendo estos pasos:
 	\item Calcular $\hat{e} = H(d \mid\mid g \mid\mid h \mid\mid c \mid\mid \mathttt{id})$ utilizando la misma función de hash usada por el \emph{prover}.
 	\item Verificar que $g^u h^v = c^\hat{e} d$
 \end{enumerate}
+
+\section{Apéndice B: Código Fuente}\label{apen-b}
+
+En la presente sección se muestra parte del código fuente implementado para este trabajo, 
+destacando algunas secciones importantes de lo realizado para el desarrollo 
+del sistema descrito anteriormente. Como fue dicho anteriormente, el código está 
+programado en \emph{Java}.
+
+\subsection{\emph{Zero-Knowledge Proof} de Valores en \emph{Pedersen Commitments}}
+
+\begin{minted}[mathescape, breaklines=true]{java}
+/**
+ * Generates Proof of Knowledge that participant knows $(x, r)$ in $c = g^x h^r \pmod{p}$
+ *
+ * @param c commitment s.t. $c = g^x h^r \pmod{p}$
+ * @param g generator of group $G_q$
+ * @param x value in $\mathbb{Z}_q$
+ * @param h generator of group $G_q$
+ * @param r value in $\mathbb{Z}_q$
+ * @param q large prime
+ * @param p large prime s.t. $p = kq + 1$
+ * @return ProofOfKnowledge s.t. node knows $(x,r)$ in $c = g^x h^r \pmod{p}$
+ * @throws NoSuchAlgorithmException     
+ * @throws UnsupportedEncodingException 
+ */
+public ProofOfKnowledgePedersen generateProofOfKnowledgePedersen(BigInteger c, BigInteger g, BigInteger x, BigInteger h, BigInteger r, BigInteger q, BigInteger p) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    PedersenCommitment pedersenCommitment = new PedersenCommitment(g, h, q, p);
+
+    // $y$ random value in $Z_q$
+    BigInteger y = pedersenCommitment.generateRandom();
+    // $s$ random value in $Z_q$ 
+    BigInteger s = pedersenCommitment.generateRandom(); 
+
+    // $d = g^y h^s \pmod{p}$
+    BigInteger d = pedersenCommitment.calculateCommitment(y, s); 
+
+    MessageDigest md = MessageDigest.getInstance("SHA-512");
+    String publicValueOnHash = d.toString().concat(
+            g.toString()).concat(
+            h.toString()).concat(
+            c.toString()).concat(
+            "" + this.nodeIndex);
+    md.update(publicValueOnHash.getBytes("UTF-8"));
+    byte[] hashOnPublicValues = md.digest();
+    // $e = H( d || g || h || c || nodeIndex ) \pmod{q}$
+    BigInteger e = new BigInteger(hashOnPublicValues).mod(q); 
+
+    // $u = ex + y$
+    BigInteger u = e.multiply(x).add(y);
+    // $v = er + s$ 
+    BigInteger v = e.multiply(r).add(s);
+
+    return new ProofOfKnowledgePedersen(d, u, v, nodeIndex);
+}
+\end{minted}
+
+\subsection{Establecimiento de Llaves Compartidas}
+
+\begin{minted}[mathescape, breaklines=true]{java}
+/* KEY SHARING PART */
+// Initialize KeyGeneration
+KeyGeneration keyGeneration = new DiffieHellman(room.getRoomSize() - 1, room.getG(), room.getP(), nodeIndex, repliers, requestors, room);
+
+// Generate Participant Node values
+keyGeneration.generateParticipantNodeValues();
+
+// Get other participants values (to produce cancellation keys)
+keyGeneration.getOtherParticipantNodesValues();
+
+// Generation of the main key round value (operation over the shared key values)
+BigInteger keyRoundValue = keyGeneration.getParticipantNodeRoundKeyValue();
+\end{minted}
+\begin{center}
+$\cdot \cdot \cdot \cdot \cdot \cdot \cdot \cdot \cdot$
+\end{center}
+\begin{minted}[mathescape, breaklines=true]{java}
+/**
+* @return other participant nodes "halves" of the shared key $g^b$
+*/
+@Override
+public BigInteger[] getOtherParticipantNodesValues() {
+    int i = 0;
+    BigInteger[] otherNodesKeyHalves = new BigInteger[room.getRoomSize() - 1];
+    // The "first" node doesn't have any replier sockets
+    if (nodeIndex != 1)
+        for (ZMQ.Socket replier : repliers) {
+            // The replier wait to receive a key share
+            otherNodesKeyHalves[i] = new BigInteger(replier.recvStr());
+            // When the replier receives the message, replies with one of their key shares
+            replier.send(participantNodeHalves[i].toString());
+            i++;
+        }
+    // The "last" node doesn't have any requestor sockets
+    if (nodeIndex != room.getRoomSize())
+        for (ZMQ.Socket requestor : requestors) {
+            // The requestor sends a key share
+            requestor.send(participantNodeHalves[i].toString());
+            // The requestor waits to receive a reply with one of the key shares
+            otherNodesKeyHalves[i] = new BigInteger(requestor.recvStr());
+            i++;
+        }
+    this.otherParticipantNodeHalves = otherNodesKeyHalves;
+
+    i = 0;
+    this.otherParticipantNodeSharedRandomValueHalves = new BigInteger[room.getRoomSize() - 1];
+    // The "first" node doesn't have any replier sockets
+    if (nodeIndex != 1)
+        for (ZMQ.Socket replier : repliers) {
+            // The replier wait to receive a key share
+            this.otherParticipantNodeSharedRandomValueHalves[i] = new BigInteger(replier.recvStr());
+            // When the replier receives the message, replies with one of their key shares
+            replier.send(participantNodeSharedRandomValueHalves[i].toString());
+            i++;
+        }
+    // The "last" node doesn't have any requestor sockets
+    if (nodeIndex != room.getRoomSize())
+        for (ZMQ.Socket requestor : requestors) {
+            // The requestor sends a key share
+            requestor.send(participantNodeSharedRandomValueHalves[i].toString());
+            // The requestor waits to receive a reply with one of the key shares
+            this.otherParticipantNodeSharedRandomValueHalves[i] = new BigInteger(requestor.recvStr());
+            i++;
+        }
+
+    return otherNodesKeyHalves;
+}
+\end{minted}
+
+\subsection{Recepción y Verificación de \emph{ZKP} on Messages}
+
+\begin{minted}[mathescape, breaklines=true]{java}
+/* RECEIVE COMMITMENTS AND POKs ON MESSAGES */
+for (int i = 0; i < room.getRoomSize(); i++) {
+    // Wait response from Receiver thread as a String (json)
+    String receivedProofOfKnowledgeOnMessageJson = receiverThread.recvStr();
+
+    // Transform String (json) to object ProofOfKnowledgePedersen
+    ProofOfKnowledgePedersen receivedProofOfKnowledgeOnMessage = new Gson().fromJson(
+            receivedProofOfKnowledgeOnMessageJson, ProofOfKnowledgePedersen.class);
+    int receivedNodeIndex = receivedProofOfKnowledgeOnMessage.getNodeIndex();
+
+    // Verify proof of knowledge
+    if (!zkp.verifyProofOfKnowledgePedersen(receivedProofOfKnowledgeOnMessage,
+            receivedCommitmentsOnMessageCurrentRound[receivedNodeIndex - 1],
+            room.getG(), room.getH(), room.getQ(), room.getP()))
+        System.err.println("WRONG PoK on Message. Round: " + currentRound + ", Node: " +
+                receivedProofOfKnowledgeOnMessage.getNodeIndex());
+}
+\end{minted}
+
+\subsection{Conexiones al Nodo \texttt{Directorio}}
+
+\begin{minted}[mathescape, breaklines=true]{java}
+// Create the PUB socket and bind it to the port 5555
+ZMQ.Socket publisher = context.createSocket(ZMQ.PUB);
+publisher.bind("tcp://*:6555");
+
+// Create the PULL socket and bind it to the port 5554
+ZMQ.Socket pull = context.createSocket(ZMQ.PULL);
+pull.bind("tcp://*:6554");
+
+ZMQ.Socket[] participantsConnectedPush = new ZMQ.Socket[roomSize];
+// Wait to receive <numberOfNodes> connections from each node that wants to send a message in this room
+for (int i = 0; i < roomSize; i++) {
+    // Receive a message from the PULL socket, which corresponds to the IP address of this node
+    String messageReceived = pull.recvStr();
+    // Assign an index to this node and store it in the nodesInTheRoom with his correspondent IP address
+    this.infoFromDirectory.nodes[i] = new ParticipantNodeInfoFromDirectory(i+1, messageReceived);
+    // Send ACK to participant that just connected
+    participantsConnectedPush[i] = context.createSocket(ZMQ.PUSH);
+    participantsConnectedPush[i].connect("tcp://" + messageReceived + ":5554");
+    participantsConnectedPush[i].send("ack");
+    // Notify of change to observer
+    participantConnected.setValue(messageReceived);
+    // Send message to all connected participants of how many participants left to complete the room
+    sendHowManyParticipantsLeft(participantsConnectedPush, i+1);
+}
+\end{minted}

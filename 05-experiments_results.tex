@@ -180,23 +180,14 @@ un 10 y un 20 por ciento del tiempo total, por lo que su eliminación
 mostraría una mejora importante en los tiempos totales de ejecución del 
 protocolo.
 
-\subsection{\emph{Overhead} del protocolo}
+\subsection{\emph{Overhead} del protocolo y Tamaño de los Mensajes}
 
-\begin{figure}[H]
-  \centering
-    \includegraphics[scale=0.7]{logs/bandwidth.png}
-  \caption{\emph{Bandwidth} del peor caso (último mensaje transmitido)}
-  \label{fig:bandwidth}
-\end{figure}
-
-\subsection{Tamaños de los mensajes}
-
-Una observación importante a realizar de la implementación desarrollada, es la 
+Una observación importante a realizar de la implementación desarrollada es la 
 cantidad de información (medida simplemente como el largo de los mensajes) que 
 se envía en el protocolo. Se debe tomar como base el largo del mensaje 
 original $m_i$ que cada participante debe comunicar. A esto se le debe agregar 
 todas las \emph{zero-knowledge proofs} que necesita enviar, además de los 
-\emph{commitments}, los valores necesarios que debe comunicar para establecer 
+\emph{commitments}, como también los valores necesarios que debe comunicar para establecer 
 llaves compartidas con todo el resto de la sala y considerar que en realidad 
 lo que se envía en el protocolo es el mensaje $M_i$. A la suma de todos esos 
 valores enviados le denotaremos $S_i$. Por último hay que considerar también 
@@ -270,6 +261,13 @@ enviada a través de la red, por ejemplo a través de mecanismos de
 compresión de información, pero procurando que los tiempos necesarios para 
 comprimir y descomprimir la información sean tales que se evidencie una 
 mejora sustancial en los tiempos totales de la ejecución del protocolo.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.7]{logs/bandwidth.png}
+  \caption{\emph{Bandwidth} del peor caso (último mensaje transmitido)}
+  \label{fig:bandwidth}
+\end{figure}
 
 \subsection{Escenario propuesto de uso}
 
