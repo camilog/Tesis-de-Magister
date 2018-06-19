@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{c+cm}{/* KEY SHARING PART */}
+\PYG{c+c1}{// Initialize KeyGeneration}
+\PYG{n}{KeyGeneration} \PYG{n}{keyGeneration} \PYG{o}{=} \PYG{k}{new} \PYG{n}{DiffieHellman}\PYG{o}{(}\PYG{n}{room}\PYG{o}{.}\PYG{n+na}{getRoomSize}\PYG{o}{()} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{o}{,} \PYG{n}{room}\PYG{o}{.}\PYG{n+na}{getG}\PYG{o}{(),} \PYG{n}{room}\PYG{o}{.}\PYG{n+na}{getP}\PYG{o}{(),} \PYG{n}{nodeIndex}\PYG{o}{,} \PYG{n}{repliers}\PYG{o}{,} \PYG{n}{requestors}\PYG{o}{,} \PYG{n}{room}\PYG{o}{);}
+
+\PYG{c+c1}{// Generate Participant Node values}
+\PYG{n}{keyGeneration}\PYG{o}{.}\PYG{n+na}{generateParticipantNodeValues}\PYG{o}{();}
+
+\PYG{c+c1}{// Get other participants values (to produce cancellation keys)}
+\PYG{n}{keyGeneration}\PYG{o}{.}\PYG{n+na}{getOtherParticipantNodesValues}\PYG{o}{();}
+
+\PYG{c+c1}{// Generation of the main key round value (operation over the shared key values)}
+\PYG{n}{BigInteger} \PYG{n}{keyRoundValue} \PYG{o}{=} \PYG{n}{keyGeneration}\PYG{o}{.}\PYG{n+na}{getParticipantNodeRoundKeyValue}\PYG{o}{();}
+\end{Verbatim}

@@ -1,0 +1,45 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{c+cm}{/**}
+\PYG{c+cm}{ * Generates Proof of Knowledge that participant knows $(x, r)$ in $c = g^x h^r \pmod{p}$}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * @param c commitment s.t. $c = g^x h^r \pmod{p}$}
+\PYG{c+cm}{ * @param g generator of group $G_q$}
+\PYG{c+cm}{ * @param x value in $\mathbb{Z}_q$}
+\PYG{c+cm}{ * @param h generator of group $G_q$}
+\PYG{c+cm}{ * @param r value in $\mathbb{Z}_q$}
+\PYG{c+cm}{ * @param q large prime}
+\PYG{c+cm}{ * @param p large prime s.t. $p = kq + 1$}
+\PYG{c+cm}{ * @return ProofOfKnowledge s.t. node knows $(x,r)$ in $c = g^x h^r \pmod{p}$}
+\PYG{c+cm}{ * @throws NoSuchAlgorithmException}
+\PYG{c+cm}{ * @throws UnsupportedEncodingException}
+\PYG{c+cm}{ */}
+\PYG{k+kd}{public} \PYG{n}{ProofOfKnowledgePedersen} \PYG{n+nf}{generateProofOfKnowledgePedersen}\PYG{o}{(}\PYG{n}{BigInteger} \PYG{n}{c}\PYG{o}{,} \PYG{n}{BigInteger} \PYG{n}{g}\PYG{o}{,} \PYG{n}{BigInteger} \PYG{n}{x}\PYG{o}{,} \PYG{n}{BigInteger} \PYG{n}{h}\PYG{o}{,} \PYG{n}{BigInteger} \PYG{n}{r}\PYG{o}{,} \PYG{n}{BigInteger} \PYG{n}{q}\PYG{o}{,} \PYG{n}{BigInteger} \PYG{n}{p}\PYG{o}{)} \PYG{k+kd}{throws} \PYG{n}{NoSuchAlgorithmException}\PYG{o}{,} \PYG{n}{UnsupportedEncodingException} \PYG{o}{\PYGZob{}}
+    \PYG{n}{PedersenCommitment} \PYG{n}{pedersenCommitment} \PYG{o}{=} \PYG{k}{new} \PYG{n}{PedersenCommitment}\PYG{o}{(}\PYG{n}{g}\PYG{o}{,} \PYG{n}{h}\PYG{o}{,} \PYG{n}{q}\PYG{o}{,} \PYG{n}{p}\PYG{o}{);}
+
+    \PYG{c+c1}{// $y$ random value in $Z_q$}
+    \PYG{n}{BigInteger} \PYG{n}{y} \PYG{o}{=} \PYG{n}{pedersenCommitment}\PYG{o}{.}\PYG{n+na}{generateRandom}\PYG{o}{();}
+    \PYG{c+c1}{// $s$ random value in $Z_q$}
+    \PYG{n}{BigInteger} \PYG{n}{s} \PYG{o}{=} \PYG{n}{pedersenCommitment}\PYG{o}{.}\PYG{n+na}{generateRandom}\PYG{o}{();}
+
+    \PYG{c+c1}{// $d = g^y h^s \pmod{p}$}
+    \PYG{n}{BigInteger} \PYG{n}{d} \PYG{o}{=} \PYG{n}{pedersenCommitment}\PYG{o}{.}\PYG{n+na}{calculateCommitment}\PYG{o}{(}\PYG{n}{y}\PYG{o}{,} \PYG{n}{s}\PYG{o}{);}
+
+    \PYG{n}{MessageDigest} \PYG{n}{md} \PYG{o}{=} \PYG{n}{MessageDigest}\PYG{o}{.}\PYG{n+na}{getInstance}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}SHA\PYGZhy{}512\PYGZdq{}}\PYG{o}{);}
+    \PYG{n}{String} \PYG{n}{publicValueOnHash} \PYG{o}{=} \PYG{n}{d}\PYG{o}{.}\PYG{n+na}{toString}\PYG{o}{().}\PYG{n+na}{concat}\PYG{o}{(}
+            \PYG{n}{g}\PYG{o}{.}\PYG{n+na}{toString}\PYG{o}{()).}\PYG{n+na}{concat}\PYG{o}{(}
+            \PYG{n}{h}\PYG{o}{.}\PYG{n+na}{toString}\PYG{o}{()).}\PYG{n+na}{concat}\PYG{o}{(}
+            \PYG{n}{c}\PYG{o}{.}\PYG{n+na}{toString}\PYG{o}{()).}\PYG{n+na}{concat}\PYG{o}{(}
+            \PYG{l+s}{\PYGZdq{}\PYGZdq{}} \PYG{o}{+} \PYG{k}{this}\PYG{o}{.}\PYG{n+na}{nodeIndex}\PYG{o}{);}
+    \PYG{n}{md}\PYG{o}{.}\PYG{n+na}{update}\PYG{o}{(}\PYG{n}{publicValueOnHash}\PYG{o}{.}\PYG{n+na}{getBytes}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}UTF\PYGZhy{}8\PYGZdq{}}\PYG{o}{));}
+    \PYG{k+kt}{byte}\PYG{o}{[]} \PYG{n}{hashOnPublicValues} \PYG{o}{=} \PYG{n}{md}\PYG{o}{.}\PYG{n+na}{digest}\PYG{o}{();}
+    \PYG{c+c1}{// $e = H( d || g || h || c || nodeIndex ) \pmod{q}$}
+    \PYG{n}{BigInteger} \PYG{n}{e} \PYG{o}{=} \PYG{k}{new} \PYG{n}{BigInteger}\PYG{o}{(}\PYG{n}{hashOnPublicValues}\PYG{o}{).}\PYG{n+na}{mod}\PYG{o}{(}\PYG{n}{q}\PYG{o}{);}
+
+    \PYG{c+c1}{// $u = ex + y$}
+    \PYG{n}{BigInteger} \PYG{n}{u} \PYG{o}{=} \PYG{n}{e}\PYG{o}{.}\PYG{n+na}{multiply}\PYG{o}{(}\PYG{n}{x}\PYG{o}{).}\PYG{n+na}{add}\PYG{o}{(}\PYG{n}{y}\PYG{o}{);}
+    \PYG{c+c1}{// $v = er + s$}
+    \PYG{n}{BigInteger} \PYG{n}{v} \PYG{o}{=} \PYG{n}{e}\PYG{o}{.}\PYG{n+na}{multiply}\PYG{o}{(}\PYG{n}{r}\PYG{o}{).}\PYG{n+na}{add}\PYG{o}{(}\PYG{n}{s}\PYG{o}{);}
+
+    \PYG{k}{return} \PYG{k}{new} \PYG{n}{ProofOfKnowledgePedersen}\PYG{o}{(}\PYG{n}{d}\PYG{o}{,} \PYG{n}{u}\PYG{o}{,} \PYG{n}{v}\PYG{o}{,} \PYG{n}{nodeIndex}\PYG{o}{);}
+\PYG{o}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,52 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{c+cm}{/**}
+\PYG{c+cm}{* @return other participant nodes \PYGZdq{}halves\PYGZdq{} of the shared key $g^b$}
+\PYG{c+cm}{*/}
+\PYG{n+nd}{@Override}
+\PYG{k+kd}{public} \PYG{n}{BigInteger}\PYG{o}{[]} \PYG{n+nf}{getOtherParticipantNodesValues}\PYG{o}{()} \PYG{o}{\PYGZob{}}
+    \PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{o}{;}
+    \PYG{n}{BigInteger}\PYG{o}{[]} \PYG{n}{otherNodesKeyHalves} \PYG{o}{=} \PYG{k}{new} \PYG{n}{BigInteger}\PYG{o}{[}\PYG{n}{room}\PYG{o}{.}\PYG{n+na}{getRoomSize}\PYG{o}{()} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{o}{];}
+    \PYG{c+c1}{// The \PYGZdq{}first\PYGZdq{} node doesn\PYGZsq{}t have any replier sockets}
+    \PYG{k}{if} \PYG{o}{(}\PYG{n}{nodeIndex} \PYG{o}{!=} \PYG{l+m+mi}{1}\PYG{o}{)}
+        \PYG{k}{for} \PYG{o}{(}\PYG{n}{ZMQ}\PYG{o}{.}\PYG{n+na}{Socket} \PYG{n}{replier} \PYG{o}{:} \PYG{n}{repliers}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+            \PYG{c+c1}{// The replier wait to receive a key share}
+            \PYG{n}{otherNodesKeyHalves}\PYG{o}{[}\PYG{n}{i}\PYG{o}{]} \PYG{o}{=} \PYG{k}{new} \PYG{n}{BigInteger}\PYG{o}{(}\PYG{n}{replier}\PYG{o}{.}\PYG{n+na}{recvStr}\PYG{o}{());}
+            \PYG{c+c1}{// When the replier receives the message, replies with one of their key shares}
+            \PYG{n}{replier}\PYG{o}{.}\PYG{n+na}{send}\PYG{o}{(}\PYG{n}{participantNodeHalves}\PYG{o}{[}\PYG{n}{i}\PYG{o}{].}\PYG{n+na}{toString}\PYG{o}{());}
+            \PYG{n}{i}\PYG{o}{++;}
+        \PYG{o}{\PYGZcb{}}
+    \PYG{c+c1}{// The \PYGZdq{}last\PYGZdq{} node doesn\PYGZsq{}t have any requestor sockets}
+    \PYG{k}{if} \PYG{o}{(}\PYG{n}{nodeIndex} \PYG{o}{!=} \PYG{n}{room}\PYG{o}{.}\PYG{n+na}{getRoomSize}\PYG{o}{())}
+        \PYG{k}{for} \PYG{o}{(}\PYG{n}{ZMQ}\PYG{o}{.}\PYG{n+na}{Socket} \PYG{n}{requestor} \PYG{o}{:} \PYG{n}{requestors}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+            \PYG{c+c1}{// The requestor sends a key share}
+            \PYG{n}{requestor}\PYG{o}{.}\PYG{n+na}{send}\PYG{o}{(}\PYG{n}{participantNodeHalves}\PYG{o}{[}\PYG{n}{i}\PYG{o}{].}\PYG{n+na}{toString}\PYG{o}{());}
+            \PYG{c+c1}{// The requestor waits to receive a reply with one of the key shares}
+            \PYG{n}{otherNodesKeyHalves}\PYG{o}{[}\PYG{n}{i}\PYG{o}{]} \PYG{o}{=} \PYG{k}{new} \PYG{n}{BigInteger}\PYG{o}{(}\PYG{n}{requestor}\PYG{o}{.}\PYG{n+na}{recvStr}\PYG{o}{());}
+            \PYG{n}{i}\PYG{o}{++;}
+        \PYG{o}{\PYGZcb{}}
+    \PYG{k}{this}\PYG{o}{.}\PYG{n+na}{otherParticipantNodeHalves} \PYG{o}{=} \PYG{n}{otherNodesKeyHalves}\PYG{o}{;}
+
+    \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{o}{;}
+    \PYG{k}{this}\PYG{o}{.}\PYG{n+na}{otherParticipantNodeSharedRandomValueHalves} \PYG{o}{=} \PYG{k}{new} \PYG{n}{BigInteger}\PYG{o}{[}\PYG{n}{room}\PYG{o}{.}\PYG{n+na}{getRoomSize}\PYG{o}{()} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{o}{];}
+    \PYG{c+c1}{// The \PYGZdq{}first\PYGZdq{} node doesn\PYGZsq{}t have any replier sockets}
+    \PYG{k}{if} \PYG{o}{(}\PYG{n}{nodeIndex} \PYG{o}{!=} \PYG{l+m+mi}{1}\PYG{o}{)}
+        \PYG{k}{for} \PYG{o}{(}\PYG{n}{ZMQ}\PYG{o}{.}\PYG{n+na}{Socket} \PYG{n}{replier} \PYG{o}{:} \PYG{n}{repliers}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+            \PYG{c+c1}{// The replier wait to receive a key share}
+            \PYG{k}{this}\PYG{o}{.}\PYG{n+na}{otherParticipantNodeSharedRandomValueHalves}\PYG{o}{[}\PYG{n}{i}\PYG{o}{]} \PYG{o}{=} \PYG{k}{new} \PYG{n}{BigInteger}\PYG{o}{(}\PYG{n}{replier}\PYG{o}{.}\PYG{n+na}{recvStr}\PYG{o}{());}
+            \PYG{c+c1}{// When the replier receives the message, replies with one of their key shares}
+            \PYG{n}{replier}\PYG{o}{.}\PYG{n+na}{send}\PYG{o}{(}\PYG{n}{participantNodeSharedRandomValueHalves}\PYG{o}{[}\PYG{n}{i}\PYG{o}{].}\PYG{n+na}{toString}\PYG{o}{());}
+            \PYG{n}{i}\PYG{o}{++;}
+        \PYG{o}{\PYGZcb{}}
+    \PYG{c+c1}{// The \PYGZdq{}last\PYGZdq{} node doesn\PYGZsq{}t have any requestor sockets}
+    \PYG{k}{if} \PYG{o}{(}\PYG{n}{nodeIndex} \PYG{o}{!=} \PYG{n}{room}\PYG{o}{.}\PYG{n+na}{getRoomSize}\PYG{o}{())}
+        \PYG{k}{for} \PYG{o}{(}\PYG{n}{ZMQ}\PYG{o}{.}\PYG{n+na}{Socket} \PYG{n}{requestor} \PYG{o}{:} \PYG{n}{requestors}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+            \PYG{c+c1}{// The requestor sends a key share}
+            \PYG{n}{requestor}\PYG{o}{.}\PYG{n+na}{send}\PYG{o}{(}\PYG{n}{participantNodeSharedRandomValueHalves}\PYG{o}{[}\PYG{n}{i}\PYG{o}{].}\PYG{n+na}{toString}\PYG{o}{());}
+            \PYG{c+c1}{// The requestor waits to receive a reply with one of the key shares}
+            \PYG{k}{this}\PYG{o}{.}\PYG{n+na}{otherParticipantNodeSharedRandomValueHalves}\PYG{o}{[}\PYG{n}{i}\PYG{o}{]} \PYG{o}{=} \PYG{k}{new} \PYG{n}{BigInteger}\PYG{o}{(}\PYG{n}{requestor}\PYG{o}{.}\PYG{n+na}{recvStr}\PYG{o}{());}
+            \PYG{n}{i}\PYG{o}{++;}
+        \PYG{o}{\PYGZcb{}}
+
+    \PYG{k}{return} \PYG{n}{otherNodesKeyHalves}\PYG{o}{;}
+\PYG{o}{\PYGZcb{}}
+\end{Verbatim}

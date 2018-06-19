@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{c+cm}{/* RECEIVE COMMITMENTS AND POKs ON MESSAGES */}
+\PYG{k}{for} \PYG{o}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{o}{;} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{n}{room}\PYG{o}{.}\PYG{n+na}{getRoomSize}\PYG{o}{();} \PYG{n}{i}\PYG{o}{++)} \PYG{o}{\PYGZob{}}
+    \PYG{c+c1}{// Wait response from Receiver thread as a String (json)}
+    \PYG{n}{String} \PYG{n}{receivedProofOfKnowledgeOnMessageJson} \PYG{o}{=} \PYG{n}{receiverThread}\PYG{o}{.}\PYG{n+na}{recvStr}\PYG{o}{();}
+
+    \PYG{c+c1}{// Transform String (json) to object ProofOfKnowledgePedersen}
+    \PYG{n}{ProofOfKnowledgePedersen} \PYG{n}{receivedProofOfKnowledgeOnMessage} \PYG{o}{=} \PYG{k}{new} \PYG{n}{Gson}\PYG{o}{().}\PYG{n+na}{fromJson}\PYG{o}{(}
+            \PYG{n}{receivedProofOfKnowledgeOnMessageJson}\PYG{o}{,} \PYG{n}{ProofOfKnowledgePedersen}\PYG{o}{.}\PYG{n+na}{class}\PYG{o}{);}
+    \PYG{k+kt}{int} \PYG{n}{receivedNodeIndex} \PYG{o}{=} \PYG{n}{receivedProofOfKnowledgeOnMessage}\PYG{o}{.}\PYG{n+na}{getNodeIndex}\PYG{o}{();}
+
+    \PYG{c+c1}{// Verify proof of knowledge}
+    \PYG{k}{if} \PYG{o}{(!}\PYG{n}{zkp}\PYG{o}{.}\PYG{n+na}{verifyProofOfKnowledgePedersen}\PYG{o}{(}\PYG{n}{receivedProofOfKnowledgeOnMessage}\PYG{o}{,}
+            \PYG{n}{receivedCommitmentsOnMessageCurrentRound}\PYG{o}{[}\PYG{n}{receivedNodeIndex} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{o}{],}
+            \PYG{n}{room}\PYG{o}{.}\PYG{n+na}{getG}\PYG{o}{(),} \PYG{n}{room}\PYG{o}{.}\PYG{n+na}{getH}\PYG{o}{(),} \PYG{n}{room}\PYG{o}{.}\PYG{n+na}{getQ}\PYG{o}{(),} \PYG{n}{room}\PYG{o}{.}\PYG{n+na}{getP}\PYG{o}{()))}
+        \PYG{n}{System}\PYG{o}{.}\PYG{n+na}{err}\PYG{o}{.}\PYG{n+na}{println}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}WRONG PoK on Message. Round: \PYGZdq{}} \PYG{o}{+} \PYG{n}{currentRound} \PYG{o}{+} \PYG{l+s}{\PYGZdq{}, Node: \PYGZdq{}} \PYG{o}{+}
+                \PYG{n}{receivedProofOfKnowledgeOnMessage}\PYG{o}{.}\PYG{n+na}{getNodeIndex}\PYG{o}{());}
+\PYG{o}{\PYGZcb{}}
+\end{Verbatim}
